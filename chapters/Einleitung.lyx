@@ -1,0 +1,174 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 503
+\begin_document
+\begin_header
+\origin unavailable
+\textclass scrartcl
+\begin_preamble
+\usepackage{minted}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding utf8
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation 0bp
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Einleitung
+\end_layout
+
+\begin_layout Standard
+Durch die zunehmende Miniaturisierung von Elektronik und durch den rapide
+ sinkenden Energiebedarf der Komponenten, eröffnen sich immer neue Einsatzgebiet
+e für Mikrocontroller und Mikroprozessoren.
+ Hinzu kommen Weiterentwicklungen im Bereich der Funktechnologien, durch
+ die selbst eine Uhr mit dem Internet kommunizieren kann.
+\end_layout
+
+\begin_layout Standard
+In den letzten Jahren entwickelte sich der Begriff 
+\begin_inset Quotes gld
+\end_inset
+
+Internet of Things
+\begin_inset Quotes grd
+\end_inset
+
+ (IoT) zum Synonym für die Vernetzung der unterschiedlichsten Teile unseres
+ Lebens durch eingebettete Systeme.
+\end_layout
+
+\begin_layout Standard
+Diese ist nicht nur auf die Heimelektronik - von der Leck-meldenden Waschmaschin
+e bis zum selbstnachfüllenden Kühlschrank - beschränkt, sondern ist auch
+ im industriellen und wissenschaftlichen Kontext von großer Bedeutung.
+\end_layout
+
+\begin_layout Standard
+Drahtlose Sensornetzwerke bilden in der Informatik in den letzten Jahren
+ ein Forschungsfeld von großer Bedeutung.
+\end_layout
+
+\begin_layout Standard
+Durch eingeschränkte Rechenkapazitäten und limitierte Netzwerkkomponenten
+ müssen neue Protokolle und Algorithmen zum Datenaustausch in drahtlosen
+ Sensornetzen entwickelt werden, die diesen Anwendungen und Anforderungen
+ gerecht werden.
+\end_layout
+
+\begin_layout Standard
+Eine Klasse von Algorithmen, die in diesem Kontext derzeit großes wissenschaftli
+ches Interesse genießt, ist die Klasse der Gossiping-Algorithmen.
+ Die Idee ist hierbei, dass ein Knoten des Sensornetzes Informationen, die
+ er entweder von einem anderen Knoten oder durch eigene Sensorik erhalten
+ hat, an zufällige Nachbarn weitergibt, sie also wie ein Gerücht verbreitet.
+\end_layout
+
+\begin_layout Standard
+Die Einfachheit und Effektivität dieser Algorithmen motivierte dazu, dieses
+ Verfahren nicht nur zur simplen Informationsverteilung im Sensornetz einzusetze
+n, sondern auch zur Verwaltung von Netzwerktopologien und ähnlichem.
+\end_layout
+
+\begin_layout Standard
+Während die Formulierung dieser Algorithmen oftmals verhältnismäßig einfach
+ ist, so erfordert die Analyse und Umsetzung doch in der Regel deutlich
+ mehr Aufwand.
+ Aufgrund der verteilten Natur von drahtlosen Sensornetzen sind komplexe
+ mathematische Modelle notwendig, um sichere Aussagen über die formulierten
+ Algorithmen zu treffen.
+\end_layout
+
+\begin_layout Standard
+Deshalb werden diese Überlegungen durch empirische Untersuchungen ergänzt
+ bzw.
+ in manchen Fällen sogar durch diese ersetzt.
+\end_layout
+
+\begin_layout Standard
+Eine Plattform zur Durchführung solcher Experimente bildet das IoT-Lab.
+ Dieses stellt für akademische Zwecke an 6 Standorten mehr als 2500 drahtlose
+ Sensorknoten zur Verfügung.
+ Der Zugriff über verschiedene web-basierte Schnittstellen und erlauben
+ die freie Verwendung der Hardware.
+ Diese sind mit gängigen Funktechnologien ausgestattet.
+\end_layout
+
+\begin_layout Standard
+Ziel dieser Arbeit ist es, einen Gossiping-Algorithmus für diese Hardware
+ zu implementieren, mit dem Ziel die Nachrichtenverteilzeit zu ermitteln,
+ also die Zeit, die vergeht, bis ein bestimmtes Objekt im Netzwerk von allen
+ Knoten gesehen wurde.
+\end_layout
+
+\begin_layout Standard
+Dazu wird der implementierte Algorithmus mit unterschiedlichen Datenmengen
+ und auch unterschiedlichen Knotenmengen getestet.
+ Dabei sind von Interesse die Verteilung der Knoten im Raum, die Anzahl
+ der Knoten und der Ort der Injektion der Daten.
+ Die so ermittelten Werte werden anschließend ausgewertet, in Relation gesetzt
+ und diskutiert.
+\end_layout
+
+\end_body
+\end_document

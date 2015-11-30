@@ -1,5 +1,5 @@
 #LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 501
+\lyxformat 503
 \begin_document
 \begin_header
 \origin unavailable
@@ -125,7 +125,7 @@ LatexCommand tableofcontents
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "Einleitung.lyx"
+filename "chapters/Einleitung.lyx"
 
 \end_inset
 
@@ -135,7 +135,7 @@ filename "Einleitung.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "Einfuehrung.lyx"
+filename "chapters/Einfuehrung.lyx"
 
 \end_inset
 
@@ -145,7 +145,7 @@ filename "Einfuehrung.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "Implementierung.lyx"
+filename "chapters/Implementierung.lyx"
 
 \end_inset
 
@@ -155,7 +155,7 @@ filename "Implementierung.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "Fazit.lyx"
+filename "chapters/Fazit.lyx"
 
 \end_inset
 

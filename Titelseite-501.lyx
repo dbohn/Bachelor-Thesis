@@ -49,7 +49,7 @@
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
-\suppress_date false
+\suppress_date true
 \justification true
 \use_refstyle 1
 \index Index
@@ -73,8 +73,81 @@
 
 \begin_body
 
-\begin_layout Section
-Implementierung und Messung
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{gobble}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subject
+Freie Universität Berlin
+\begin_inset Newline newline
+\end_inset
+
+Fachbereich Mathematik und Informatik
+\begin_inset Newline newline
+\end_inset
+
+Institut für Informatik
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset VSpace 5cm
+\end_inset
+
+
+\shape smallcaps
+Bachelorarbeit
+\shape default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Untersuchung der Nachrichtenverteilzeit bei Verwendung von Push-Pull-Gossiping
+ zur Informationsverbreitung in einem drahtlosen Sensornetzwerk am Beispiel
+ des IoT-Labs
+\end_layout
+
+\begin_layout Author
+David Bohn
+\begin_inset Newline newline
+\end_inset
+
+david.bohn@fu-berlin.de
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset VSpace 3cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Betreuerin:
+\end_layout
+
+\begin_layout Standard
+\align center
+Prof.
+ Katinka Wolter
 \end_layout
 
 \end_body
