@@ -1,5 +1,5 @@
 #LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 501
+\lyxformat 503
 \begin_document
 \begin_header
 \origin unavailable
@@ -15,7 +15,7 @@
 \fontencoding default
 \font_roman "default" "default"
 \font_sans "default" "default"
-\font_typewriter "default" "default"
+\font_typewriter "cmtt" "default"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts false
@@ -74,18 +74,290 @@
 \begin_body
 
 \begin_layout Section
-Einführung
-\end_layout
-
-\begin_layout Subsection
 Grundlagen verteilter Systeme
 \end_layout
 
-\begin_layout Itemize
-Notwendige Definitionen und weiteres zu verteilten Systemen
+\begin_layout Standard
+In diesem Kapitel werden notwendige Definitionen vorgestellt, die im Folgenden
+ zur Beschreibung des Gossiping-Algorithmus und zur Diskussion der Implementieru
+ng verwendet werden.
+\end_layout
+
+\begin_layout Standard
+Dazu wird zunächst die mathematische Darstellung eines verteilten Systems
+ beschrieben, wie sie im Rahmen dieser Arbeit angenommen wird.
 \end_layout
 
 \begin_layout Subsection
+Beschreibung eines drahtlosen Sensornetzwerks
+\end_layout
+
+\begin_layout Standard
+Verteilte Systeme lassen sich durch ungerichtete Graphen der Form 
+\begin_inset Formula $G=\left(V,E\right)$
+\end_inset
+
+ beschreiben.
+ Dabei sei die Knotenmenge 
+\begin_inset Formula $V$
+\end_inset
+
+ die Menge aller Sensoren sowie 
+\begin_inset Formula $E\subseteq V\times V$
+\end_inset
+
+ die Menge aller Kanäle zwischen den Knoten.
+\end_layout
+
+\begin_layout Standard
+Ein Kanal 
+\begin_inset Formula $\{u,v\}\in E$
+\end_inset
+
+ mit 
+\begin_inset Formula $u,v\in V$
+\end_inset
+
+ beschreibt dabei eine bidirektionale Nachbarschaftsrelation zwischen zwei
+ Knoten.
+ Dies bedeutet, dass sowohl der Knoten 
+\begin_inset Formula $u$
+\end_inset
+
+ den Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ als auch reziprok der Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ dem Knoten 
+\begin_inset Formula $u$
+\end_inset
+
+ kennt und diesem Nachrichten schicken kann.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren beschreibe die Funktion 
+\begin_inset Formula $lq\,:\,E\rightarrow\mathbb{R}$
+\end_inset
+
+ die Übertragungsqualität eines Kanals.
+ Dabei sei sie so definiert, dass sie einen Vergleich über die Verlässlichkeit
+ verschiedener Kanäle zulasse.
+\end_layout
+
+\begin_layout Standard
+Wir werden diese Funktion genauer im Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "subsec:neighbourhood-relationship"
+
+\end_inset
+
+ betrachten.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+vielleicht hier weglassen oder zumindest umschreiben!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Damit können wir nun die Nachbarschaft 
+\begin_inset Formula $N\left(v\right)$
+\end_inset
+
+ eines Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ als die Menge aller Knoten beschreiben, die von einem Knoten via eines
+ Kanals direkt erreichbar sind:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+N\left(v\right) & = & \left\{ u|\left\{ v,u\right\} \in E\right\} 
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Es kann sinnvoll sein, die Nachbarschaft noch einzuschränken, indem man
+ einen Grenzwert für 
+\begin_inset Formula $lq\left(\left\{ u,v\right\} \right)$
+\end_inset
+
+ festlegt, d.h.
+ nur Kanäle zulässt, die eine bestimmte Qualität haben.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+sollte man das noch machen?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Methoden zur Kommunikation zwischen Knoten
+\end_layout
+
+\begin_layout Standard
+Nach der Konstruktion des Netzwerks können die Knoten nun entsprechend Daten
+ austauschen.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+asynchrones (nicht-blockierendes) send, blockierendes receive
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In den folgenden theoretischen Betrachtungen verwenden wir dafür die Operationen
+ 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+send
+\end_layout
+
+\end_inset
+
+ und 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+receive
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Ein Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ kann nur eine Nachricht an einen Nachbarn 
+\begin_inset Formula $p$
+\end_inset
+
+ aus 
+\begin_inset Formula $N\left(v\right)$
+\end_inset
+
+ schicken.
+ Die sende-Operation erfolgt asynchron, d.h.
+ der Sender wird nicht blockiert bis der Empfänger die Nachricht erhalten
+ hat.
+ Eine solche Sende-Operation einer Nachricht 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+m
+\end_layout
+
+\end_inset
+
+ an einen Nachbarn 
+\begin_inset Formula $p$
+\end_inset
+
+ beschreiben wir in unseren theoretischen Betrachtungen mit:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+send m to p
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Auf der Empfangsseite muss ein Knoten sich explizit empfangsbereit zeigen.
+ Er wartet dabei nicht auf eine Nachricht von einem bestimmten Kanal, sondern
+ ist für Nachrichten auf allen Kanälen offen.
+\end_layout
+
+\begin_layout Standard
+Eine Empfangsoperation ist blockierend, das heißt der empfangende Knoten
+ kann in dieser Zeit keine anderen Befehle ausführen.
+\end_layout
+
+\begin_layout Standard
+Im Pseudocode wird im Folgenden der Nachrichtenempfang in einen Puffer
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+b
+\end_layout
+
+\end_inset
+
+ wie folgt dargestellt:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+receive b
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Der Gossiping-Algorithmus
 \end_layout
 
@@ -96,6 +368,44 @@ Beschreibung des Gossiping Algorithmus bzw.
 
 \begin_layout Itemize
 Vorstellung des Prototyp-Algorithmus, der als Blaupause dient
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Vergleich mit Formulierung über zentralen Tick
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Abgrenzung
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Push
+\end_layout
+
+\begin_layout Itemize
+Pull
+\end_layout
+
+\begin_layout Itemize
+Push-Pull
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Technische Infrastruktur
+\end_layout
+
+\begin_layout Standard
+Vor der Betrachtung der eigentlichen Implementierung wird im folgenden Abschnitt
+ die technische Infrastruktur, die zur Realisierung verwendet wurde.
+\end_layout
+
+\begin_layout Standard
+Dabei handelt es sich um das IoT-Lab, eine Experimentierplattform für drahtlose
+ Sensornetze, die über verschiedene Standorte in Frankreich verteilt ist.
 \end_layout
 
 \begin_layout Subsection
@@ -120,6 +430,10 @@ Der 802.15.4 Funkstandard
 
 \begin_layout Itemize
 Was ist Teil des Standards, was nicht?
+\end_layout
+
+\begin_layout Itemize
+Anwendungsgebiet
 \end_layout
 
 \end_body
