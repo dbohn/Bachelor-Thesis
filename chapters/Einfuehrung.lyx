@@ -186,7 +186,7 @@ Damit können wir nun die Nachbarschaft
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-N\left(v\right) & = & \left\{ u|\left\{ v,u\right\} \in E\right\} 
+\mathcal{N}\left(v\right) & = & \left\{ u\in V|\left\{ v,u\right\} \in E\right\} 
 \end{eqnarray*}
 
 \end_inset
@@ -357,8 +357,260 @@ receive b
 
 \end_layout
 
+\begin_layout Standard
+Zunächst gehen wir prinzipiell davon aus, dass auf diesen Kanälen keine
+ Nachrichten verloren gehen.
+ Da dies aber auf den betrachteten drahtlosen Kanälen äußerst unwahrscheinlich
+ ist, werden wir diesem Fall einen eigenen Abschnitt widmen.
+\end_layout
+
 \begin_layout Section
 Der Gossiping-Algorithmus
+\end_layout
+
+\begin_layout Standard
+In diesem Kapitel wird nun zunächst die Grundidee des Gossiping-Algorithmus
+ vorgestellt und dann konkrete Umsetzungen dieses Verfahrens dargestellt.
+ Der Abschnitt wird mit der Vorstellung, verschiedener Algorithmen abgeschlossen
+, die den Gossiping-Algorithmus verwenden, um die folgende Vorstellung der
+ Implementierung zu motivieren.
+\end_layout
+
+\begin_layout Subsection
+Die Grundidee
+\end_layout
+
+\begin_layout Standard
+Die Grundidee dieses Algorithmus steckt schon in seinem Namen: Informationen
+ werden 
+\begin_inset Quotes gld
+\end_inset
+
+tratschend
+\begin_inset Quotes grd
+\end_inset
+
+ (dt.
+ für to gossip) verbreitet.
+ Man stelle sich folgende Situation vor: In einem Büro mit 
+\begin_inset Formula $N$
+\end_inset
+
+ Mitarbeitern erhält Mitarbeiter 
+\begin_inset Formula $i$
+\end_inset
+
+ die Nachricht, dass zum Ende des Jahres einige Mitglieder gekündigt werden.
+ Dies ist natürlich eine Nachricht von solcher Prägnanz, dass er diese seinen
+ beiden Kollegen, die ihm im Büro gegenübersitzen, sofort mitteilen muss.
+ Somit sind auch diese beiden Kollegen im Besitz dieser Information, die
+ sie dann wieder weiter an einige wenige Kollegen tragen.
+ Somit verbreitet sich die Nachricht schnell mit einer Konstante beschränktem
+ Aufwand pro Mitarbeiter im ganzen Netzwerk.
+\end_layout
+
+\begin_layout Standard
+Im Kontext der verteilten Systeme ersetzen wir nun die Mitarbeiter nun durch
+ Knoten und die möglichen Kollegen, mit denen ein Mitarbeiter kommunizieren
+ kann, stellen wir durch Kanäle zwischen verschiedenen Knoten dar.
+\end_layout
+
+\begin_layout Standard
+Erhält ein Knoten neue Informationen, sei es durch äußere Einwirkungen oder
+ durch Beendigung einer Berechnung, so wird er diese an eine zufällige Teilmenge
+ seiner Nachbarn verteilen, welche ebenfalls wieder jeweils eine Teilmenge
+ von eigenen Nachbarn auswählen und mit diesen einen Gossip durchführen.
+\end_layout
+
+\begin_layout Standard
+Somit wird in relativ wenigen Schritten die Information im gesamten Netzwerk
+ verteilt.
+\end_layout
+
+\begin_layout Standard
+Diese informelle Beschreibung wird im Folgenden nun formal beschrieben.
+ Das Ergebnis werden zwei Protokolle sein, die sich in ihrer Formulierung
+ unterscheiden, aber dieselbe Idee und Funktionalität teilen.
+\end_layout
+
+\begin_layout Subsection
+Algorithmus auf Grundlage eines zentralen Tick
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Vielleicht anders strukturieren
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Der Gossiping-Algorithmus stammt aus der Klasse der epidemischen Algorithmen.
+ Die Idee der epidemischen Algorithmen, die von 
+\noun on
+Demers
+\noun default
+ et al.
+ in 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Quelle: Epidemic Algorithms for Replicated Database Maintenance
+\end_layout
+
+\end_inset
+
+ vorgestellt wurde, beruht auf der epidemischen Verbreitung von Viren und
+ anderer Krankheitserreger, die von den Virologen beobachtet wurde.
+\end_layout
+
+\begin_layout Standard
+Dabei wurde beobachtet, dass Wirte und Zwischenwirte, d.h.
+ Lebewesen, die bereits mit einem Virus infiziert sind, mit bestimmten Wahrschei
+nlichkeiten diese Viren an empfängliche Knoten weitergeben.
+\end_layout
+
+\begin_layout Standard
+Diese Beobachtung ist sehr ähnlich zu dem Algorithmus, den wir modellieren
+ wollen, weshalb im Folgenden eine ähnliche Nomenklatur zur Beschreibung
+ der Knotenzustände verwendet wird.
+\end_layout
+
+\begin_layout Subsubsection
+Knotenzustände
+\end_layout
+
+\begin_layout Standard
+Ein Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ ist zu jedem Zeitpunkt in einem dieser drei Zustände:
+\end_layout
+
+\begin_layout Description
+infiziert
+\begin_inset space \space{}
+\end_inset
+
+(infected) Der Knoten besitzt eine Information, die er an andere Knoten
+ weitergeben kann, und wird dies von nun an versuchen.
+\end_layout
+
+\begin_layout Description
+empfänglich
+\begin_inset space \space{}
+\end_inset
+
+(susceptible) Der Knoten besitzt noch keine neuen Informationen, er ist
+ also für die Information anderer Knoten empfänglich.
+\end_layout
+
+\begin_layout Description
+entfernt(removed) Der Knoten ist nicht mehr als Empfänger verfügbar, aber
+ ist auch nicht mehr in einem Zustand, dass er Informationen weitergeben
+ kann.
+\end_layout
+
+\begin_layout Subsubsection
+Synchronisation
+\end_layout
+
+\begin_layout Standard
+Betrachten wir erneut die allgemeine Beschreibung des Verfahrens, so erkennt
+ man schnell, dass der Datenaustausch in Phasen erfolgt.
+ Also zunächst ein Knoten verteilt seine Daten an einen Nachbarn und erst
+ im Anschluss wird dieser Nachbar aktiv.
+ Es liegt also nahe, den Gossiping-Algorithmus rundenbasiert zu beschreiben,
+ um einen konsistenten Zustand zu bewahren.
+ Dies stellt eine erhebliche Erleichterung dar.
+ Wir schränken dadurch die Menge der Absendeknoten eines Pakets auf die
+ infizierten Nachbarn zum Zeitpunkt des Rundenbeginns ein.
+ In einer Runde fällt jeder Knoten einmalig die Entscheidung, Informationen
+ weiterzugeben oder nicht und führt dann entsprechende Aktionen durch.
+\end_layout
+
+\begin_layout Standard
+Die Initiierung einer solchen Runde ist der Hauptunterschied zwischen den
+ beiden Beschreibungen der Algorithmen, die hier vorgestellt werden.
+\end_layout
+
+\begin_layout Standard
+Zunächst nehmen wir eine externe Taktquelle an.
+ Diese muss für unsere Zwecke nicht weiter beschrieben werden, als dass
+ sie allen Knoten mehr oder weniger gleichzeitig das Signal gibt, dass jetzt
+ eine neue Runde beginnt.
+ Eine Möglichkeit ist dabei, dass dieses Signal von einem Knoten im Netzwerk
+ 
+\begin_inset Formula $G$
+\end_inset
+
+ generiert wird, der einen Kanal zu allen anderen Knoten im Netzwerk besitzt
+ (siehe dazu z.B.
+ die Topologie in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Netz-zentral-Takt"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsubsection
+Ablauf einer Runde
+\end_layout
+
+\begin_layout Standard
+In jeder Runde 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/3-2-tick-network.pdf
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Netz-zentral-Takt"
+
+\end_inset
+
+Netzwerk 
+\begin_inset Formula $G$
+\end_inset
+
+ mit zentralem Taktgeber T (rot markiert)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
