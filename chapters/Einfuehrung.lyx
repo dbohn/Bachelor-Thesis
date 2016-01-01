@@ -1151,8 +1151,7 @@ Wählt man somit zum Beispiel
 
 , d.h.
  ein infizierter Knoten geht sofort in den Zustand entfernt über, sobald
- er einen nicht empfänglichen Knoten kontaktiert, so sind am Ende noch immer
- ca.
+ er einen nicht empfänglichen Knoten kontaktiert, so sind am Ende noch ca.
  
 \begin_inset Formula $20\%$
 \end_inset
@@ -1206,6 +1205,16 @@ Anteil empfänglicher Knoten nach Entfernung des letzten Infizierten über
 \end_inset
 
  (eigene Abbildung)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: Achsenbeschriftung ändern!
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1719,12 +1728,167 @@ Vor der Betrachtung der eigentlichen Implementierung wird im folgenden Abschnitt
 \end_layout
 
 \begin_layout Standard
-Dabei handelt es sich um das IoT-Lab, eine Experimentierplattform für drahtlose
- Sensornetze, die über verschiedene Standorte in Frankreich verteilt ist.
+Im Rahmen dieser Arbeit wurde eine Implementierung des Gossiping-Algorithmus
+ für das IoT-Lab vorgenommen.
+ Dabei handelt es sich um eine Experimentierplattform für drahtlose Sensornetzwe
+rke von großer Dimension, das eine praktische Evaluation von verteilten
+ Algorithmen in verschiedenen Szenarien ermöglicht.
+\end_layout
+
+\begin_layout Standard
+Genauer betrachtet wird im Anschluss noch der Funkstandard, der für die
+ drahtlose Kommunikation im IoT-Lab verwendet wird, da einige Eigenschaften
+ des Standards die Implementierung beeinflusst haben.
 \end_layout
 
 \begin_layout Subsection
 Das IoT-Lab
+\end_layout
+
+\begin_layout Standard
+Das IoT-Lab ist eine Plattform, die von der französischen INRIA mit der
+ Unterstützung verschiedener weiterer Universitäten in Europa betrieben
+ wird.
+\end_layout
+
+\begin_layout Standard
+Auf verschiedene Standorte in Frankreich sind dabei weit über 2000 Sensorknoten
+ verteilt, die in drei Systemarchitekturen aufgeteilt werden können.
+ Neben dem Typ WSN430 (diese Knoten wurden vom Vorgängerprojekt des IoT-Labs,
+ dem SensLab, übernommen) und den A8-Knoten, die sogar ein vollständiges
+ Linux ausführen können, ist vor allem eine große Anzahl an Knoten vom Typ
+ M3 vorhanden.
+\end_layout
+
+\begin_layout Standard
+Die Implementierung, die im Rahmen dieser Arbeit vorgenommen wurde, ist
+ ausschließlich für diesen Knotentyp gedacht, weshalb allein dieser und
+ der Arbeitsablauf mit diesem Knotentyp hier kurz vorgestellt wird.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/resources/m3opennode.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Foto-M3-Knoten"
+
+\end_inset
+
+Fotografie eines M3-Knotens (Quelle 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Quelle: iot-lab.info
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Hardware
+\end_layout
+
+\begin_layout Standard
+Neben einer Reihe von Sensoren, die für diese Arbeit nicht verwendet wurden,
+ ist das Board mit einem ARM-Mikroprozessor bestückt und verwendet einen
+ 802.15.4-Funkchip im 
+\begin_inset Formula $2,4$
+\end_inset
+
+ GHz-Band zur Kommunikation.
+\end_layout
+
+\begin_layout Standard
+Das Modul kann über den in Abbildung 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Foto-M3-Knoten"
+
+\end_inset
+
+ gezeigten 
+\begin_inset Quotes gld
+\end_inset
+
+IoT-LAB Connector
+\begin_inset Quotes grd
+\end_inset
+
+ von außen mit neuen Programmen bestückt und gesteuert werden.
+ Diese Schnittstelle fasst Stromversorgung und serielle Kommunikation zusammen
+ und dient zur Verbindung mit einem so genannten Host-Knoten.
+ Während die bisher vorgestellte Hardware von den Nutzern des IoT-Labs frei
+ programmiert werden kann, ist der Zugriff auf den Host-Knoten nur eingeschränkt
+ möglich.
+ Dieser ist dafür verantwortlich, die Firmware auf die Knoten zu transportieren,
+ den Knoten zu starten oder anzuhalten und auch den Energieverbrauch zu
+ messen.
+\end_layout
+
+\begin_layout Subsubsection
+Schnittstellen in das IoT-Lab
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: Grafik über die drei Zugriffsmöglichkeiten raussuchen!
+\end_layout
+
+\end_inset
+
+In diesem Abschnitt werden die diversen Methoden zur Interaktion mit dem
+ IoT-Lab bzw.
+ dessen Knoten vorgestellt.
+\end_layout
+
+\begin_layout Standard
+Primär stellt das IoT-Lab eine REST-ähnliche Schnittstelle zur Verfügung.
+ Über diese können zunächst Experimente erstellt werden.
+ Ein Experiment besteht aus einer Auswahl an Knoten, mit denen man arbeiten
+ möchte, einer Zuordnung von Firmware-Dateien, die vom Nutzer hochgeladen
+ werden können, zu den Knoten und noch einer Zuordnung von Profilen, die
+ genutzt werden können, um Verbrauchsdaten von den Host-Knoten abzurufen.
+ Dieses Experiment kann dann zu einem gewählten Zeitpunkt oder so schnell
+ wie möglich gestartet werden.
 \end_layout
 
 \begin_layout Itemize
