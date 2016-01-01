@@ -1889,26 +1889,234 @@ Primär stellt das IoT-Lab eine REST-ähnliche Schnittstelle zur Verfügung.
  genutzt werden können, um Verbrauchsdaten von den Host-Knoten abzurufen.
  Dieses Experiment kann dann zu einem gewählten Zeitpunkt oder so schnell
  wie möglich gestartet werden.
+ Zu diesen Experimenten können dann über die Schnittstelle auch weitere
+ Informationen wie die verwendeten Knoten, den Status usw.
+ abgerufen werden.
 \end_layout
 
-\begin_layout Itemize
-Was ist das IoT-Lab?
+\begin_layout Standard
+Da die Interaktion über die REST-Schnittstelle aber in der Regel zu umständlich
+ ist, bietet das IoT-Lab hierfür auch eine zweckerfüllende Web-Oberfläche
+ an.
 \end_layout
 
-\begin_layout Itemize
-Welche Hardware stellt es zur Verfügung?
+\begin_layout Standard
+Um in einem laufenden Experiment mit den Knoten zu interagieren, gibt es
+ die Möglichkeit, sich via SSH mit einem Linux-Server im IoT-Lab zu verbinden.
 \end_layout
 
-\begin_layout Itemize
-Workflow?
+\begin_layout Standard
+Die oben beschriebenen Host-Knoten besitzen eine Ethernet-Schnittstelle,
+ über die sie im Netzwerk erreichbar sind und unter anderem die serielle
+ Schnittstelle des Knotens spiegeln, mit dem sie über den IoT-Lab Connector
+ verbunden sind.
+\end_layout
+
+\begin_layout Standard
+Diese lassen sich auf dem Linux-Server aggregieren und die Daten, die empfangen
+ wurden verarbeiten, oder Daten an einen oder alle Knoten senden.
+\end_layout
+
+\begin_layout Standard
+Das IoT-Lab stellt dafür eine Reihe von Tools und Bibliotheken zur Verfügung,
+ die die Arbeit mit dieser Bibliothek vereinfachen.
+\end_layout
+
+\begin_layout Subsubsection
+Betriebssystem der Knoten
+\end_layout
+
+\begin_layout Standard
+Prinzipiell schreibt das IoT-Lab für die Knoten kein Betriebssystem vor,
+ man könnte diese also auch ohne ein solches programmieren.
+\end_layout
+
+\begin_layout Standard
+Das macht aber gerade die Arbeit mit der Hardware deutlich schwerer, weshalb
+ es Portierungen verschiedener Betriebssysteme, die sich für ressourcensparende
+ Echtzeit-Systeme eignen, gibt, die schon Treiber für die eingebauten Hardwareko
+mponenten mitbringen.
+ Die Knoten vom Typ A8 stechen hierbei heraus, da für diese sogar ein Port
+ von Linux existiert.
+ Aufgrund der vergleichsweise geringen Anzahl an verfügbaren Knoten und
+ schlechteren Dokumentation, wird dies hier aber nicht verwendet.
+\end_layout
+
+\begin_layout Standard
+Stattdessen gab es für die M3-Knoten drei Systeme, die hierfür in Frage
+ kamen.
+\end_layout
+
+\begin_layout Description
+RIOT RIOT ist ein Echtzeit-Betriebssystem mit Multithreading, das für den
+ Einsatz auf energiesparenden, verlässlichen und ressourcensparsamen Geräten
+ des Internet of Things konzipiert wurde.
+ Das Ziel ist dabei die Schaffung einer einheitlichen und einfach zu nutzenden
+ API, die auf vielen Architekturen verwendet werden kann.
+ Diese Eigenschaften und die Tatsache, dass die Entwicklung an RIOT von
+ der Freien Universität Berlin stark vorangetrieben wird, machten es zuerst
+ zu einem guten Kandidaten für die Verwendung.
+ Jedoch waren die Treiber für die M3-Knoten zu Beginn der Implementierung
+ noch nicht voll einsatzfähig, weshalb es nicht verwendet werden konnte.
+\end_layout
+
+\begin_layout Description
+Contiki Contiki...
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Mal überlegen, was man hier schreibt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+FreeRTOS Zuletzt wurde das sehr kleine und leichtgewichtige Betriebssystem
+ FreeRTOS betrachtet.
+ Seine größte Stärke ist, dass es an sich aus wenigen Dateien besteht, aber
+ es trotzdem die wichtigsten Funktionalitäten bereitstellt, die man von
+ einem Betriebssystem auf solchen Systemen erwartet.
+ Dazu gehören Mechanismen für Multithreading, ein Semaphor-Konstrukt und
+ auch Software-Timer.
+ Da es dazu noch sehr schnell ist, wurde es von den Betreuern des IoT-Lab
+ zur primären Entwicklungsplattform für dieses gemacht und hat somit die
+ besten Treiber für die Hardware des Knotens.
+ Da zusätzlich auch weite Teile der Dokumentation auf FreeRTOS basieren,
+ wurde dieses System für die Implementierung verwendet.
 \end_layout
 
 \begin_layout Subsection
 Der 802.15.4 Funkstandard
 \end_layout
 
-\begin_layout Itemize
-Was ist Teil des Standards, was nicht?
+\begin_layout Standard
+Dieser Abschnitt stellt die grundlegenden Eigenschaften des 802.15.4 Funkstandards
+ des IEEE vor.
+ Als Grundlage dient dafür die Spezifikation der 
+\begin_inset Quotes gld
+\end_inset
+
+Low-Rate Wireless Personal Area Networks
+\begin_inset Quotes grd
+\end_inset
+
+ des IEEE vom 5.
+ September 2011
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Quelle
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Ein Wireless Personal Area Network (WPAN) dient dabei dazu energiesparend
+ und günstig Informationen über relativ kurze Distanzen zu übertragen ohne
+ dabei eine größere Infrastruktur vorauszusetzen wie beispielsweise beim
+ Wireless Local Area Network (WLAN).
+\end_layout
+
+\begin_layout Standard
+Der Standard definiert hierfür physikalische Schichten (PHY-Layer) für verschied
+ene Frequenzbänder und die Zugriffskontrolle auf das Medium (medium access
+ control/MAC-Layer).
+ Die wichtigsten Frequenzbänder, die von dem Standard gedeckt werden und
+ die in Deutschland von Relevanz sind, sind dabei das 868 MHz-Band sowie
+ das 2,4 GHz-Band.
+\end_layout
+
+\begin_layout Standard
+Es wird dabei zwischen zwei Typen von Netzwerkkomponenten unterschieden.
+ Auf der einen Seite gibt es das Reduced Function Device (RFD), das nur
+ sehr simple Aufgaben übernimmt.
+ In einer Heimautomatisierungslösung kann dies z.B.
+ ein Lichtschalter sein, der eben nur dann, wenn der Schalter gedrückt wurde,
+ diese Änderung an einen so genannten Koordinator weiterleiten muss, oder
+ eine Lampe, die dann angeht, wenn vom Koordinator eine entsprechende Nachricht
+ kommt.
+\end_layout
+
+\begin_layout Standard
+Dieser Koordinator ist zwangsläufig ein Full Function Device (FFD).
+ Dieser kann im Gegensatz zum RFD, das nur mit seinem zugeordneten FFD kommunizi
+eren kann, mit all seinen Nachbarn in seinem Umkreis kommunizieren.
+\end_layout
+
+\begin_layout Standard
+In unserem Anwendungsfall werden wir daher alle Knoten als Full Function
+ Device annehmen.
+\end_layout
+
+\begin_layout Subsubsection
+Topologien
+\end_layout
+
+\begin_layout Standard
+Es werden zwei mögliche Topologien vorgeschrieben.
+\end_layout
+
+\begin_layout Standard
+Die Stern-Topologie sieht einen zentralen Koordinator-Knoten vor, der z.B.
+ die Orchestrierung in einem Heimautomatisierungssystem übernimmt.
+ Alle Knoten kennen nur diesen Koordinator, weshalb diese Topologie für
+ ein drahtloses Sensornetzwerk ungeeignet ist.
+\end_layout
+
+\begin_layout Standard
+Die zweite Topologie ist eine Peer-to-Peer-Topologie, die für das Anwendungsgebi
+et der drahtlosen Sensornetze deutlich besser geeignet ist.
+ Hierbei kommuniziert ein Knoten nicht nur mit dem Koordinator, den es trotzdem
+ geben kann, sondern auch mit den Nachbarn, die er erreichen kann.
+\end_layout
+
+\begin_layout Subsubsection
+PHY-Layer
+\end_layout
+
+\begin_layout Standard
+Die PHY-Layer ist zunächst nicht von großer Bedeutung für die Implementierung,
+ wir benötigen jediglich einige Werte, die der PHY-Layer uns bereitstellt.
+ Diese umfassen die Energy detection (ED) sowie der Link Quality Indicator
+ (LQI).
+ Zusätzlich hat man auch die Möglichkeit, herauszufinden, ob der Kanal genutzt
+ wird oder nicht (clear channel assessment).
+\end_layout
+
+\begin_layout Subsubsection
+MAC-Layer
+\end_layout
+
+\begin_layout Standard
+Die Aufgabe des MAC-Layer ist es sicherzustellen, dass es nicht zu Kollisionen
+ kommt, das heißt, dass ein Knoten ein Paket sendet, obwohl gerade ein anderes
+ Paket übertragen wird, das dadurch beschädigt werden würde.
+\end_layout
+
+\begin_layout Standard
+Es gibt eine Vielzahl von Algorithmen, um diese Aufgabe zu erfüllen, der
+ Standard schreibt einen von zwei Mechanismen vor: CSMA-CA und ALOHA.
+\end_layout
+
+\begin_layout Standard
+Bei ALOHA wartet ein Knoten nicht auf das Freiwerden des Mediums oder auf
+ einen bestimmten Zeitslot, sondern sendet sofort.
+ Das ist ausreichend für Netzwerke, in denen nur selten Daten übertragen
+ werden, aber ungeeignet für diesen Anwendungsfall, weshalb wir dieses Protokoll
+ hier nicht weiter betrachten.
+\end_layout
+
+\begin_layout Standard
+Betrachten wir nun den Paketversand unter Verwendung von CSMA-CA (Carrier
+ Sense Medium Access-Colision Avoidance).
 \end_layout
 
 \begin_layout Itemize
