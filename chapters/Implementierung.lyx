@@ -123,6 +123,28 @@ name "subsec:neighbourhood-relationship"
 Konstruktion der Nachbarschaftsrelation
 \end_layout
 
+\begin_layout Standard
+Wird ein Knoten gestartet, so weiß er nicht, welche Knoten sich in direkter
+ Nachbarschaft zu ihm befinden.
+ Dies liegt erstmal in der Natur der Sache, da es sich dabei um drahtlose
+ Sensorknoten handelt, die also keine direkte Verbindung zu anderen Knoten
+ haben.
+\end_layout
+
+\begin_layout Standard
+Wie aber in den vorherigen Abschnitten schon dargestellt ist die Nachbarschaftsr
+elation aber ein wichtiges Konzept des Gossiping.
+ Also ist es zur Implementierung dessen notwendig, diese Relation für jeden
+ Knoten zu bestimmen.
+\end_layout
+
+\begin_layout Standard
+Der verwendete 802.15.4 Funkstandard erlaubt es entweder eine Nachricht an
+ einen einzelnen Knoten zu schicken oder aber eine Broadcast-Nachricht zu
+ schicken, die von jedem Knoten empfangen wird, der das Signal entsprechend
+ decodieren kann.
+\end_layout
+
 \begin_layout Itemize
 HELLO Broadcast
 \end_layout

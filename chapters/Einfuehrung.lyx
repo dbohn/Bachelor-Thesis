@@ -74,7 +74,7 @@
 \begin_body
 
 \begin_layout Section
-Grundlagen verteilter Systeme
+Grundlagen und Nomenklatur
 \end_layout
 
 \begin_layout Standard
@@ -85,7 +85,8 @@ ng verwendet werden.
 
 \begin_layout Standard
 Dazu wird zunächst die mathematische Darstellung eines verteilten Systems
- beschrieben, wie sie im Rahmen dieser Arbeit angenommen wird.
+ beschrieben, wie sie im Rahmen dieser Arbeit angenommen wird, und im Anschluss
+ die Kommunikationsmechanismen der Knoten vorgestellt.
 \end_layout
 
 \begin_layout Subsection
@@ -128,11 +129,11 @@ Ein Kanal
 \begin_inset Formula $v$
 \end_inset
 
- als auch reziprok der Knoten 
+ als auch analog der Knoten 
 \begin_inset Formula $v$
 \end_inset
 
- dem Knoten 
+ den Knoten 
 \begin_inset Formula $u$
 \end_inset
 
@@ -140,38 +141,7 @@ Ein Kanal
 \end_layout
 
 \begin_layout Standard
-Des Weiteren beschreibe die Funktion 
-\begin_inset Formula $lq\,:\,E\rightarrow\mathbb{R}$
-\end_inset
-
- die Übertragungsqualität eines Kanals.
- Dabei sei sie so definiert, dass sie einen Vergleich über die Verlässlichkeit
- verschiedener Kanäle zulasse.
-\end_layout
-
-\begin_layout Standard
-Wir werden diese Funktion genauer im Abschnitt 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "subsec:neighbourhood-relationship"
-
-\end_inset
-
- betrachten.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-vielleicht hier weglassen oder zumindest umschreiben!
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Damit können wir nun die Nachbarschaft 
+Die Nachbarschaft 
 \begin_inset Formula $N\left(v\right)$
 \end_inset
 
@@ -179,36 +149,20 @@ Damit können wir nun die Nachbarschaft
 \begin_inset Formula $v$
 \end_inset
 
- als die Menge aller Knoten beschreiben, die von einem Knoten via eines
- Kanals direkt erreichbar sind:
+ sei die Menge aller Knoten, die vom Knoten 
+\begin_inset Formula $v$
+\end_inset
+
+ via eines Kanals direkt erreichbar sind:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray}
+\mathcal{N}\left(v\right) & : & V\rightarrow\mathcal{P}\left(E\right)\nonumber \\
 \mathcal{N}\left(v\right) & = & \left\{ \begin{array}{c|c}
-u\in V & \left\{ v,u\right\} \in E\end{array}\right\} \label{eq:neighbourhood}
+u\in V & \left\{ v,u\right\} \in E\end{array}\right\} \label{eq:neighbourhood-definition}
 \end{eqnarray}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Es kann sinnvoll sein, die Nachbarschaft noch einzuschränken, indem man
- einen Grenzwert für 
-\begin_inset Formula $lq\left(\left\{ u,v\right\} \right)$
-\end_inset
-
- festlegt, d.h.
- nur Kanäle zulässt, die eine bestimmte Qualität haben.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-sollte man das noch machen?
-\end_layout
 
 \end_inset
 
@@ -235,7 +189,7 @@ asynchrones (nicht-blockierendes) send, blockierendes receive
 \end_layout
 
 \begin_layout Standard
-In den folgenden theoretischen Betrachtungen verwenden wir dafür die Operationen
+In den folgenden theoretischen Betrachtungen werden dafür die Operationen
  
 \begin_inset listings
 lstparams "basicstyle={\ttfamily}"
@@ -262,7 +216,7 @@ receive
 
 \end_inset
 
-.
+ verwendet.
 \end_layout
 
 \begin_layout Standard
@@ -279,10 +233,36 @@ Ein Knoten
 \end_inset
 
  schicken.
- Die sende-Operation erfolgt asynchron, d.h.
- der Sender wird nicht blockiert bis der Empfänger die Nachricht erhalten
- hat.
- Eine solche Sende-Operation einer Nachricht 
+ Die 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+send
+\end_layout
+
+\end_inset
+
+-Operation sei dabei asynchron, das heißt der Absender wird nicht blockiert
+ bis der Empfänger die Nachricht erhalten hat und kann sofort weiteren Code
+ ausführen.
+ Eine solche 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+send
+\end_layout
+
+\end_inset
+
+-Operation einer Nachricht 
 \begin_inset listings
 lstparams "basicstyle={\ttfamily}"
 inline true
@@ -296,10 +276,19 @@ m
 \end_inset
 
  an einen Nachbarn 
-\begin_inset Formula $p$
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+p
+\end_layout
+
 \end_inset
 
- beschreiben wir in unseren theoretischen Betrachtungen mit:
+ wird durch die folgende Syntax in den theoretischen Betrachtungen dargestellt:
 \end_layout
 
 \begin_layout Standard
@@ -319,14 +308,27 @@ send m to p
 \end_layout
 
 \begin_layout Standard
-Auf der Empfangsseite muss ein Knoten sich explizit empfangsbereit zeigen.
- Er wartet dabei nicht auf eine Nachricht von einem bestimmten Kanal, sondern
- ist für Nachrichten auf allen Kanälen offen.
+Damit der Empfänger eine Nachricht erhalten kann, muss er dies explizit
+ durch Verwendung der 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+receive
+\end_layout
+
+\end_inset
+
+-Operation ankündigen.
 \end_layout
 
 \begin_layout Standard
 Eine Empfangsoperation ist blockierend, das heißt der empfangende Knoten
- kann in dieser Zeit keine anderen Befehle ausführen.
+ kann in dieser Zeit keine anderen Befehle ausführen und wartet so lange
+ bis eine Nachricht eintrifft.
 \end_layout
 
 \begin_layout Standard
@@ -361,9 +363,27 @@ receive b
 \end_layout
 
 \begin_layout Standard
-Es wird nützlich sein, eine Struktur zur Verfügung zu haben, die es uns
- erlaubt, Nachrichten von einem bestimmten Partner zu empfangen.
- Wir führen dabei das folgende Konstrukt ein:
+Um herauszufinden, wer der Absender der empfangen Nachricht ist, wird die
+ Funktion 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+sender(b)
+\end_layout
+
+\end_inset
+
+ auf den Puffer angewandt.
+\end_layout
+
+\begin_layout Standard
+Für die Gossiping-Anwendung wird es nützlich sein, ein Konstrukt zur Verfügung
+ zu haben, mit dem man lediglich Nachrichten von einem bestimmten Nachbarn
+ empfangen kann, weshalb das folgende Konstrukt hier kurz vorgestellt sei:
 \end_layout
 
 \begin_layout Standard
@@ -399,6 +419,38 @@ p
  Andere Nachrichten von anderen Knoten werden in diesem Falle verworfen.
 \end_layout
 
+\begin_layout Standard
+Dadurch wird die Semantik der eigentlichen Operationen nicht verfälscht,
+ da es sich dabei nur um eine syntaktische Ergänzung handelt.
+ Das Verhalten ließe sich leicht mittels einer Schleife und der 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+sender
+\end_layout
+
+\end_inset
+
+-Funktion auch durch einfache 
+\begin_inset listings
+lstparams "basicstyle={\ttfamily}"
+inline true
+status open
+
+\begin_layout Plain Layout
+
+receive
+\end_layout
+
+\end_inset
+
+ Aufrufe darstellen.
+\end_layout
+
 \begin_layout Section
 Der Gossiping-Algorithmus
 \end_layout
@@ -407,15 +459,16 @@ Der Gossiping-Algorithmus
 In diesem Kapitel wird nun zunächst die Grundidee des Gossiping-Algorithmus
  vorgestellt und dann konkrete Umsetzungen dieses Verfahrens dargestellt.
  Hauptsächlich werden dabei Aspekte beleuchtet, die für die Nachrichtenverteilze
-it von Relevanz sind, somit ist für uns vor allem von Interesse, wann die
- Information im gesamten Netzwerk verteilt ist bzw.
+it von Relevanz sind.
+ Somit ist für uns vor allem von Interesse, wann die Information im gesamten
+ Netzwerk verteilt ist bzw.
  wann der Gossiping-Algorithmus terminiert.
 \end_layout
 
 \begin_layout Standard
-Der Abschnitt wird mit der Vorstellung, verschiedener Algorithmen abgeschlossen,
- die den Gossiping-Algorithmus verwenden, um die folgende Vorstellung der
- Implementierung zu motivieren.
+Diese theoretischen Überlegungen werden durch praktische Betrachtungen zum
+ Anwendungszweck des Algorithmus und konkreten Beispielen ergänzt und somit
+ die Implementierung motiviert.
 \end_layout
 
 \begin_layout Subsection
@@ -423,8 +476,8 @@ Die Grundidee
 \end_layout
 
 \begin_layout Standard
-Die Grundidee dieses Algorithmus steckt schon in seinem Namen: Informationen
- werden 
+Die Grundidee dieses Algorithmus ist schon durch den Namen gegeben: Informatione
+n werden 
 \begin_inset Quotes gld
 \end_inset
 
@@ -434,27 +487,30 @@ tratschend
 
  (dt.
  für to gossip) verbreitet.
- Man stelle sich folgende Situation vor: In einem Büro mit 
-\begin_inset Formula $N$
-\end_inset
-
- Mitarbeitern erhält Mitarbeiter 
-\begin_inset Formula $i$
-\end_inset
-
- die Nachricht, dass zum Ende des Jahres einige Mitglieder gekündigt werden.
- Dies ist natürlich eine Nachricht von solcher Prägnanz, dass er diese seinen
- beiden Kollegen, die ihm im Büro gegenübersitzen, sofort mitteilen muss.
- Somit sind auch diese beiden Kollegen im Besitz dieser Information, die
- sie dann wieder weiter an einige wenige Kollegen tragen.
- Somit verbreitet sich die Nachricht schnell mit einer Konstante beschränktem
- Aufwand pro Mitarbeiter im ganzen Netzwerk.
 \end_layout
 
 \begin_layout Standard
-Im Kontext der verteilten Systeme ersetzen wir nun die Mitarbeiter nun durch
- Knoten und die möglichen Kollegen, mit denen ein Mitarbeiter kommunizieren
- kann, stellen wir durch Kanäle zwischen verschiedenen Knoten dar.
+Als Beispiel diene die folgende Geschichte: In einem Büro mit einer festen
+ Anzahl von Mitarbeitern erhält Mitarbeiter ein Mitarbeiter die Nachricht,
+ dass zum Ende des Jahres einige Mitglieder gekündigt werden.
+ Dies ist natürlich eine Nachricht von solcher Prägnanz, dass er diese sofort
+ einem Kollegen mitteilt, der ihm im Büro gegenübersitzt.
+ Somit ist auch dieser Kollege im Besitz dieser Information, die er dann
+ wieder weiter an weitere Kollegen verbreitet.
+ Somit verbreitet sich die Nachricht schnell mit beschränktem Aufwand pro
+ Mitarbeiter im ganzen Netzwerk, obwohl der erste Mitarbeiter nicht einmal
+ alle anderen Mitarbeiter kennen musste.
+\end_layout
+
+\begin_layout Standard
+Im Kontext der verteilten Systeme seien die Mitarbeiter nun Knoten und die
+ möglichen Kollegen, mit denen ein Mitarbeiter kommunizieren kann, seien
+ durch die Kanäle zwischen den Knoten gegeben, also durch die Nachbarschaftsrela
+tion 
+\begin_inset Formula $\mathcal{N}\left(v\right)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -462,12 +518,6 @@ Erhält ein Knoten neue Informationen, sei es durch äußere Einwirkungen oder
  durch Beendigung einer Berechnung, so wird er diese an eine zufällige Teilmenge
  seiner Nachbarn verteilen, welche ebenfalls wieder jeweils eine Teilmenge
  von eigenen Nachbarn auswählen und mit diesen einen Gossip durchführen.
-\end_layout
-
-\begin_layout Standard
-Wir formalisieren zunächst die Anforderungen, die wir an ein Protokoll stellen,
- das als Gossiping-Protokoll bezeichnet werden kann, um dann anhand dieser
- Anforderungen den Algorithmus weiter zu formalisieren und zu analysieren.
 \end_layout
 
 \begin_layout Subsection
@@ -481,8 +531,8 @@ Anforderungen an einen Gossiping-Algorithmus
 \end_layout
 
 \begin_layout Standard
-Wir bezeichnen einen Algorithmus im Folgenden als Gossiping-Algorithmus,
- wenn er die folgenden Anforderungen, die von 
+Im Folgenden wird ein Algorithmus im Folgenden als Gossiping-Algorithmus
+ bezeichnet, wenn er die folgenden Anforderungen, die von 
 \noun on
 Birman
 \noun default
@@ -496,7 +546,7 @@ Quelle: The Promise, and Limitations, of Gossip Protocols
 
 \end_inset
 
- vorgeschlagen wurden.
+ vorgeschlagen wurden, erfüllt.
  Ähnliche Anforderungen wurden auch von 
 \noun on
 Shah
@@ -1205,16 +1255,6 @@ Anteil empfänglicher Knoten nach Entfernung des letzten Infizierten über
 \end_inset
 
  (eigene Abbildung)
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO: Achsenbeschriftung ändern!
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1638,17 +1678,24 @@ PrepareMsg()
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Anforderung Nr.
- 4!
+Auch Anforderung Nr.
+ 4 wird von diesem Ansatz erfüllt, da davon ausgegangen wird, dass ein Knoten
+ sich nicht merkt, mit welchen Nachbarn er bereits interagiert hat oder
+ zumindest irgendwann wieder Kontakt mit diesen aufnehmen wird, wenn man
+ den Algorithmus nur lange genug laufen lässt.
 \end_layout
 
+\begin_layout Standard
+Der einzige Haken hierbei ist Zeile 5 des aktiven Threads.
+ In dieser wartet ein Prozess so lange, bis er eine Antwort von einem Prozess
+ bekommt.
+ Hier ein infinites Warten vorauszusetzen ist nicht sinnvoll, sondern sollte
+ eher durch einen timeout ergänzt werden, der leicht unter dem Intervall
+ 
+\begin_inset Formula $\Delta t$
 \end_inset
 
-
+ liegt, um somit in der nächsten Runde wieder teilnehmen zu können.
 \end_layout
 
 \begin_layout Standard
@@ -1948,9 +1995,29 @@ Stattdessen gab es für die M3-Knoten drei Systeme, die hierfür in Frage
 \end_layout
 
 \begin_layout Description
-RIOT RIOT ist ein Echtzeit-Betriebssystem mit Multithreading, das für den
- Einsatz auf energiesparenden, verlässlichen und ressourcensparsamen Geräten
- des Internet of Things konzipiert wurde.
+RIOT RIOT
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://riot-os.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ ist ein Echtzeit-Betriebssystem mit Multithreading, das für den Einsatz
+ auf energiesparenden, verlässlichen und ressourcensparsamen Geräten des
+ Internet of Things konzipiert wurde.
  Das Ziel ist dabei die Schaffung einer einheitlichen und einfach zu nutzenden
  API, die auf vielen Architekturen verwendet werden kann.
  Diese Eigenschaften und die Tatsache, dass die Entwicklung an RIOT von
@@ -1961,12 +2028,17 @@ RIOT RIOT ist ein Echtzeit-Betriebssystem mit Multithreading, das für den
 \end_layout
 
 \begin_layout Description
-Contiki Contiki...
-\begin_inset Note Note
+Contiki Contiki
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-Mal überlegen, was man hier schreibt
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.contiki-os.org
 \end_layout
 
 \end_inset
@@ -1974,9 +2046,44 @@ Mal überlegen, was man hier schreibt
 
 \end_layout
 
+\end_inset
+
+ ist ebenfalls ein freies Betriebssystem, das auf die Verwendung in energiespare
+nden und günstigen Mikrocontrollern ausgelegt ist.
+ Jedoch liegen die Stärken des Systems vor allem darin, die Geräte in das
+ Internet einzubinden, wofür es einen ausgereiften IP-Stack und verschiedene
+ Funkprotokolle implementiert.
+ Zusätzlich bietet es auch einen Simulator, der die Entwicklung von Anwendungen
+ auf Basis des Systems deutlich vereinfacht.
+ Jedoch ist auch die Dokumentation des IoT-Labs zu diesem Betriebssystem
+ hauptsächlich auf die Einbindung eines Knotens in das Internet aus und
+ es wird die Verwendung eines recht großen Protokollstacks erwartet, weshalb
+ auch Contiki nicht verwendet wurde.
+\end_layout
+
 \begin_layout Description
 FreeRTOS Zuletzt wurde das sehr kleine und leichtgewichtige Betriebssystem
- FreeRTOS betrachtet.
+ FreeRTOS
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.freertos.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ betrachtet.
  Seine größte Stärke ist, dass es an sich aus wenigen Dateien besteht, aber
  es trotzdem die wichtigsten Funktionalitäten bereitstellt, die man von
  einem Betriebssystem auf solchen Systemen erwartet.
@@ -2087,8 +2194,35 @@ Die PHY-Layer ist zunächst nicht von großer Bedeutung für die Implementierung
  wir benötigen jediglich einige Werte, die der PHY-Layer uns bereitstellt.
  Diese umfassen die Energy detection (ED) sowie der Link Quality Indicator
  (LQI).
- Zusätzlich hat man auch die Möglichkeit, herauszufinden, ob der Kanal genutzt
- wird oder nicht (clear channel assessment).
+ Die Energy Detection bestimmt die Signalstärke auf einem bestimmten Funkkanal
+ ausgehend von einer minimalen Signalstärke.
+ Das ist also die induzierte Energie durch die Datenübertragung.
+ Dieser wird für weitere Protokollschichten, die in dem Standard definiert
+ werden, benötigt.
+ Der Link Quality Indicator dagegen ist eine Metrik, die für die Anwendungsschic
+ht definiert wird und im PHY-Layer selbst nicht weiter verwendet wird, und
+ soll die Stärke und Qualität der Funkübertragung bei Empfang eines Pakets
+ charakterisiert werden.
+ Daher wird diese Messung auch für jedes Paket durchgeführt und ergibt gleichmäß
+ig verteilte Werte im Bereich von 
+\begin_inset Formula $0x00$
+\end_inset
+
+ und 
+\begin_inset Formula $0xff$
+\end_inset
+
+, die mit der niedrigsten bzw.
+ höchsten Signalstärke belegt werden, die verwendbar sind.
+ Zusätzlich definiert das Protokoll auch Methoden des 
+\emph on
+clear channel assessments
+\emph default
+, das heißt der Bestimmung, ob ein Funkkanal gerade belegt wird.
+ Diese beziehen z.B.
+ ein, ob der ED-Wert einen bestimmten Wert überschreitet, das heißt, dass
+ irgendwas von einer bestimmten Stärke empfangen wird, oder auch, ob es
+ auch ein valides Signal ist.
 \end_layout
 
 \begin_layout Subsubsection
