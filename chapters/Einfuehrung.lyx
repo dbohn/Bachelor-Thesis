@@ -2186,6 +2186,12 @@ et der drahtlosen Sensornetze deutlich besser geeignet ist.
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:PHY-Layer"
+
+\end_inset
+
 PHY-Layer
 \end_layout
 

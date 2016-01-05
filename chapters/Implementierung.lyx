@@ -110,10 +110,6 @@ Ansonsten ist es nicht möglich, zu erfassen, wann die Daten jeweils überall
 
 \end_deeper
 \begin_layout Subsection
-Umsetzung des Algorithmus
-\end_layout
-
-\begin_layout Subsubsection
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:neighbourhood-relationship"
@@ -139,23 +135,281 @@ elation aber ein wichtiges Konzept des Gossiping.
 \end_layout
 
 \begin_layout Standard
-Der verwendete 802.15.4 Funkstandard erlaubt es entweder eine Nachricht an
- einen einzelnen Knoten zu schicken oder aber eine Broadcast-Nachricht zu
- schicken, die von jedem Knoten empfangen wird, der das Signal entsprechend
- decodieren kann.
+Im ersten Schritt muss also ein Knoten auf sich aufmerksam machen, also
+ den Knoten in seiner Umgebung von seiner Existenz berichten.
 \end_layout
 
-\begin_layout Itemize
-HELLO Broadcast
+\begin_layout Standard
+Der verwendete 802.15.4 Funkstandard erlaubt entweder den Versand einer Nachricht
+ an einen einzelnen Knoten oder aber einer Broadcast-Nachricht, die von
+ jedem Knoten empfangen wird, den das Signal in einer Form erreicht, dass
+ er es decodieren kann.
 \end_layout
 
-\begin_layout Itemize
-jeder Knoten wird einzeln getriggert, sein HELLO zu schicken durch Kontrollsoftw
-are
+\begin_layout Standard
+Da der Knoten ja noch keine weiteren Knoten kennt, ist eine Broadcast-Nachricht
+ die einzige Möglichkeit, die ihm bleibt, um sich damit anderen Knoten vorzustel
+len.
 \end_layout
 
-\begin_layout Itemize
-Warum?
+\begin_layout Standard
+Eine wünschenswerte Anforderung bei der Konstruktion dieser Nachbarschaftsrelati
+on ist auch eine physische Nachbarschaft der Knoten.
+ Das heißt, ein Knoten sollte nur die Nachbarn in seiner näheren Umgebung
+ als Nachbarn kennen, mit denen er auch sicher kommunizieren kann.
+\end_layout
+
+\begin_layout Standard
+Jedoch ist eine solche Anforderung nicht einfach umzusetzen.
+ Wie 
+\noun on
+Baccour
+\noun default
+ et al.
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baccour:2012:RLQ:2240116.2240123"
+
+\end_inset
+
+ feststellen, ist der Übertragungsbereich eines drahtlosen Sensorknotens
+ nicht isotrop, das heißt nicht als einfache zirkulare Form um den Knoten
+ annehmbar, in dem Pakete zuverlässig übertragen werden können, sondern
+ lässt sich in drei Bereiche aufteilen: Der 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+connected region
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+, die die Anforderungen einer qualitativ hochwertigen und stabilen Funkverbindun
+g mit anderen Knoten erfüllt, einer 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+transitional region
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+, in der Knoten auf lange Sicht nicht unbedingt stabil sind, und der 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+disconnected region
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+, die für die Datenübertragung ungeeignet ist, da eine zuverlässige Datenübertra
+gung nicht oder kaum möglich ist.
+\end_layout
+
+\begin_layout Standard
+Die 
+\begin_inset Quotes gld
+\end_inset
+
+transitional region
+\begin_inset Quotes grd
+\end_inset
+
+ ist dabei von großer Problematik, da deren Dimension nicht unbedingt im
+ Zusammenhang mit der Distanz zum Sender steht und dazu noch asymmetrisch
+ ist.
+ Nach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Baccour:2012:RLQ:2240116.2240123"
+
+\end_inset
+
+ weisen Kanäle in diesem Bereich einen stark schwankenden Anteil des erfolgreich
+en Paketempfangs zwischen 10% und 90% auf, welcher als 
+\emph on
+Packet Reception Ratio
+\emph default
+ bezeichnet wird und als Verhältnis zwischen der Anzahl der erfolgreich
+ empfangenen Pakete zu der Anzahl der versendeten Pakete definiert ist.
+\end_layout
+
+\begin_layout Standard
+Wenn also ein Knoten eine Broadcast-Nachricht erhält, macht es durchaus
+ Sinn, nicht blind den Absender als Nachbarn hinzuzufügen, sondern noch
+ weitere Metriken einfließen zu lassen.
+ Die Implementierung des Funktreibers des IoT-Lab Moduls gibt uns zwei Werte,
+ die der Knoten zur Entscheidungsfindung verwenden kann:
+\end_layout
+
+\begin_layout Description
+RSSI
+\begin_inset space \space{}
+\end_inset
+
+(Remote
+\begin_inset space \space{}
+\end_inset
+
+Signal
+\begin_inset space \space{}
+\end_inset
+
+Strength
+\begin_inset space \space{}
+\end_inset
+
+Indicator) Der RSSI-Wert gibt den Leistungspegel in dBm (Dezibel Milliwatt)
+ an, mit der ein Signal empfangen wurde, und dabei sowohl negative als auch
+ positive Werte annehmen kann.
+\end_layout
+
+\begin_layout Description
+LQI
+\begin_inset space \space{}
+\end_inset
+
+(Link
+\begin_inset space \space{}
+\end_inset
+
+Quality
+\begin_inset space \space{}
+\end_inset
+
+Indicator) Der Link Quality Indicator ist bereits in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:PHY-Layer"
+
+\end_inset
+
+ vorgestellt worden.
+ Die konkrete Implementierung ist aber dem Chip-Hersteller überlassen, so
+ lange der Wertebereich zwischen 
+\begin_inset Formula $0x00$
+\end_inset
+
+ und 
+\begin_inset Formula $0xff$
+\end_inset
+
+ liegt.
+ Der verwendete Chipsatz AT86RF231 definiert den LQI so, dass er sich auf
+ die 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+packet error rate
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+ (PER) abbilden lässt, welche das Verhältnis zwischen fehlerhaften empfangenen
+ Paketen zur gesamten Anzahl an empfangenen Paketen darstellt.
+ Diese Korrelation lässt sich natürlich erst nach vielen übertragenen Paketen
+ herstellen.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/PER-vs-LQI-cut.pdf
+	width 75col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Korrelation zwischen LQI und PER des AT86RF231-Chipsatzes nach vielen Transaktio
+nen 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Quelle: Datenblatt AT86RF231
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Die Implementierung verwendet primär den RSSI-Wert, kann aber auch auf den
+ LQI-Wert geändert werden, da die Metrik des RSSI-Wertes transparenter ist
+ und eine direkte physikalische Beziehung hat.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: umformulieren
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nun könnten allen Knoten diese Nachricht ja gleichzeitig versenden wollen,
+ was dazu führt, dass die meisten dieser Broadcast-Nachrichten verloren
+ gehen, da hier nicht sichergestellt wird, dass die Pakete auch wirklich
+ empfangen werden und die Knoten so natürlich in sehr kurzer Zeit eine sehr
+ große Last abzuarbeiten haben und so unter Umständen nicht einmal empfangsberei
+t für alle Pakete sind.
+\end_layout
+
+\begin_layout Standard
+Da dieser Schritt nicht Gegenstand der Messungen ist, sieht die Implementierung
+ hierbei als Lösung vor, dass der Knoten von außen dazu aufgefordert wird,
+ nach seinen Nachbarn zu suchen.
+ Somit können alle Knoten einzeln die Suche starten und die Überlagerung
+ von Nachrichten oder der Verlust sollte kein Problem darstellen.
+\end_layout
+
+\begin_layout Subsection
+Umsetzung des Algorithmus
 \end_layout
 
 \begin_layout Subsubsection
