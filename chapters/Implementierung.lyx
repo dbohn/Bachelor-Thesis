@@ -81,6 +81,24 @@ Implementierung und Messung
 Das Maß
 \end_layout
 
+\begin_layout Standard
+Ziel der Implementierung ist es, die Nachrichtenverteilzeit durch einen
+ Gossiping zu analysieren.
+\end_layout
+
+\begin_layout Standard
+Die Nachrichtenverteilzeit sei die Zeit, die eine Information benötigt,
+ um von einem Knoten 
+\begin_inset Formula $s\in V$
+\end_inset
+
+ an alle weiteren Knoten in 
+\begin_inset Formula $V\setminus\left\{ s\right\} $
+\end_inset
+
+ verteilt zu werden.
+\end_layout
+
 \begin_layout Itemize
 Was bedeutet Nachrichtenverteilzeit?
 \end_layout
@@ -347,25 +365,18 @@ status open
 
 \begin_layout Plain Layout
 Korrelation zwischen LQI und PER des AT86RF231-Chipsatzes nach vielen Transaktio
-nen 
-\begin_inset Note Note
-status open
+nen (Abbildung 8.6 in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AT86RF231"
 
-\begin_layout Plain Layout
-Quelle: Datenblatt AT86RF231
+\end_inset
+
+)
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 

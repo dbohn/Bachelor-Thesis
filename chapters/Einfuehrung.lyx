@@ -176,16 +176,6 @@ Methoden zur Kommunikation zwischen Knoten
 \begin_layout Standard
 Nach der Konstruktion des Netzwerks können die Knoten nun entsprechend Daten
  austauschen.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-asynchrones (nicht-blockierendes) send, blockierendes receive
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -537,31 +527,13 @@ Im Folgenden wird ein Algorithmus im Folgenden als Gossiping-Algorithmus
 Birman
 \noun default
  in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: The Promise, and Limitations, of Gossip Protocols 
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Birman:2007:PLG:1317379.1317382"
 
 \end_inset
 
  vorgeschlagen wurden, erfüllt.
- Ähnliche Anforderungen wurden auch von 
-\noun on
-Shah
-\noun default
- in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Gossiping Algorithms
-\end_layout
-
-\end_inset
-
- gestellt:
 \end_layout
 
 \begin_layout Enumerate
@@ -620,12 +592,9 @@ Demers
 \noun default
  et al.
  in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Epidemic Algorithms for Replicated Database Maintenance
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
@@ -653,12 +622,9 @@ Wir betrachten zunächst, welche Zustände ein Knoten in unserem Netzwerk
 
  haben kann.
  Diese Zustände werden in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Epidemic Algorithms for Replicated Database Maintenance
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
@@ -730,7 +696,7 @@ v\in V & v\text{ ist entfernt}\end{array}\right\}
 \end_layout
 
 \begin_layout Standard
-Da jeder Knoten höchstens einen Zustand haben darf, gilt 
+Da jeder Knoten höchstens einen Zustand haben darf, gilt:
 \begin_inset Formula 
 \begin{eqnarray}
 I\cap S\cap R & = & \emptyset\label{eq:subsetcut}
@@ -738,8 +704,7 @@ I\cap S\cap R & = & \emptyset\label{eq:subsetcut}
 
 \end_inset
 
-.
- Jeder Knoten muss aber auch einen dieser drei Zustände haben, so dass 
+Jeder Knoten muss aber auch einen dieser drei Zustände haben, so dass 
 \begin_inset Formula 
 \begin{eqnarray}
 I\cup S\cup R & = & V\label{eq:subsetconjunct}
@@ -747,7 +712,7 @@ I\cup S\cup R & = & V\label{eq:subsetconjunct}
 
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -756,12 +721,9 @@ Modellierung von Gossiping als epidemischer Algorithmus
 
 \begin_layout Standard
 Wir betrachten nun, wie das Rumor Spreading (also Gossiping), nach 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Epidemic Algorithms for Replicated Database Maintenance
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
@@ -933,12 +895,9 @@ i+r+s & = & 1\label{eq:epidemic-fractionsum}
 
 \begin_layout Standard
 Nach 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Epidemic Algorithms for Replicated Database Maintenance
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
@@ -1031,12 +990,9 @@ Wir wollen nun geeignete Werte für
  finden, die eine möglichst zuverlässige Verteilung der Daten im Netz sicherstel
 lt.
  Zur Lösung wird dazu in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: Epidemic Algorithms for Replicated Database Maintenance
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
@@ -1084,24 +1040,15 @@ i\left(s\right) & = & -\frac{k+1}{k}s+\frac{1}{k}\ln s+c\label{eq:i-nach-integra
 \end_layout
 
 \begin_layout Standard
-Zur Eliminierung der Integrationskonstanten 
+Für große Knotenmengen 
+\begin_inset Formula $V$
+\end_inset
+
+ konvergiert 
 \begin_inset Formula $c$
 \end_inset
 
- betrachten wir die Anfangsbedingung 
-\begin_inset Formula $i\left(1-\epsilon\right)=\epsilon$
-\end_inset
-
-.
- Für große Knotenmengen konvergiert 
-\begin_inset Formula $\epsilon$
-\end_inset
-
- gegen null, somit ergibt sich für 
-\begin_inset Formula $c$
-\end_inset
-
-:
+ gegen den folgenden Wert:
 \end_layout
 
 \begin_layout Standard
@@ -1117,7 +1064,7 @@ c & = & \frac{k+1}{k}
 status open
 
 \begin_layout Plain Layout
-häh?
+Vielleicht etwas ausbauen....
 \end_layout
 
 \end_inset
@@ -1138,9 +1085,9 @@ reference "eq:i-nach-integration"
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray*}
-i\left(s\right) & = & \frac{k+1}{k}\left(1-s\right)+\frac{1}{k}\ln s
-\end{eqnarray*}
+\begin{eqnarray}
+i\left(s\right) & = & \frac{k+1}{k}\left(1-s\right)+\frac{1}{k}\ln s\label{eq:i-depend-on-s}
+\end{eqnarray}
 
 \end_inset
 
@@ -1148,20 +1095,29 @@ i\left(s\right) & = & \frac{k+1}{k}\left(1-s\right)+\frac{1}{k}\ln s
 \end_layout
 
 \begin_layout Standard
-Wenn wir nun wissen wollen, wann es keine infizierten Knoten mehr gibt,
- also das System inaktiv geworden ist, müssen wir diese Funktion null setzen
- und erhalten damit folgende implizite Gleichung:
+Zur Bestimmung der Anzahl der empfänglichen Knoten, bei denen es keine infiziert
+en Knoten mehr gibt, also das System inaktiv geworden ist, wird diese Funktion
+ null gesetzt, was die folgende implizite Gleichung für die Anzahl der Empfängli
+chen Knoten ergibt:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray*}
-s & = & e^{-\left(k+1\right)\left(1-s\right)}
-\end{eqnarray*}
+\begin{eqnarray}
+s & = & e^{-\left(k+1\right)\left(1-s\right)}\label{eq:development-of-s}
+\end{eqnarray}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Diese Gleichung ist lediglich von 
+\begin_inset Formula $k$
+\end_inset
+
+ und von sich selbst abhängig, weshalb es eine implizite Gleichung ist.
 \end_layout
 
 \begin_layout Standard
@@ -1177,8 +1133,11 @@ reference "fig:Anteil-empfänglicher-Knoten"
 \end_inset
 
  dargestellt.
- Der erste Term des Exponenten ist der dominante Term, weshalb dieser den
- Kurvenverlauf maßgeblich vorgibt.
+ Der erste Term des Exponenten 
+\begin_inset Formula $k+1$
+\end_inset
+
+ ist der dominante Term, weshalb dieser den Kurvenverlauf maßgeblich vorgibt.
  Der zweite Term (
 \begin_inset Formula $1-s$
 \end_inset
@@ -1195,11 +1154,11 @@ reference "fig:Anteil-empfänglicher-Knoten"
 \end_layout
 
 \begin_layout Standard
-Wählt man somit zum Beispiel 
+Wird somit zum Beispiel 
 \begin_inset Formula $k=1$
 \end_inset
 
-, d.h.
+ gewählt, d.h.
  ein infizierter Knoten geht sofort in den Zustand entfernt über, sobald
  er einen nicht empfänglichen Knoten kontaktiert, so sind am Ende noch ca.
  
@@ -1208,7 +1167,7 @@ Wählt man somit zum Beispiel
 
  der Knoten empfänglich, haben also die Information nicht bekommen und können
  sie auch nicht mehr erhalten.
- Erhöht man 
+ Wird 
 \begin_inset Formula $k$
 \end_inset
 
@@ -1216,11 +1175,11 @@ Wählt man somit zum Beispiel
 \begin_inset Formula $2$
 \end_inset
 
-, so sind dies lediglich nur noch 
+ erhöht, so sind dies lediglich nur noch 
 \begin_inset Formula $6\%$
 \end_inset
 
-, die die Information nicht erhalten.
+ der Knoten, die die Information nicht erhalten.
 \end_layout
 
 \begin_layout Standard
@@ -1272,13 +1231,31 @@ Anteil empfänglicher Knoten nach Entfernung des letzten Infizierten über
 \end_layout
 
 \begin_layout Subsubsection
+Anti-Entropie
+\end_layout
+
+\begin_layout Standard
+Ein beinahe noch einfacherer Ansatz ist die Anti-Entropie, die ebenfalls
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
+
+\end_inset
+
+ vorgestellt wird.
+ Die Idee hierbei ist, dass die Knoten regelmäßig einen Abgleich der Daten
+ durchführen.
+\end_layout
+
+\begin_layout Subsubsection
 Fazit
 \end_layout
 
 \begin_layout Standard
-Implementiert man den Algorithmus also auf diese einfache Weise, so ist
- nicht unbedingt sichergestellt, dass am Ende alle Knoten die Nachricht
- erhalten haben.
+Wird der Algorithmus also auf diese Weise implementiert, so ist nicht unbedingt
+ sichergestellt, dass am Ende alle Knoten die Nachricht erhalten haben.
+ Es kann in einigen Anwendungen verkraftbar sein, dass dieser Fall eintritt.
  Wir möchten aber hier gerade die Zeit analysieren, bis alle Knoten die
  Nachricht erhalten haben.
 \end_layout
@@ -1289,7 +1266,6 @@ Des Weiteren hat dieser Ansatz das Problem, dass er verlässliche Datenkanäle
  Eine solche Annahme ist aber für drahtlose Sensornetzwerke nicht haltbar,
  weshalb im Folgenden Möglichkeiten vorgestellt werden, wie man mit dieser
  Problematik umgehen kann.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -1308,12 +1284,9 @@ Bakhshi
 \noun default
  et al.
  in 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: A Modeling Framework for Gossip-based Information Spread
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "6042051"
 
 \end_inset
 
@@ -2113,12 +2086,9 @@ Low-Rate Wireless Personal Area Networks
 
  des IEEE vom 5.
  September 2011
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "802.15.4"
 
 \end_inset
 
@@ -2153,14 +2123,11 @@ Es wird dabei zwischen zwei Typen von Netzwerkkomponenten unterschieden.
 \end_layout
 
 \begin_layout Standard
-Dieser Koordinator ist zwangsläufig ein Full Function Device (FFD).
- Dieser kann im Gegensatz zum RFD, das nur mit seinem zugeordneten FFD kommunizi
-eren kann, mit all seinen Nachbarn in seinem Umkreis kommunizieren.
-\end_layout
-
-\begin_layout Standard
-In unserem Anwendungsfall werden wir daher alle Knoten als Full Function
- Device annehmen.
+Dieser Koordinator ist zwangsläufig ein Full Function Device (FFD) und kann
+ im Gegensatz zum RFD, das nur mit seinem zugeordneten FFD kommunizieren
+ kann, mit all seinen Nachbarn in seinem Umkreis kommunizieren.
+ Daher ist es für die Umsetzung des Gossiping-Algorithmus naheliegend, alle
+ Knoten als Full Function Device anzusehen.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2243,20 +2210,386 @@ Die Aufgabe des MAC-Layer ist es sicherzustellen, dass es nicht zu Kollisionen
 
 \begin_layout Standard
 Es gibt eine Vielzahl von Algorithmen, um diese Aufgabe zu erfüllen, der
- Standard schreibt einen von zwei Mechanismen vor: CSMA-CA und ALOHA.
+ Standard beschreibt zwei Mechanismen: CSMA-CA und ALOHA.
 \end_layout
 
 \begin_layout Standard
-Bei ALOHA wartet ein Knoten nicht auf das Freiwerden des Mediums oder auf
- einen bestimmten Zeitslot, sondern sendet sofort.
+ALOHA ist ein Anfang der 1970er-Jahre an der Universität von Hawaii entwickeltes
+ Protokoll zur Datenübertragung auf geteilten Medien, welches zuerst von
+ 
+\noun on
+Abramson
+\noun default
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Abramson:1970:ASA:1478462.1478502"
+
+\end_inset
+
+ beschrieben wurde.
+ Es sieht vor, dass ein Knoten Knoten nicht auf das Freiwerden des Mediums
+ wartet, sondern seine Nachricht sofort sendet.
+ Sollte es dabei zu einer Kollision kommen, weil schon ein anderer Teilnehmer
+ sendet, wird das vom Empfänger erkannt und eine Neuübertragung angefordert.
+ Alternativ lassen sich auch feste Zeitslots festlegen, in denen ein Knoten
+ eine Nachricht sendet, welche allerdings auch nicht unbedingt einem Knoten
+ alleine gehören, sondern auch von anderen Knoten genutzt werden können,
+ wodurch sich aber Pakete höchstens vollständig überlagern können und andere
+ Slots davon nicht beeinflusst werden (vgl.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Roberts:1975:APS:1024916.1024920"
+
+\end_inset
+
+).
  Das ist ausreichend für Netzwerke, in denen nur selten Daten übertragen
- werden, aber ungeeignet für diesen Anwendungsfall, weshalb wir dieses Protokoll
- hier nicht weiter betrachten.
+ werden, aber ungeeignet für diesen Anwendungsfall, da im Laufe der Zeit
+ sehr viele Nachrichten übertragen werden, weshalb es zu sehr vielen Neuübertrag
+ungen kommen würde.
 \end_layout
 
 \begin_layout Standard
-Betrachten wir nun den Paketversand unter Verwendung von CSMA-CA (Carrier
- Sense Medium Access-Colision Avoidance).
+Daher sei nun alternativ der Paketversand unter Verwendung von CSMA-CA (Carrier
+ Sense Medium Access-Colision Avoidance) vorgestellt.
+\end_layout
+
+\begin_layout Standard
+Wie bereits in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:PHY-Layer"
+
+\end_inset
+
+ beschrieben, existiert die Möglichkeit zu entscheiden, ob das Medium derzeit
+ frei ist oder Daten von einem anderen Knoten derzeit gesendet werden über
+ das clear channel assessment (CCA).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "mathescape=true"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+func unslottedCSMA():
+\end_layout
+
+\begin_layout Plain Layout
+
+	NB = 0, BE = macMinBE
+\end_layout
+
+\begin_layout Plain Layout
+
+	bool channel_idle = false
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	while (!channel_idle):
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		wait random($2^{BE} - 1$) * backoffPeriod
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+		channel_idle = perform_cca()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		if (!channel_idle):
+\end_layout
+
+\begin_layout Plain Layout
+
+			NB = NB + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+			BE = min(BE+1, macMaxBE)
+\end_layout
+
+\begin_layout Plain Layout
+
+			if (NB > macMaxCSMABackoffs?):
+\end_layout
+
+\begin_layout Plain Layout
+
+				return false
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\begin_layout Plain Layout
+
+	return true
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Pseudocode-des-CSMA-CA-Algorithm"
+
+\end_inset
+
+Pseudocode des CSMA-CA-Algorithmus nach Abbildung 11 in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "802.15.4"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Da die Implementierung des Gossiping-Algorithmus keinen PAN-Knoten verwendet,
+ wird hier ausschließlich der unslotted CSMA-CA-Algorithmus beschrieben,
+ der als Pseudocode in Algorithmus 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Pseudocode-des-CSMA-CA-Algorithm"
+
+\end_inset
+
+ formuliert wurde.
+\end_layout
+
+\begin_layout Standard
+Zunächst wird ein zufälliges Intervall gewartet, das durch 
+\begin_inset Formula $\text{random}\left(2^{BE}-1\right)\cdot\mathtt{backoffPeriod}$
+\end_inset
+
+ bestimmt wird.
+ Die 
+\begin_inset Formula $\mathtt{backoffPeriod}$
+\end_inset
+
+ ist dabei das Produkt aus 
+\begin_inset Formula $\mathtt{aUnitBackoffPeriod}$
+\end_inset
+
+, also der Anzahl der Symbole (kleinste übertragene Dateneinheit), die gewartet
+ wird, und der Übertragungsdauer eines Symbols, die im verwendeten 
+\begin_inset Formula $2.45\,GHz$
+\end_inset
+
+-Band bei 
+\begin_inset Formula $16\mu s$
+\end_inset
+
+ liegt.
+\end_layout
+
+\begin_layout Standard
+Anschließend wird durch das 
+\emph on
+clear channel assessment
+\emph default
+ überprüft, ob der Kanal frei ist.
+\end_layout
+
+\begin_layout Standard
+Ist dies der Fall, wird der Paketversand erlaubt, ansonsten wird der Vorgang
+ 
+\begin_inset Formula $\mathtt{macMaxCSMABackoffs}-1$
+\end_inset
+
+-mal wiederholt.
+ Dieser Wert kann zwischen 
+\begin_inset Formula $0$
+\end_inset
+
+ und 
+\begin_inset Formula $5$
+\end_inset
+
+ sein, als Standardwert ist 
+\begin_inset Formula $4$
+\end_inset
+
+ angegeben.
+\end_layout
+
+\begin_layout Standard
+Dabei wird der Backoff Exponent 
+\begin_inset Formula $BE$
+\end_inset
+
+ inkrementiert, solange er höchstens so groß ist wie 
+\begin_inset Formula $\mathtt{macMaxBE}$
+\end_inset
+
+(standardmäßig 5).
+\end_layout
+
+\begin_layout Standard
+Wird bei keiner Wiederholung ein freier Kanal vorgefunden, so wird der Sendevorg
+ang abgebrochen.
+\end_layout
+
+\begin_layout Standard
+Durch das garantierte Warten einer bestimmten Zeit beim Versand eines Pakets
+ wird die Datenrate des Mediums reduziert.
+ Für die Kalibrierung unseres Gossiping-Algorithmus ist dieses Warten auch
+ nicht uninteressant, wenn wir das Intervall festlegen wollen, in denen
+ der aktive Thread Nachrichten verschickt.
+ So wird schon beim ersten Sendeversuch mit den Standardwert im schlimmsten
+ Fall
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+16\mu s\cdot aUnitBackoffPeriod\cdot\left(2^{BE}-1\right) & = & 16\mu s\cdot20\cdot7\\
+ & = & 2240\mu s
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+gewartet.
+\end_layout
+
+\begin_layout Paragraph
+Anmerkung
+\end_layout
+
+\begin_layout Standard
+Im ursprünglichen Standarddokument 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "802.15.4"
+
+\end_inset
+
+ wurde statt 
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+BE = min(BE+1, macMaxBE)
+\end_layout
+
+\end_inset
+
+ die Zuweisung
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+BE = min(BE+1, macMinBE)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+angegeben.
+\end_layout
+
+\begin_layout Standard
+Dieser Fehler wurde in einem Amendment vom 16.
+ April 2012 (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "802.15.4-2012"
+
+\end_inset
+
+) behoben.
+\end_layout
+
+\begin_layout Itemize
+Symbol period: 
+\begin_inset Formula $16\mu s$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+macMinBE: 0 - macMaxBE, default: 3
+\end_layout
+
+\begin_layout Itemize
+macMaxBE: 3-8, default: 5
+\end_layout
+
+\begin_layout Itemize
+macMaxCSMABackoffs: 0-5, default 4
+\end_layout
+
+\begin_layout Itemize
+aUnitBackoffPeriod: 20 symbols
 \end_layout
 
 \begin_layout Itemize

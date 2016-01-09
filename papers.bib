@@ -1,95 +1,87 @@
-﻿@article{Bakshi:Modelling,
-   author = {Bakhshi, R. and Gavidia, D. and Fokkink, W. and van Steen, M.},
-   title = {A Modelling Framework for Gossip-based Information Spread},
-   type = {Journal Article}
+% Encoding: UTF-8
+
+@article{10.2307/2101696,
+ ISSN = {00361399},
+ URL = {http://www.jstor.org/stable/2101696},
+ abstract = {Suppose that one of n people knows a rumor. At the first stage, he passes the rumor to someone chosen at random; at each stage, each person already informed ("knower") communicates the rumor to a person chosen at random and independently of all other past and present choices. Denote by S<sub>n</sub> the random number of stages before everybody is informed. How large is S<sub>n</sub> typically? Frieze and Grimmet, who introduced this problem, proved that, in probability, S<sub>n</sub>/(log<sub>2</sub> n + log n) → 1. In this paper we show that, in fact, S<sub>n</sub> = log<sub>2</sub> n + log n + O(1) in probability. Our proof demonstrates that the number I(t) of persons informed after t stages obeys very closely, with high probability, a deterministic equation I(t + 1) = n - (n - I(t)) exp (- I(t)/n), t ≥ 0. A case when each knower passes the rumor to several members at every stage is also discussed.},
+ author = {Boris Pittel},
+ journal = {SIAM Journal on Applied Mathematics},
+ number = {1},
+ pages = {213-223},
+ publisher = {Society for Industrial and Applied Mathematics},
+ title = {On Spreading a Rumor},
+ volume = {47},
+ year = {1987}
 }
 
-@inproceedings{Saidi:mincost,
-   author = {Saidi, A. and Mohtashemi, M.},
-   title = {Minimum-cost First-Push-Then-Pull gossip algorithm},
-   booktitle = {Wireless Communications and Networking Conference (WCNC), 2012 IEEE},
-   pages = {2554-2559},
-   abstract = {In this paper, we study the communication overhead of gossip-based information dissemination algorithms. Among basic variants of gossip algorithm push is most efficient in the early rounds while, in contrast, pull becomes more efficient in the later rounds. Therefore, a cost-efficient gossip algorithm needs to combine the advantages of push and pull algorithms. One possible approach is to begin with push algorithm and then at some point switch to pull algorithm. We analyze the effect of transition round from push to pull on the communication cost of gossip algorithm. We use simple deterministic difference equations to approximately model the message propagation throughout the network for both push and pull algorithms and derive closed form solution for pull model. We then present our First-Push-Then-Pull (FPTP) gossip algorithm and obtain the optimum round to transition from push to pull. We show that, in a fully connected network, normalized communication cost is minimized to approximately a constant (&#x2248;2.6 transmissions/message/node) when the transition round is Round(log N). Furthermore, we extend our results to networks with limited connectivity/cooperation and show that although the communication overhead increases moderately as a function of connection probability, it still remains approximately constant. To validate our results we test our algorithm in mobile ad-hoc network (MANET) environment using random-waypoint mobility model and show that the simulation results closely follow our analysis.},
-   keywords = {approximation theory
-communication complexity
-deterministic algorithms
-difference equations
-information dissemination
-mobile ad hoc networks
-mobility management (mobile radio)
-probability
-protocols
-FPTP
-approximate model
-communication cost
-communication overhead
-connection probability
-cost efficient gossip algorithm
-deterministic difference equation
-first push then pull gossip algorithm
-message propagation throughout
-mobile ad hoc network
-pull algorithm
-push algorithm
-random waypoint mobility model
-transition round
-Algorithm design and analysis
-Approximation algorithms
-Closed-form solutions
-Mathematical model
-Mobile communication
-Mobile computing
-Switches
-Gossip algorithms
-Mobile networks
-Pull
-Push},
-   ISBN = {1525-3511},
-   DOI = {10.1109/WCNC.2012.6214229},
-   type = {Conference Proceedings}
+@InProceedings{4446065,
+  author =    {Zanaj, E. and Baldi, M. and Chiaraluce, F.},
+  title =     {Efficiency of the gossip algorithm for wireless sensor networks},
+  booktitle = {Software, Telecommunications and Computer Networks, 2007. SoftCOM 2007. 15th International Conference on},
+  year =      {2007},
+  pages =     {1-5},
+  month =     {Sept},
+  doi =       {10.1109/SOFTCOM.2007.4446065},
+  keywords =  {distributed algorithms;numerical analysis;optimisation;probability;wireless sensor networks;distributed computing;gossip algorithm;numerical simulations;optimization technique;probability distribution;wireless sensor networks;Algorithm design and analysis;Computer networks;Distributed computing;Energy resources;Numerical simulation;Performance analysis;Probability distribution;Sensor phenomena and characterization;Testing;Wireless sensor networks}
 }
 
-@inproceedings{Zanaj:2007,
-   author = {Zanaj, E. and Baldi, M. and Chiaraluce, F.},
-   title = {Efficiency of the gossip algorithm for wireless sensor networks},
-   booktitle = {Software, Telecommunications and Computer Networks, 2007. SoftCOM 2007. 15th International Conference on},
-   pages = {1-5},
-   keywords = {distributed algorithms
-numerical analysis
-optimisation
-probability
-wireless sensor networks
-distributed computing
-gossip algorithm
-numerical simulations
-optimization technique
-probability distribution
-Algorithm design and analysis
-Computer networks
-Energy resources
-Numerical simulation
-Performance analysis
-Sensor phenomena and characterization
-Testing},
-   DOI = {10.1109/SOFTCOM.2007.4446065},
-   type = {Conference Proceedings}
+@InProceedings{6042051,
+  author =    {Bakhshi, R. and Gavidia, D. and Fokkink, W. and van Steen, M.},
+  title =     {A Modeling Framework for Gossip-based Information Spread},
+  booktitle = {Quantitative Evaluation of Systems (QEST), 2011 Eighth International Conference on},
+  year =      {2011},
+  pages =     {245-254},
+  month =     {Sept},
+  doi =       {10.1109/QEST.2011.39},
+  keywords =  {cryptographic protocols;communication channel;gossip-based information dissemination protocol;gossip-based information spread;lossy channel;message loss;pair wise information exchange;protocol parameter;topology configuration;Analytical models;Data models;IP networks;Message systems;Network topology;Peer to peer computing;Protocols;dependable gossiping;experimental validation;formal modelling;gossip protocols;large-scale networks;performance evaluation}
 }
 
-@inproceedings{Demers:1987:EAR:41840.41841,
- author = {Demers, Alan and Greene, Dan and Hauser, Carl and Irish, Wes and Larson, John and Shenker, Scott and Sturgis, Howard and Swinehart, Dan and Terry, Doug},
- title = {Epidemic Algorithms for Replicated Database Maintenance},
- booktitle = {Proceedings of the Sixth Annual ACM Symposium on Principles of Distributed Computing},
- series = {PODC '87},
- year = {1987},
- isbn = {0-89791-239-X},
- location = {Vancouver, British Columbia, Canada},
- pages = {1--12},
- numpages = {12},
- url = {http://doi.acm.org/10.1145/41840.41841},
- doi = {10.1145/41840.41841},
- acmid = {41841},
- publisher = {ACM},
- address = {New York, NY, USA},
+@InProceedings{6214229,
+  author =    {Saidi, A. and Mohtashemi, M.},
+  title =     {Minimum-cost First-Push-Then-Pull gossip algorithm},
+  booktitle = {Wireless Communications and Networking Conference (WCNC), 2012 IEEE},
+  year =      {2012},
+  pages =     {2554-2559},
+  month =     {April},
+  doi =       {10.1109/WCNC.2012.6214229},
+  issn =      {1525-3511},
+  keywords =  {approximation theory;communication complexity;deterministic algorithms;difference equations;information dissemination;mobile ad hoc networks;mobility management (mobile radio);probability;protocols;FPTP;approximate model;communication cost;communication overhead;connection probability;cost efficient gossip algorithm;deterministic difference equation;first push then pull gossip algorithm;information dissemination;message propagation throughout;mobile ad hoc network;pull algorithm;push algorithm;random waypoint mobility model;transition round;Algorithm design and analysis;Approximation algorithms;Closed-form solutions;Mathematical model;Mobile communication;Mobile computing;Switches;Gossip algorithms;Mobile networks;Pull;Push}
+}
+
+@Standard{802.15.4,
+  title =        {802.15.4-2011 - IEEE Standard for Local and metropolitan area networks--Part 15.4: Low-Rate Wireless Personal Area Networks (LR-WPANs)},
+  organization = {WG802.15 - Wireless Personal Area Network (WPAN) Working Group},
+  institution =  {Institute of Electrical and Electronics Engineers}
+}
+
+@Standard{802.15.4-2012,
+  title =        {802.15.4-2012 - IEEE Standard for Local and metropolitan area networks--Part 15.4: Low-Rate Wireless Personal Area Networks (LR-WPANs) - Amendment 1: MAC sublayer},
+  organization = {WG802.15 - Wireless Personal Area Network (WPAN) Working Group},
+  institution =  {Institute of Electrical and Electronics Engineers}
+}
+
+@InProceedings{Abramson:1970:ASA:1478462.1478502,
+  author =    {Abramson, Norman},
+  title =     {THE ALOHA SYSTEM: Another Alternative for Computer Communications},
+  booktitle = {Proceedings of the November 17-19, 1970, Fall Joint Computer Conference},
+  year =      {1970},
+  series =    {AFIPS '70 (Fall)},
+  pages =     {281--285},
+  address =   {New York, NY, USA},
+  publisher = {ACM},
+  acmid =     {1478502},
+  doi =       {10.1145/1478462.1478502},
+  location =  {Houston, Texas},
+  numpages =  {5},
+  url =       {http://doi.acm.org/10.1145/1478462.1478502}
+}
+
+@Manual{AT86RF231,
+  title =        {AT86RF231 - Low Power 2.4 GHz Transceiver for ZigBee , IEEE 802.15.4, 6LoWPAN, RF4CE, SP100, WirelessHART, and ISM Applications},
+  organization = {Atmel Corporation},
+  edition =      {Rev. C},
+  month =        sep,
+  year =         {2009}
 } 
 
 @article{Baccour:2012:RLQ:2240116.2240123,
@@ -111,10 +103,66 @@ Testing},
  publisher = {ACM},
  address = {New York, NY, USA},
  keywords = {Link quality estimation, link characteristics, low-power links, wireless sensor networks},
-} 
-
-@article{Fambon2014,
-   author = {Fambon, Olivier and Fleury, \'{E}ric and Harter, Ga\"{e}tan and Pissard-Gibollet, Roger and Saint-Marcel, Fr\'{e}d\'{e}ric},
-   title = {FIT IoT-LAB tutorial: hands-on practice with a very large scale testbed tool for the Internet of Things},
-   year = {2014}
 }
+
+@article{Birman:2007:PLG:1317379.1317382,
+ author = {Birman, Ken},
+ title = {The Promise, and Limitations, of Gossip Protocols},
+ journal = {SIGOPS Oper. Syst. Rev.},
+ issue_date = {October 2007},
+ volume = {41},
+ number = {5},
+ month = oct,
+ year = {2007},
+ issn = {0163-5980},
+ pages = {8--13},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/1317379.1317382},
+ doi = {10.1145/1317379.1317382},
+ acmid = {1317382},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+@inproceedings{Demers:1987:EAR:41840.41841,
+ author = {Demers, Alan and Greene, Dan and Hauser, Carl and Irish, Wes and Larson, John and Shenker, Scott and Sturgis, Howard and Swinehart, Dan and Terry, Doug},
+ title = {Epidemic Algorithms for Replicated Database Maintenance},
+ booktitle = {Proceedings of the Sixth Annual ACM Symposium on Principles of Distributed Computing},
+ series = {PODC '87},
+ year = {1987},
+ isbn = {0-89791-239-X},
+ location = {Vancouver, British Columbia, Canada},
+ pages = {1--12},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/41840.41841},
+ doi = {10.1145/41840.41841},
+ acmid = {41841},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+@Article{Fambon2014,
+  author =  {Fambon, Olivier and Fleury, \'{E}ric and Harter, Ga\"{e}tan and Pissard-Gibollet, Roger and Saint-Marcel, Fr\'{e}d\'{e}ric},
+  title =   {FIT IoT-LAB tutorial: hands-on practice with a very large scale testbed tool for the Internet of Things},
+  journal = {10\`{e}mes journ\'{e}es francophones Mobilit\'{e} et Ubiquit\'{e} (UbiMob)},
+  year =    {2014}
+}
+
+@Article{Roberts:1975:APS:1024916.1024920,
+  author =     {Roberts, Lawrence G.},
+  title =      {ALOHA Packet System with and Without Slots and Capture},
+  journal =    {SIGCOMM Comput. Commun. Rev.},
+  year =       {1975},
+  volume =     {5},
+  number =     {2},
+  pages =      {28--42},
+  month =      apr,
+  acmid =      {1024920},
+  address =    {New York, NY, USA},
+  doi =        {10.1145/1024916.1024920},
+  issn =       {0146-4833},
+  issue_date = {April 1975},
+  numpages =   {15},
+  publisher =  {ACM},
+  url =        {http://doi.acm.org/10.1145/1024916.1024920}
+} 
