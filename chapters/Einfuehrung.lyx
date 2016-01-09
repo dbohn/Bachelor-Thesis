@@ -556,7 +556,7 @@ Eine verlässliche Kommunikation wird nicht vorausgesetzt.
 \end_layout
 
 \begin_layout Enumerate
-Die Interaktionsfrequenz ist im vergleich zu den Latenzen des Nachrichtenaustaus
+Die Interaktionsfrequenz ist im Vergleich zu den Latenzen des Nachrichtenaustaus
 chs gering.
 \end_layout
 
@@ -565,18 +565,91 @@ Die Auswahl des Nachbarknotens, mit dem interagiert wird, geschieht auf
  irgendeine Art und Weise zufällig.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO: Kurze Erläuterung zu den Punkten, Punkt 6 ist auf Nachbarn beschränkt
- wegen The Gossiping Book.
+\begin_layout Paragraph
+Zu 1.
 \end_layout
 
-\end_inset
+\begin_layout Standard
+Dieser Punkt besagt vor allem, dass ein Prozess nach einer Interaktion mit
+ einem anderen Prozess eine gewisse Zeit wartet, bis er erneut Daten sendet.
+ Diese Periodendauer ist gleich für alle Prozesse.
+ Jede Interaktion findet dabei nur mit einem weiteren Prozess statt.
+\end_layout
 
+\begin_layout Paragraph
+Zu 2.
+\end_layout
 
+\begin_layout Standard
+Jede Nachricht, die zwischen Knoten ausgetauscht wird, lässt sich durch
+ eine globale obere Schranke in ihrer Größe beschränken.
+ Das bedeutet, dass Gossiping vor allem dafür gedacht ist, kleinere Datenmengen
+ in einem Netzwerk zu verteilen.
+\end_layout
+
+\begin_layout Paragraph
+Zu 3.
+\end_layout
+
+\begin_layout Standard
+Wenn also ein Prozess eine Nachricht von einem anderen Prozess erhält, so
+ muss der Inhalt dieser Nachricht die Entscheidung den eigenen Zustand zu
+ ändern motivieren.
+ Ein Beispiel für einen Verstoß gegen diese Regel wäre, wenn der Prozess
+ diese Nachricht nur dazu nutzen würde, um die Zeit zu berechnen, die benötigt
+ wird, um eine Nachricht zwischen den beiden Knoten hin und her zu tauschen.
+\end_layout
+
+\begin_layout Paragraph
+Zu 4.
+\end_layout
+
+\begin_layout Standard
+Dieser Punkt ist einer der großen Stärken von Gossiping Algorithmen in drahtlose
+n Sensornetzwerken, in denen Knoten wegen äußerer Einwirkungen nicht immer
+ unbedingt verfügbar sind oder Nachrichten nicht empfangen werden können.
+ Dies heißt im Prinzip, dass der Algorithmus nicht davon aufgehalten werden
+ darf, wenn er einen bestimmten Nachbarknoten nicht erreichen kann.
+\end_layout
+
+\begin_layout Paragraph
+Zu 5.
+\end_layout
+
+\begin_layout Standard
+Dieser Punkt steht in direktem Zusammenhang mit dem ersten Punkt.
+ Die periodischen Interaktionen ermöglichen es, den Ablauf des Gossiping-Algorit
+hmus in Runden einzuteilen und somit den Ablauf des Algorithmus klar rekonstruie
+ren zu können.
+ Wäre jetzt die Zeit zwischen den Interaktionen kleiner als die maximale
+ Dauer des Nachrichtenaustausches, so würde ein Knoten bereits eine neue
+ Interaktion initiieren, bevor die vorherige überhaupt abgeschlossen ist
+ und er seinen Zustand entsprechend anpassen konnte.
+\end_layout
+
+\begin_layout Paragraph
+Zu 6.
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Birman
+\noun default
+ stellt hier eine weniger strikte Anforderung, da für ihn kein Nachbarknoten
+ ausgewählt werden muss.
+ Durch die Konstruktion eines entsprechenden Overlays, das alle erreichbaren
+ Knoten eines Knotens zu einem Nachbarknoten macht, zeigt aber, dass die
+ Definition dadurch nicht eingeschränkt wurde.
+ Da in den drahtlosen Sensornetzwerken aber vor allem die Nachbarn als Kommunika
+tionspartner in Frage kommen, wurde das Kriterium entsprechend angepasst.
+\end_layout
+
+\begin_layout Standard
+Dieses Zufallskriterium spielt auch stark mit der vierten Anforderung zusammen,
+ da der Algorithmus dadurch nicht abhängig davon ist, diesen nicht erreichbaren
+ Knoten zu kontaktieren, anders als bei einem deterministischen Algorithmus,
+ der zu jedem Zeitpunkt einen klar definierten Nachbarn zurückgibt.
 \end_layout
 
 \begin_layout Subsection
@@ -716,6 +789,12 @@ I\cup S\cup R & = & V\label{eq:subsetconjunct}
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Modellierung-von-Gossiping"
+
+\end_inset
+
 Modellierung von Gossiping als epidemischer Algorithmus
 \end_layout
 
@@ -814,6 +893,12 @@ Zustandsübergänge beim Gossiping beschrieben als epidemischen Vorgang (eigene
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Analyse-von-diesem"
+
+\end_inset
+
 Analyse von diesem Gossiping-Modell
 \end_layout
 
@@ -1244,8 +1329,286 @@ key "Demers:1987:EAR:41840.41841"
 \end_inset
 
  vorgestellt wird.
- Die Idee hierbei ist, dass die Knoten regelmäßig einen Abgleich der Daten
- durchführen.
+ Die Idee hierbei ist, dass die Knoten in periodischen Abständen untereinander
+ einen Abgleich der Daten durchführen.
+ Somit entfällt das Entfernen der Knoten mit Wahrscheinlichkeit 
+\begin_inset Formula $\frac{1}{k}$
+\end_inset
+
+, wenn der kontaktierte Partner bereits die Daten kannte.
+\end_layout
+
+\begin_layout Standard
+In jeder Periode wählt ein Knoten also einen anderen Knoten aus und tauscht
+ mit diesem Informationen aus.
+ Dabei gibt es drei verschiedene Möglichkeiten: Entweder schickt er lediglich
+ seine Daten an seinen ausgewählten Nachbarn (
+\emph on
+push
+\emph default
+), fordert die Daten des Nachbarn an (
+\emph on
+pull
+\emph default
+) oder schickt seine Daten und erwartet die des Nachbarn (
+\emph on
+push-pull
+\emph default
+).
+\end_layout
+
+\begin_layout Standard
+Ein großer Nachteil im Vergleich zum vorherigen Ansatz ist die hohe Belastung
+ des Funkmediums, da jeder Knoten, auch wenn er keine aktuellen Informationen
+ kennt, also empfänglich ist, seine Daten regelmäßig über das Netz an einen
+ anderen Knoten verteilt.
+\end_layout
+
+\begin_layout Subsubsection
+Push, Pull und Push-Pull
+\end_layout
+
+\begin_layout Standard
+Bereits im vorherigen Abschnitt wurden die verschiedenen Arten des Datenaustausc
+hs bei Verwendung eines Anti-Entropie-Algorithmus vorgestellt.
+ Diese lassen sich nicht nur auf die Anti-Entropie anwenden, sondern auch
+ auf den in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Modellierung-von-Gossiping"
+
+\end_inset
+
+ und 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Analyse-von-diesem"
+
+\end_inset
+
+ vorgestellten Algorithmus.
+ So kann auch ein empfänglicher Knoten z.B.
+ mit einer bestimmten Wahrscheinlichkeit einen Nachbarknoten nach seinen
+ Informationen fragen und damit einen 
+\emph on
+pull
+\emph default
+ durchzuführen.
+ Wenn dieser ein infizierter Knoten war, wird er dadurch selbst infiziert
+ und fängt damit an Nachrichten per 
+\emph on
+push
+\emph default
+ an andere Knoten zu verteilen.
+ Neben dieser Mischform ist es auch möglich, eine reine pull-Strategie durchzufü
+hren, indem nur die empfänglichen Knoten die infizierten anfragen.
+\end_layout
+
+\begin_layout Standard
+Interessanterweise weisen push, pull und push-pull unterschiedliche Charakterist
+ika auf, die sich vor allem in der Geschwindigkeit der Informationsverbreitung
+ widerspiegeln.
+\end_layout
+
+\begin_layout Minisec
+Push
+\end_layout
+
+\begin_layout Standard
+Jeder infizierte Knoten leitet in diesem Fall seine Information pro Runde
+ an genau einen anderen Knoten weiter.
+ Initial sind wenige Knoten infiziert (beim rumor spreading genau einer)
+ und die Chance, einen Knoten zu finden, der die Nachricht bereits erhalten
+ hat.
+ Somit wächst die Menge der Infizierten nach 
+\noun on
+Karp
+\noun default
+ et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "892324"
+
+\end_inset
+
+ zunächst exponentiell bis ungefähr die Hälfte (
+\begin_inset Formula $\frac{n}{2}$
+\end_inset
+
+) der Knoten infiziert ist.
+ Anschließend nimmt die Zahl der empfänglichen Knoten um einen konstanten
+ Faktor ab.
+ In jeder Runde empfangen dann nämlich ungefähr 
+\begin_inset Formula $\frac{1}{e}$
+\end_inset
+
+ Knoten keine Nachricht.
+ Aus diesem Grund werden nach der exponentiellen Phase 
+\begin_inset Formula $\Theta\left(\ln n\right)$
+\end_inset
+
+ Runden benötigt bis alle Knoten die Nachricht empfangen haben.
+ 
+\noun on
+Pittel
+\noun default
+ ermittelte in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "10.2307/2101696"
+
+\end_inset
+
+ sogar eine Anzahl von 
+\begin_inset Formula $\log_{2}\left(n\right)+\ln\left(n\right)+O\left(1\right)$
+\end_inset
+
+ Runden bis alle Knoten die Nachricht erhalten haben.
+\end_layout
+
+\begin_layout Minisec
+Pull
+\end_layout
+
+\begin_layout Standard
+In diesem Fall ist die initiale Verbreitung der Information deutlich langsamer,
+ da in den ersten Runden der infizierte Knoten bzw.
+ die infizierten Knoten nicht unbedingt kontaktiert wurden.
+ Nach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "892324"
+
+\end_inset
+
+ sind nach 
+\begin_inset Formula $O\left(\ln n\right)$
+\end_inset
+
+ Runden mit hoher Wahrscheinlichkeit 
+\begin_inset Formula $\frac{n}{2}$
+\end_inset
+
+ Knoten infiziert.
+ Aber ab diesem Punkt verbessert sich die Verteilung der Nachricht deutlich
+ im Vergleich zum Push-Algorithmus, der ab diesem Punkt nur noch konstant
+ viele Knoten höchstens neu infiziert.
+ Seien zu Beginn der Runde 
+\begin_inset Formula $s\cdot n$
+\end_inset
+
+ Knoten empfänglich, wobei 
+\begin_inset Formula $s$
+\end_inset
+
+ wie oben der Anteil der empfänglichen Knoten sei, dann gilt für jeden empfängli
+chen Knoten, dass er in dieser Runde mit Wahrscheinlichkeit 
+\begin_inset Formula $1-s$
+\end_inset
+
+ infiziert wird.
+ Daraus ergibt sich ein Erwartungswert von 
+\begin_inset Formula $s^{2}n$
+\end_inset
+
+ empfängliche Knoten nach Ende der Runde.
+ Also werden nach der Infektion der halben Population nur noch 
+\begin_inset Formula $\Theta\left(\ln\ln n\right)$
+\end_inset
+
+ Runden benötigt, um alle Knoten zu infizieren.
+ Insgesamt werden also 
+\begin_inset Formula $O\left(\ln n\right)+\Theta\left(\ln\ln n\right)$
+\end_inset
+
+ Runden benötigt, um alle Knoten zu infizieren.
+\end_layout
+
+\begin_layout Minisec
+Push-Pull
+\end_layout
+
+\begin_layout Standard
+Während der Datenaustausch per 
+\emph on
+push
+\emph default
+ für bis zu 
+\begin_inset Formula $\frac{n}{2}$
+\end_inset
+
+ infizierten Knoten deutlich schneller funktioniert als pull, funktioniert
+ letzteres deutlich besser ab diesem Punkt als 
+\emph on
+push
+\emph default
+.
+ Es liegt also nahe, beide Varianten in ein Verfahren zu kombinieren, um
+ somit auch die Stärken zu kombinieren.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "892324"
+
+\end_inset
+
+ unterteilt die Dissemination in vier Phasen.
+ Zunächst kennt nur ein Knoten die neuen Informationen.
+ Die Wahrscheinlichkeit, dass er in 
+\begin_inset Formula $c$
+\end_inset
+
+ Runden mindestens einen empfänglichen Knoten kontaktiert hat, also nicht
+ sich selbst, ist 
+\begin_inset Formula $1-n^{-c}$
+\end_inset
+
+, weshalb sich mit hoher Wahrscheinlichkeit die Anzahl der Infizierten nach
+ 
+\begin_inset Formula $c$
+\end_inset
+
+ Runden verdoppelt hat.
+ Somit sind nach 
+\begin_inset Formula $O\left(\ln\ln n\right)$
+\end_inset
+
+ Runden 
+\begin_inset Formula $\left(\ln n\right)^{4}$
+\end_inset
+
+ Knoten infiziert.
+ Ab diesem Punkt beginnt eine stark exponentielle Verbreitung der Information.
+ Diese dauert an bis ungefähr 
+\begin_inset Formula $\frac{n}{\ln n}$
+\end_inset
+
+ Knoten infiziert sind.
+ Dafür werden 
+\begin_inset Formula $\log_{3}n\pm O\left(\ln\ln n\right)$
+\end_inset
+
+ Runden benötigt.
+ Die beiden letzten Phasen beschreiben zunächst eine quadratische Abnahme
+ und das Ausklingen durch Infektion der verbliebenen Knoten.
+ Beide Phasen benötigen aber lediglich 
+\begin_inset Formula $O\left(\ln\ln n\right)$
+\end_inset
+
+ Runden.
+ Somit erreicht Push-Pull nach 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "892324"
+
+\end_inset
+
+ eine komplette Verteilung der Daten in etwa 
+\begin_inset Formula $\log_{3}n+O\left(\ln\ln n\right)$
+\end_inset
+
+ Runden.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1269,11 +1632,7 @@ Des Weiteren hat dieser Ansatz das Problem, dass er verlässliche Datenkanäle
 \end_layout
 
 \begin_layout Subsection
-Gossiping über unzuverlässige Kanäle
-\end_layout
-
-\begin_layout Subsubsection
-Verallgemeinerung und Formalisierung des Gossiping-Algorithmus
+Gossiping-Framework
 \end_layout
 
 \begin_layout Standard
@@ -1286,7 +1645,7 @@ Bakhshi
  in 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "6042051"
+key "6042051,5290827"
 
 \end_inset
 
@@ -1433,6 +1792,61 @@ sigma_p$);
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+a) aktiver Thread
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+b) passiver Thread
 \end_layout
 
 \end_inset
@@ -1701,43 +2115,33 @@ RandomPeer()
  erfüllt, insofern sie der Spezifikation entsprechend implementiert wurde.
 \end_layout
 
+\begin_layout Subsection
+Gossiping über unzuverlässige Kanäle
+\end_layout
+
+\begin_layout Standard
+Gossiping-Algorithmen über unzuverlässige Kanäle stellen hohe Anforderungen
+ an die Analyse, die oftmals auch stark vom implementierten Verfahren abhängen.
+ Zur Analyse dieser Gossiping-Algorithmen existieren verschiedene Modelle,
+ die jedoch alle wegen der Natur des Gossipings nicht um Konstrukte der
+ Wahrscheinlichkeitsrechnung herumkommen.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: ausarbeiten
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Abgrenzung zur epidemischen Betrachtung
 \end_layout
 
-\begin_layout Itemize
-Beschreibung des Gossiping Algorithmus bzw.
- der Klasse der epidemischen Algorithmen
-\end_layout
-
-\begin_layout Itemize
-Vorstellung des Prototyp-Algorithmus, der als Blaupause dient
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Vergleich mit Formulierung über zentralen Tick
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Abgrenzung
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Push
-\end_layout
-
-\begin_layout Itemize
-Pull
-\end_layout
-
-\begin_layout Itemize
-Push-Pull
-\end_layout
-
-\end_deeper
 \begin_layout Section
 Technische Infrastruktur
 \end_layout
@@ -1886,15 +2290,50 @@ Schnittstellen in das IoT-Lab
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/iot_lab-infra-full.jpg
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Schnittstellen in das IoT-Lab (Quelle: IoT-Lab Website 
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-TODO: Grafik über die drei Zugriffsmöglichkeiten raussuchen!
+https://www.iot-lab.info/tools/
 \end_layout
 
 \end_inset
 
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 In diesem Abschnitt werden die diversen Methoden zur Interaktion mit dem
  IoT-Lab bzw.
  dessen Knoten vorgestellt.
@@ -2252,8 +2691,11 @@ ungen kommen würde.
 \end_layout
 
 \begin_layout Standard
-Daher sei nun alternativ der Paketversand unter Verwendung von CSMA-CA (Carrier
- Sense Medium Access-Colision Avoidance) vorgestellt.
+Daher sei nun alternativ der Paketversand unter Verwendung von CSMA-CA (
+\emph on
+Carrier Sense Medium Access-Colision Avoidance
+\emph default
+) vorgestellt.
 \end_layout
 
 \begin_layout Standard
@@ -2554,10 +2996,7 @@ BE = min(BE+1, macMinBE)
 
 \begin_layout Standard
 angegeben.
-\end_layout
-
-\begin_layout Standard
-Dieser Fehler wurde in einem Amendment vom 16.
+ Dieser Fehler wurde in einem Amendment vom 16.
  April 2012 (
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2566,34 +3005,6 @@ key "802.15.4-2012"
 \end_inset
 
 ) behoben.
-\end_layout
-
-\begin_layout Itemize
-Symbol period: 
-\begin_inset Formula $16\mu s$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-macMinBE: 0 - macMaxBE, default: 3
-\end_layout
-
-\begin_layout Itemize
-macMaxBE: 3-8, default: 5
-\end_layout
-
-\begin_layout Itemize
-macMaxCSMABackoffs: 0-5, default 4
-\end_layout
-
-\begin_layout Itemize
-aUnitBackoffPeriod: 20 symbols
-\end_layout
-
-\begin_layout Itemize
-Anwendungsgebiet
 \end_layout
 
 \end_body
