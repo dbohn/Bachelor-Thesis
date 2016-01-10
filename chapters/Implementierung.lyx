@@ -82,8 +82,10 @@ Das Maß
 \end_layout
 
 \begin_layout Standard
-Ziel der Implementierung ist es, die Nachrichtenverteilzeit durch einen
- Gossiping zu analysieren.
+Ziel der Arbeit ist die Implementierung eines generischen Gossiping-Frameworks,
+ das auf den Knoten des IoT-Labs ausgeführt werden kann, und die Evaluierung
+ dieses Frameworks durch eine Anwendung, mit der die Nachrichtenverteilzeit
+ einer Nachricht durch den Gossiping-Algorithmus bestimmt werden kann.
 \end_layout
 
 \begin_layout Standard
@@ -99,34 +101,209 @@ Die Nachrichtenverteilzeit sei die Zeit, die eine Information benötigt,
  verteilt zu werden.
 \end_layout
 
-\begin_layout Itemize
-Was bedeutet Nachrichtenverteilzeit?
+\begin_layout Standard
+Wie auch in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "6042051"
+
+\end_inset
+
+ angemerkt, wird die Nachrichtenverteilzeit maßgeblich durch die Gossiping-Perio
+de 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ bestimmt und ist nicht direkt von der Latenz der Kommunikation abhängig.
 \end_layout
 
-\begin_layout Itemize
-Wie kann man diese ermitteln?
+\begin_layout Standard
+Dies folgt schon aus Anforderung 5, die in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Anforderungen-Gossiping"
+
+\end_inset
+
+ an einen Gossiping-Algorithmus gestellt wurde.
 \end_layout
 
-\begin_layout Itemize
-Welche Probleme gibt es dabei?
+\begin_layout Standard
+Es wurde dort definiert, dass die Periode 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ größer sein muss als die Zeit, die der Nachrichtenaustausch der Knoten
+ benötigt, um eine Überlagerung der Runden zu verhindern.
 \end_layout
 
-\begin_layout Itemize
-Einschränkung:
+\begin_layout Standard
+Um also die Nachrichtenverteilzeit bestimmen zu können, muss ermittelt werden,
+ wie viele Gossiping-Runden durchgeführt werden müssen bis alle Knoten die
+ Nachricht erhalten.
+\end_layout
+
+\begin_layout Standard
+Für einen Push-Pull-Algorithmus kann daher nach Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Push-Pull-PP"
+
+\end_inset
+
+ die folgende Nachrichtenverteilzeit 
+\begin_inset Formula $T$
+\end_inset
+
+ erwartet werden:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+T & \le & \Delta t\left(\log_{3}n+O\left(\ln\ln n\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Ermittlung der Nachrichtenverteilzeit
+\end_layout
+
+\begin_layout Standard
+Die Ermittlung der Nachrichtenverteilzeit lässt sich also darauf reduzieren,
+ die Anzahl der Runden zu ermitteln, die der Gossiping-Algorithmus benötigt,
+ um die Nachricht im gesamten Netzwerk zu verteilen.
+\end_layout
+
+\begin_layout Standard
+Die einzige Möglichkeit, mit einem einzelnen Knoten von außen zu interagieren
+ und Daten zu aggregieren, ist eine serielle Schnittstelle, die über den
+ Host-Knoten auf einen TCP-Port geleitet wird (siehe Abbildung 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Schnittstellen-IoT"
+
+\end_inset
+
+).
+ Dieser TCP-Port kann dann über das SSH-Frontend abgerufen werden.
+\end_layout
+
+\begin_layout Standard
+Algorithmus 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Pseudocode-Rundenanzahl"
+
+\end_inset
+
+ zeigt den Algorithmus, der auf der Seite des SSH-Frontends ermittelt, wie
+ viele Runden vergangen sind.
+\end_layout
+
+\begin_layout Standard
+Dabei wird davon ausgegangen, dass ein Knoten, sobald er infiziert wurde,
+ eine entsprechende Nachricht über die serielle Schnittstelle ausgibt, die
+ die derzeitige Rundennummer enthält.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Enumerate
+erstelle eine Menge 
+\begin_inset Formula $S$
+\end_inset
+
+ aller Knoten
+\end_layout
+
+\begin_layout Enumerate
+Solange 
+\begin_inset Formula $S$
+\end_inset
+
+ nicht leer ist:
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-Zur zuverlässigen Messung darf nur eine Nachricht von einer Quelle aus verteilt
- werden
+\begin_layout Enumerate
+Warte auf Nachrichten von allen seriellen Schnittstellen der Knoten
 \end_layout
 
-\begin_layout Itemize
-Ansonsten ist es nicht möglich, zu erfassen, wann die Daten jeweils überall
- waren, da sie nicht überall ankommen müssen
+\begin_layout Enumerate
+Wenn eine Nachricht von Knoten 
+\begin_inset Formula $k$
+\end_inset
+
+ empfangen wurde und diese Nachricht über die Aktualisierung des Caches
+ ist:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+entferne 
+\begin_inset Formula $k$
+\end_inset
+
+ aus 
+\begin_inset Formula $S$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+merke dir die übermittelte Rundennummer, solange sie größer ist als die
+ größte bisher bekannte.
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Pseudocode-Rundenanzahl"
+
+\end_inset
+
+Pseudocode zur Ermittlung der Rundenanzahl
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dieser Algorithmus geht davon aus, dass eine solche Nachricht nur ausgegeben
+ wird, wenn der Knoten die vollständige Information erhalten hat.
+ Des Weiteren geht dieses Verfahren nicht auf den Inhalt des Caches ein.
+ Sollte also zu Beginn mehrere Knoten mit unterschiedlichen Werten infiziert
+ sein, ist dieser Algorithmus dafür nicht nutzbar.
+\end_layout
+
+\begin_layout Standard
+Im Rahmen dieser Arbeit wurde deshalb davon ausgegangen, dass nur ein Knoten
+ zu Beginn infiziert ist, weshalb eine Betrachtung des Cache-Inhalts entfallen
+ kann.
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -420,28 +597,102 @@ Da dieser Schritt nicht Gegenstand der Messungen ist, sieht die Implementierung
 \end_layout
 
 \begin_layout Subsection
-Umsetzung des Algorithmus
+Implementierung des Gossiping-Frameworks
 \end_layout
 
 \begin_layout Subsubsection
-Algorithmus zur Verteilung eines einzigen Datums
+Generisches Framework
 \end_layout
 
-\begin_layout Itemize
-hier erhält ein Knoten von außen einen Wert und fängt dann das Gossiping
- an
+\begin_layout Standard
+Diese Arbeit umfasst die Implementierung eines generischen Gossiping-Frameworks,
+ das sich an dem in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "6042051,5290827"
+
+\end_inset
+
+ vorgestellten theoretischen Framework orientiert, das bereits in Algorithmus
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Gossiping-Framework-nach-Bakhshi"
+
+\end_inset
+
+ als Pseudocode vorgestellt wurde.
 \end_layout
 
-\begin_layout Itemize
-Datenstrukturen
+\begin_layout Standard
+Am Ende soll also ein Framework implementiert werden, dass lediglich drei
+ Methoden bereitstellt, die implementiert werden müssen, um einen konkreten
+ Algorithmus zu implementieren, der das Gossiping-Protokoll verwendet: eine
+ Methode zur Auswahl des Nachbarn (
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+RandomPeer()
 \end_layout
 
-\begin_layout Itemize
-Unterschiede zum Pseudocode
+\end_inset
+
+), mit dem in der aktuellen Runde kommuniziert werden soll, eine Methode
+ zur Vorbereitung der Nachricht (
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+PrepareMsg()
+\end_layout
+
+\end_inset
+
+) sowie eine Methode, die anhand des eigenen Caches und einer empfangenen
+ Nachricht entsprechende Änderungen am eigenen Cache vornimmt (
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+Update()
+\end_layout
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Es ist jedoch nicht möglich, das Framework eins zu eins für einen IoT-Lab-Knoten
+ zu implementieren.
+\end_layout
+
+\begin_layout Standard
+Hauptpunkt ist dabei, dass das receive-Konstrukt, das vom Knoten-Betriebssystem
+ bereitgestellt wird, sich deutlich anders verhält als in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Methoden-zur-Kommunikation"
+
+\end_inset
+
+ definiert wurde.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Subsubsection
-Algorithmus zur Verteilung eines Caches (Menge von Daten)
+Implementierung des Testalgorithmus
 \end_layout
 
 \begin_layout Itemize

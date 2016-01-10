@@ -170,6 +170,12 @@ u\in V & \left\{ v,u\right\} \in E\end{array}\right\} \label{eq:neighbourhood-de
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Methoden-zur-Kommunikation"
+
+\end_inset
+
 Methoden zur Kommunikation zwischen Knoten
 \end_layout
 
@@ -1365,6 +1371,12 @@ Ein großer Nachteil im Vergleich zum vorherigen Ansatz ist die hohe Belastung
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Push-Pull-PP"
+
+\end_inset
+
 Push, Pull und Push-Pull
 \end_layout
 
@@ -2310,6 +2322,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Schnittstellen-IoT"
+
+\end_inset
+
 Schnittstellen in das IoT-Lab (Quelle: IoT-Lab Website 
 \begin_inset Note Note
 status open
@@ -2939,7 +2957,7 @@ Durch das garantierte Warten einer bestimmten Zeit beim Versand eines Pakets
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-16\mu s\cdot aUnitBackoffPeriod\cdot\left(2^{BE}-1\right) & = & 16\mu s\cdot20\cdot7\\
+16\mu s\cdot\textrm{aUnitBackoffPeriod}\cdot\left(2^{BE}-1\right) & = & 16\mu s\cdot20\cdot7\\
  & = & 2240\mu s
 \end{eqnarray*}
 
