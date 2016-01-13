@@ -149,25 +149,18 @@ Deshalb werden diese Überlegungen durch empirische Untersuchungen ergänzt
 Eine Plattform zur Durchführung solcher Experimente bildet das IoT-Lab.
  Dieses stellt für akademische Zwecke an 6 Standorten mehr als 2500 drahtlose
  Sensorknoten zur Verfügung.
- Der Zugriff über verschiedene web-basierte Schnittstellen und erlauben
+ Der Zugriff erfolgt über verschiedene web-basierte Schnittstellen und erlaubt
  die freie Verwendung der Hardware.
- Diese sind mit gängigen Funktechnologien ausgestattet.
+ Diese Knoten sind mit gängigen energiesparenden Funktechnologien ausgestattet.
 \end_layout
 
 \begin_layout Standard
-Ziel dieser Arbeit ist es, einen Gossiping-Algorithmus für diese Hardware
- zu implementieren, mit dem Ziel die Nachrichtenverteilzeit zu ermitteln,
- also die Zeit, die vergeht, bis ein bestimmtes Objekt im Netzwerk von allen
- Knoten gesehen wurde.
-\end_layout
-
-\begin_layout Standard
-Dazu wird der implementierte Algorithmus mit unterschiedlichen Datenmengen
- und auch unterschiedlichen Knotenmengen getestet.
- Dabei sind von Interesse die Verteilung der Knoten im Raum, die Anzahl
- der Knoten und der Ort der Injektion der Daten.
- Die so ermittelten Werte werden anschließend ausgewertet, in Relation gesetzt
- und diskutiert.
+Ziel dieser Arbeit ist es, ein Framework für Gossiping-Algorithmen auf dieser
+ Hardware zu implementieren.
+ Dieses Framework wird dann zur Implementierung einer einfachen Informationsverb
+reitung verwendet, um anhand dieser die Nachrichtenverteilzeit zu ermitteln.
+ Dies sei die Zeit, die vergeht, bis ein bestimmtes Objekt im Netzwerk von
+ allen Knoten gesehen wurde.
 \end_layout
 
 \end_body

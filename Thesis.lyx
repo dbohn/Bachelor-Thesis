@@ -66,7 +66,7 @@
 \quotes_language german
 \papercolumns 1
 \papersides 2
-\paperpagestyle fancy
+\paperpagestyle default
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -177,7 +177,7 @@ filename "chapters/Fazit.lyx"
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "papers"
-options "plain"
+options "IEEEtran"
 
 \end_inset
 
@@ -208,10 +208,6 @@ pagenumbering{roman}
 
 \end_layout
 
-\begin_layout Section
-Danksagung
-\end_layout
-
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
@@ -220,6 +216,43 @@ filename "chapters/installation.lyx"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Danksagung
+\end_layout
+
+\begin_layout Standard
+Mein Dank gilt vor allem Frau Prof.
+ Dr.
+ Katinka Wolter, die mich mit ihrem Feedback und kritischen Fragen während
+ des Schreibens sehr unterstützt hat.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren möchte ich meinen Dank für die Einladung zu den Treffen der
+ Arbeitsgruppe 
+\begin_inset Quotes gld
+\end_inset
+
+Zuverlässige Systeme
+\begin_inset Quotes grd
+\end_inset
+
+ ausdrücken, durch die ich schon während der Bearbeitung der Fragestellung
+ diese einem größeren Fachpublikum vorstellen konnte.
+\end_layout
+
+\begin_layout Standard
+Außerdem möchte ich meinen Eltern danken, die mich stets motiviert und unterstüt
+zt haben, sei es durch mehrmaliges Lesen dieser Arbeit oder durch ein offenes
+ Ohr.
+\end_layout
+
+\begin_layout Standard
+Zu guter Letzt möchte ich meinen Kommilitonen Luca Keidel, Fabian Reimeier
+ und Friedrich Ueberreiter bedanken, die mich während der Erarbeitung durch
+ ihre Meinung und Hilfe unterstützt haben.
 \end_layout
 
 \end_body

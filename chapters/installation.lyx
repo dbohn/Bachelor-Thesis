@@ -77,5 +77,485 @@
 Installationsanleitung
 \end_layout
 
+\begin_layout Standard
+Alle diese Schritte wurden mit Ubuntu 14.04 nachvollzogen.
+ Zunächst wird die Compiler-Sammlung installiert und das Projekt kompiliert.
+ Danach wird die Software-Schnittstelle auf den Server des IoT-Labs geladen.
+ Zuletzt wird die gebaute Firmware lokalisiert, hochgeladen und dann das
+ Experiment gestartet und durchgeführt.
+\end_layout
+
+\begin_layout Minisec
+Kompilierung der Firmware
+\end_layout
+
+\begin_layout Enumerate
+Zunächst werden die Compiler-Sammlung für ARM-Cortex Prozessoren sowie das
+ Build-Tool cmake installiert:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+sudo apt-get install gcc-arm-none-eabi cmake
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Es kann sein, dass in neueren Versionen der Distribution die installierte
+ Version der Compiler nicht geeignet ist und das Bauen fehlschlägt.
+ Alternativ empfiehlt das IoT-Lab Wiki
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/iot-lab/iot-lab/wiki/FAQ_Gcc_arm_versions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ die Installation durch Download des entsprechenden Pakets über das Launchpad.
+ Dort wird zum Zeitpunkt dieser Arbeit die GCC-Version 4.8 empfohlen, die
+ derzeit auch in den Paketquellen von Ubuntu 14.04 zu finden ist.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Anschließend wird das Repository mit den Quellen der Arbeit geklont und
+ in das Verzeichnis gewechselt:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+git clone https://github.com/dbohn/openlab.git && cd openlab
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dieses Repository ist ein Fork der offiziellen FreeRTOS-Distribution (genannt
+ openlab) des IoT-Labs.
+ Daher sind dort alle Treiber etc.
+ und viele weitere Beispielanwendungen des IoT-Labs enthalten.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Anschließend wird ein Build-Ordner angelegt:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+mkdir build.m3 && cd build.m3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Zur Generierung der Makefiles wird cmake verwendet, das mit folgendem Befehl
+ die Makefiles für die m3-Knoten erstellt.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+cmake ..
+ -DPLATFORM=iotlab-m3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Anschließend kann nun das Gossiping-Projekt (noch in dem 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+build.m3
+\end_layout
+
+\end_inset
+
+-Verzeichnis!) gebaut werden:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+make gossiping
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Die fertig gebaute .elf-Datei befindet sich anschließend im Unterverzeichnis
+ 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+build.m3/bin
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Minisec
+Starten eines Experiments
+\end_layout
+
+\begin_layout Standard
+Zum Starten eines Experiments muss man sich zunächst auf 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://iot-lab.info
+\end_layout
+
+\end_inset
+
+ anmelden.
+ Anschließend kann mit einem Klick auf 
+\begin_inset Quotes gld
+\end_inset
+
+New Experiment
+\begin_inset Quotes grd
+\end_inset
+
+ der Assistent zum Starten eines Experiment geöffnet werden:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/setup/iot-lab-new-exp.png
+	width 85col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Assistent zum Erstellen eines Experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Im Feld 
+\begin_inset Quotes gld
+\end_inset
+
+Name
+\begin_inset Quotes grd
+\end_inset
+
+ wird ein Name für das Experiment angegeben unter dem man dieses später
+ identifizieren kann und in dem Feld 
+\begin_inset Quotes gld
+\end_inset
+
+Duration
+\begin_inset Quotes grd
+\end_inset
+
+ kann die Dauer des Experiments festgelegt werden.
+ Im Anschluss müssen noch die Knoten ausgewählt werden, die verwendet werden.
+\end_layout
+
+\begin_layout Standard
+Entweder können hier die Knoten durch Auswahl des Punkts 
+\begin_inset Quotes gld
+\end_inset
+
+from maps
+\begin_inset Quotes grd
+\end_inset
+
+ über Image Maps händisch ausgewählt werden, was allerdings etwas mühsam
+ sein kann, oder vom System ausgewählt werden, indem der Punkt 
+\begin_inset Quotes gld
+\end_inset
+
+by type
+\begin_inset Quotes grd
+\end_inset
+
+ gewählt wird.
+ In diesem Modus wird unter 
+\begin_inset Quotes gld
+\end_inset
+
+Archi
+\begin_inset Quotes grd
+\end_inset
+
+ die Architektur der Knoten ausgewählt, in diesem Fall also m3:at86rf231.
+ Als 
+\begin_inset Quotes gld
+\end_inset
+
+site
+\begin_inset Quotes grd
+\end_inset
+
+ empfiehlt sich grenoble, damit wird ausgewählt, welches Testbed man verwenden
+ will.
+ Zuletzt wählt man noch die Anzahl der Knoten aus, die man verwenden will.
+\end_layout
+
+\begin_layout Standard
+Durch ein Klick auf 
+\begin_inset Quotes gld
+\end_inset
+
+Next
+\begin_inset Quotes grd
+\end_inset
+
+ erscheint nun der Dialog zum Upload der Firmware.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/setup/iot-lab-assoc.png
+	width 85col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Firmware-Assoziation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unter dem Auswahlfeld 
+\begin_inset Quotes gld
+\end_inset
+
+Firmware(s)
+\begin_inset Quotes grd
+\end_inset
+
+ kann nun die kompilierte Firmware ausgewählt werden.
+ Diese wird dann automatisch hochgeladen.
+ Es gibt dabei keinen visuellen Indikator, so dass man etwas Geduld haben
+ muss.
+ Anschließend wird in der 
+\begin_inset Quotes gld
+\end_inset
+
+Node(s)
+\begin_inset Quotes grd
+\end_inset
+
+-Liste die vorherige Auswahl an Knoten und die soeben hochgeladene Firmware
+ im 
+\begin_inset Quotes gld
+\end_inset
+
+Firmware(s)
+\begin_inset Quotes grd
+\end_inset
+
+-Bereich angeklickt und anschließend eine Zuordnung hergestellt durch einen
+ Klick auf 
+\begin_inset Quotes gld
+\end_inset
+
+Add Association
+\begin_inset Quotes grd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Ein Klick auf 
+\begin_inset Quotes gld
+\end_inset
+
+Submit
+\begin_inset Quotes grd
+\end_inset
+
+ führt nun dazu, dass das Experiment gestartet wird.
+\end_layout
+
+\begin_layout Minisec
+Installation und Nutzung der Kontrollsoftware
+\end_layout
+
+\begin_layout Standard
+Zur Steuerung der Knoten und zur Datenerfassung wurde ein Python-Tool geschriebe
+n, das in diesem Abschnitt installiert und ausgeführt wird.
+\end_layout
+
+\begin_layout Standard
+Dazu muss zuerst der Unterordner 
+\begin_inset Quotes gld
+\end_inset
+
+management
+\begin_inset Quotes grd
+\end_inset
+
+ im Projektordner auf den IoT-Lab Server übertragen werden.
+ Dazu wird am besten das Tool scp verwendet.
+ Wichtig ist dabei die Dateien auf den richtigen Server zu übertragen.
+ Wenn also 
+\begin_inset Quotes gld
+\end_inset
+
+grenoble
+\begin_inset Quotes grd
+\end_inset
+
+ als Testbed für das Experiments ausgewählt wurde, so muss auch eine Verbindung
+ zum Server 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+grenoble.iot-lab.info
+\end_layout
+
+\end_inset
+
+ aufgebaut werden.
+\end_layout
+
+\begin_layout Standard
+Mit gestartetem Experiment kann nun eine Verbindung via ssh zu diesem Server
+ hergestellt werden und dann in das hochgeladene Verzeichnis gewechselt
+ werden.
+ Ein Aufruf von 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+python manager.py
+\end_layout
+
+\end_inset
+
+ startet nun das Experiment.
+\end_layout
+
 \end_body
 \end_document

@@ -85,7 +85,7 @@ Das Maß
 Ziel der Arbeit ist die Implementierung eines generischen Gossiping-Frameworks,
  das auf den Knoten des IoT-Labs ausgeführt werden kann, und die Evaluierung
  dieses Frameworks durch eine Anwendung, mit der die Nachrichtenverteilzeit
- einer Nachricht durch den Gossiping-Algorithmus bestimmt werden kann.
+ durch den Gossiping-Algorithmus bestimmt werden kann.
 \end_layout
 
 \begin_layout Standard
@@ -294,7 +294,7 @@ Pseudocode zur Ermittlung der Rundenanzahl
 Dieser Algorithmus geht davon aus, dass eine solche Nachricht nur ausgegeben
  wird, wenn der Knoten die vollständige Information erhalten hat.
  Des Weiteren geht dieses Verfahren nicht auf den Inhalt des Caches ein.
- Sollte also zu Beginn mehrere Knoten mit unterschiedlichen Werten infiziert
+ Sollten also zu Beginn mehrere Knoten mit unterschiedlichen Werten infiziert
  sein, ist dieser Algorithmus dafür nicht nutzbar.
 \end_layout
 
@@ -337,21 +337,22 @@ Im ersten Schritt muss also ein Knoten auf sich aufmerksam machen, also
 \begin_layout Standard
 Der verwendete 802.15.4 Funkstandard erlaubt entweder den Versand einer Nachricht
  an einen einzelnen Knoten oder aber einer Broadcast-Nachricht, die von
- jedem Knoten empfangen wird, den das Signal in einer Form erreicht, dass
- er es decodieren kann.
+ jedem Knoten, der diese decodieren kann, empfangen wird.
 \end_layout
 
 \begin_layout Standard
 Da der Knoten ja noch keine weiteren Knoten kennt, ist eine Broadcast-Nachricht
- die einzige Möglichkeit, die ihm bleibt, um sich damit anderen Knoten vorzustel
-len.
+ die einzige Möglichkeit, die ihm bleibt, um sich anderen Knoten vorzustellen.
 \end_layout
 
 \begin_layout Standard
 Eine wünschenswerte Anforderung bei der Konstruktion dieser Nachbarschaftsrelati
 on ist auch eine physische Nachbarschaft der Knoten.
- Das heißt, ein Knoten sollte nur die Nachbarn in seiner näheren Umgebung
- als Nachbarn kennen, mit denen er auch sicher kommunizieren kann.
+\end_layout
+
+\begin_layout Standard
+Das heißt, ein Knoten sollte nur die Knoten in seiner näheren Umgebung als
+ Nachbarn kennen, mit denen er auch sicher kommunizieren kann.
 \end_layout
 
 \begin_layout Standard
@@ -368,10 +369,10 @@ key "Baccour:2012:RLQ:2240116.2240123"
 
 \end_inset
 
- feststellen, ist der Übertragungsbereich eines drahtlosen Sensorknotens
- nicht isotrop, das heißt nicht als einfache zirkulare Form um den Knoten
- annehmbar, in dem Pakete zuverlässig übertragen werden können, sondern
- lässt sich in drei Bereiche aufteilen: Der 
+ feststellen, ist der Übertragungsbereich eines drahtlosen Sensorknotens,
+ in dem Pakete zuverlässig übertragen werden können, nicht isotrop, das
+ heißt nicht als einfache zirkulare Form um den Knoten annehmbar, sondern
+ lässt sich in drei Bereiche aufteilen: Die 
 \begin_inset Quotes gld
 \end_inset
 
@@ -383,8 +384,9 @@ connected region
 \begin_inset Quotes grd
 \end_inset
 
-, die die Anforderungen einer qualitativ hochwertigen und stabilen Funkverbindun
-g mit anderen Knoten erfüllt, einer 
+ erfüllt die Anforderungen einer qualitativ hochwertigen und stabilen Funkverbin
+dung mit anderen Knoten.
+ In der 
 \begin_inset Quotes gld
 \end_inset
 
@@ -396,7 +398,8 @@ transitional region
 \begin_inset Quotes grd
 \end_inset
 
-, in der Knoten auf lange Sicht nicht unbedingt stabil sind, und der 
+ sind die Kanäle zwischen Knoten auf lange Sicht nicht unbedingt stabil
+ und die 
 \begin_inset Quotes gld
 \end_inset
 
@@ -408,8 +411,8 @@ disconnected region
 \begin_inset Quotes grd
 \end_inset
 
-, die für die Datenübertragung ungeeignet ist, da eine zuverlässige Datenübertra
-gung nicht oder kaum möglich ist.
+ ist für die Datenübertragung ungeeignet, da eine zuverlässige Datenübertragung
+ nicht oder kaum möglich ist.
 \end_layout
 
 \begin_layout Standard
@@ -417,7 +420,11 @@ Die
 \begin_inset Quotes gld
 \end_inset
 
+
+\emph on
 transitional region
+\emph default
+
 \begin_inset Quotes grd
 \end_inset
 
@@ -444,8 +451,8 @@ Packet Reception Ratio
 Wenn also ein Knoten eine Broadcast-Nachricht erhält, macht es durchaus
  Sinn, nicht blind den Absender als Nachbarn hinzuzufügen, sondern noch
  weitere Metriken einfließen zu lassen.
- Die Implementierung des Funktreibers des IoT-Lab Moduls gibt uns zwei Werte,
- die der Knoten zur Entscheidungsfindung verwenden kann:
+ Die Implementierung des Funktreibers des IoT-Lab Moduls ermöglicht die
+ Nutzung zweir Werte zur Entscheidungsfindung:
 \end_layout
 
 \begin_layout Description
@@ -466,8 +473,8 @@ Strength
 \end_inset
 
 Indicator) Der RSSI-Wert gibt den Leistungspegel in dBm (Dezibel Milliwatt)
- an, mit der ein Signal empfangen wurde, und dabei sowohl negative als auch
- positive Werte annehmen kann.
+ an, mit dem ein Signal empfangen wurde und kann dabei sowohl negative als
+ auch positive Werte annehmen.
 \end_layout
 
 \begin_layout Description
@@ -501,8 +508,8 @@ reference "subsec:PHY-Layer"
 \end_inset
 
  liegt.
- Der verwendete Chipsatz AT86RF231 definiert den LQI so, dass er sich auf
- die 
+ Der verwendete Chipsatz AT86RF231 definiert den LQI so, dass er sich nach
+ längerer Laufzeit auf die 
 \begin_inset Quotes gld
 \end_inset
 
@@ -515,9 +522,15 @@ packet error rate
 \end_inset
 
  (PER) abbilden lässt, welche das Verhältnis zwischen fehlerhaften empfangenen
- Paketen zur gesamten Anzahl an empfangenen Paketen darstellt.
- Diese Korrelation lässt sich natürlich erst nach vielen übertragenen Paketen
- herstellen.
+ Paketen zur gesamten Anzahl an empfangenen Paketen darstellt (vgl.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AT86RF231"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -563,20 +576,8 @@ key "AT86RF231"
 \end_layout
 
 \begin_layout Standard
-Die Implementierung verwendet primär den RSSI-Wert, kann aber auch auf den
- LQI-Wert geändert werden, da die Metrik des RSSI-Wertes transparenter ist
- und eine direkte physikalische Beziehung hat.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TODO: umformulieren
-\end_layout
-
-\end_inset
-
-
+Die Implementierung lässt sich leicht auf eine der beiden Metriken umstellen,
+ standardmäßig ist aber eine Abgrenzung nach der RSSI implementiert.
 \end_layout
 
 \begin_layout Standard
@@ -621,7 +622,7 @@ reference "alg:Gossiping-Framework-nach-Bakhshi"
 
 \end_inset
 
- als Pseudocode vorgestellt wurde.
+ als Pseudocode beschrieben wurde.
 \end_layout
 
 \begin_layout Standard
@@ -676,8 +677,20 @@ Es ist jedoch nicht möglich, das Framework eins zu eins für einen IoT-Lab-Knot
 \end_layout
 
 \begin_layout Standard
-Hauptpunkt ist dabei, dass das receive-Konstrukt, das vom Knoten-Betriebssystem
- bereitgestellt wird, sich deutlich anders verhält als in Abschnitt 
+Das Hauptproblem ist hierbei, dass das 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+receive
+\end_layout
+
+\end_inset
+
+-Konstrukt, das vom Knoten-Betriebssystem bereitgestellt wird, sich deutlich
+ anders verhält als in Abschnitt 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Methoden-zur-Kommunikation"
@@ -688,7 +701,22 @@ reference "subsec:Methoden-zur-Kommunikation"
 \end_layout
 
 \begin_layout Standard
+Durch einen Interrupt wird von dem Funkchip angezeigt, dass eine neue Nachricht
+ vorliegt.
+ Das führt dazu, dass eine Callback-Funktion aufgerufen wird, die die entspreche
+nde Nachricht enthält und zur Verarbeitung dieser dient.
+\end_layout
 
+\begin_layout Standard
+Es ist daher nicht praktikabel, eine Trennung in zwei Threads vorzunehmen,
+ da die Behandlung der empfangenen Nachrichten losgelöst von diesen geschieht.
+\end_layout
+
+\begin_layout Standard
+Das impliziert des Weiteren das Problem, ob eine Nachricht jetzt eine Pull-Nachr
+icht ist, das heißt als Antwort an den aktiven Thread gerichtet ist, oder
+ eine Push-Nachricht.
+ Deswegen wurde eine Struktur für die Nachricht implementiert, 
 \end_layout
 
 \begin_layout Subsubsection

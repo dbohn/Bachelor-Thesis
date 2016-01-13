@@ -359,8 +359,8 @@ receive b
 \end_layout
 
 \begin_layout Standard
-Um herauszufinden, wer der Absender der empfangen Nachricht ist, wird die
- Funktion 
+Um herauszufinden, wer der Absender der empfangenen Nachricht ist, wird
+ die Funktion 
 \begin_inset listings
 lstparams "basicstyle={\ttfamily}"
 inline true
@@ -426,12 +426,12 @@ status open
 
 \begin_layout Plain Layout
 
-sender
+sender()
 \end_layout
 
 \end_inset
 
--Funktion auch durch einfache 
+-Funktion auch durch die oben beschriebenen 
 \begin_inset listings
 lstparams "basicstyle={\ttfamily}"
 inline true
@@ -454,10 +454,11 @@ Der Gossiping-Algorithmus
 \begin_layout Standard
 In diesem Kapitel wird nun zunächst die Grundidee des Gossiping-Algorithmus
  vorgestellt und dann konkrete Umsetzungen dieses Verfahrens dargestellt.
- Hauptsächlich werden dabei Aspekte beleuchtet, die für die Nachrichtenverteilze
-it von Relevanz sind.
- Somit ist für uns vor allem von Interesse, wann die Information im gesamten
- Netzwerk verteilt ist bzw.
+ Hauptsächlich werden dabei allgemeine Charakteristika von Gossiping-Algorithmen
+ vorgestellt und Aspekte beleuchtet, die für die Nachrichtenverteilzeit
+ von Relevanz sind.
+ Somit ist vor allem von Interesse, wann die Information im gesamten Netzwerk
+ verteilt ist bzw.
  wann der Gossiping-Algorithmus terminiert.
 \end_layout
 
@@ -487,8 +488,8 @@ tratschend
 
 \begin_layout Standard
 Als Beispiel diene die folgende Geschichte: In einem Büro mit einer festen
- Anzahl von Mitarbeitern erhält Mitarbeiter ein Mitarbeiter die Nachricht,
- dass zum Ende des Jahres einige Mitglieder gekündigt werden.
+ Anzahl von Mitarbeitern erhält ein Mitarbeiter die Nachricht, dass zum
+ Ende des Jahres einige Arbeitnehmer gekündigt werden.
  Dies ist natürlich eine Nachricht von solcher Prägnanz, dass er diese sofort
  einem Kollegen mitteilt, der ihm im Büro gegenübersitzt.
  Somit ist auch dieser Kollege im Besitz dieser Information, die er dann
@@ -527,8 +528,8 @@ Anforderungen an einen Gossiping-Algorithmus
 \end_layout
 
 \begin_layout Standard
-Im Folgenden wird ein Algorithmus im Folgenden als Gossiping-Algorithmus
- bezeichnet, wenn er die folgenden Anforderungen, die von 
+Im Folgenden wird ein Algorithmus als Gossiping-Algorithmus bezeichnet,
+ wenn er die Anforderungen erfüllt, die von 
 \noun on
 Birman
 \noun default
@@ -539,7 +540,7 @@ key "Birman:2007:PLG:1317379.1317382"
 
 \end_inset
 
- vorgeschlagen wurden, erfüllt.
+ vorgeschlagen wurden.
 \end_layout
 
 \begin_layout Enumerate
@@ -611,11 +612,12 @@ Zu 4.
 \end_layout
 
 \begin_layout Standard
-Dieser Punkt ist einer der großen Stärken von Gossiping Algorithmen in drahtlose
+Dieser Punkt ist einer der großen Stärken von Gossiping-Algorithmen in drahtlose
 n Sensornetzwerken, in denen Knoten wegen äußerer Einwirkungen nicht immer
- unbedingt verfügbar sind oder Nachrichten nicht empfangen werden können.
- Dies heißt im Prinzip, dass der Algorithmus nicht davon aufgehalten werden
- darf, wenn er einen bestimmten Nachbarknoten nicht erreichen kann.
+ unbedingt verfügbar sind oder Nachrichten während der Kommunikation beschädigt
+ werden können.
+ Das bedeutet, dass der Verlust oder das Ausbleiben einer Nachricht an einen
+ Knoten nicht die weitere Ausführung des Algorithmus verhindert.
 \end_layout
 
 \begin_layout Paragraph
@@ -684,9 +686,9 @@ key "Demers:1987:EAR:41840.41841"
 
 \begin_layout Standard
 Während aber der Virologe gemeinhin versucht, die Verbreitung des Virus
- möglichst einzudämmen, so möchte man bei epidemischen Algorithmen hingegen
- einen Verlauf gestalten, der eine möglichst schnelle Verbreitung der Informatio
-nen gewährleistet.
+ möglichst einzudämmen, so ist für den Entwurf von epidemischen Algorithmen
+ hingegen in der Regel ein Verlauf gewünscht, der eine möglichst schnelle
+ Verbreitung der Informationen gewährleistet.
 \end_layout
 
 \begin_layout Subsubsection
@@ -694,25 +696,19 @@ Knotenzustände
 \end_layout
 
 \begin_layout Standard
-Wir betrachten zunächst, welche Zustände ein Knoten in unserem Netzwerk
- 
-\begin_inset Formula $G=\left(V,E\right)$
-\end_inset
-
- haben kann.
- Diese Zustände werden in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
- vorgeschlagen und sind der Epidemologie entnommen.
- Jeder Knoten 
+ ordnet einem Knoten 
 \begin_inset Formula $v\in V$
 \end_inset
 
- hat zu jedem Zeitpunkt einen dieser drei Zustände:
+ einen von drei Zuständen zu.
+ Diese sind der in der Epidemologie entlehnt und werden in den folgenden
+ Betrachtungen zur Charakterisierung des Verhaltens eines Knotens verwendet:
 \end_layout
 
 \begin_layout Description
@@ -805,14 +801,15 @@ Modellierung von Gossiping als epidemischer Algorithmus
 \end_layout
 
 \begin_layout Standard
-Wir betrachten nun, wie das Rumor Spreading (also Gossiping), nach 
+Zunächst wird das Rumor Spreading als epidemischer Algorithmus beschrieben,
+ welches nach 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Demers:1987:EAR:41840.41841"
 
 \end_inset
 
- als epidemischer Algorithmus beschrieben werden kann.
+ zunächst von einem oder sehr wenigen infizierten Knoten ausgeht.
 \end_layout
 
 \begin_layout Standard
@@ -825,7 +822,7 @@ Ein Knoten
 \emph on
 infiziert
 \emph default
-, wählt fortlaufend einen Knoten aus 
+, wählt in periodischen Abständen einen Knoten aus 
 \begin_inset Formula $\mathcal{N}\left(v\right)$
 \end_inset
 
@@ -914,7 +911,7 @@ Das lässt nun die Frage aufkommen, wann das System in einen Zustand kommt,
 \end_layout
 
 \begin_layout Standard
-Wir nehmen hierbei an, dass die Kanäle zwischen den Knoten verlustfrei sind
+Es gelte zunächst die Annahme, dass die Kanäle zwischen den Knoten verlustfrei
  und die Sende- und Empfangsoperationen atomar sind.
  Dies sind gerade in drahtlosen Sensornetzen sehr starke Einschränkungen,
  die aber zu der Zeit und für den Anwendungszweck von 
@@ -926,7 +923,7 @@ et al.
 \end_layout
 
 \begin_layout Standard
-Dazu betrachten wir, wie sich die Anteile der 
+Dazu wird die Änderung der Anteile der 
 \emph on
 infizierten
 \emph default
@@ -942,7 +939,7 @@ entfernten
 \begin_inset Formula $V$
 \end_inset
 
- über die Zeit ändert.
+ über die Zeit betrachtet.
  Sei 
 \begin_inset Formula $i=\frac{\left|I\right|}{\left|V\right|}$
 \end_inset
@@ -1016,22 +1013,22 @@ reference "eq:susceptible-change"
 
 \end_inset
 
- beschreibt dabei die Änderung des Anteils der Empfänglichen Knoten an 
+ beschreibt dabei die Änderung des Anteils der empfänglichen Knoten an 
 \begin_inset Formula $V$
 \end_inset
 
  pro Zeiteinheit.
- Das Produkt beschreibt dabei, den Anteil der Empfänglichen, die von den
- infizierten Knoten ausgewählt werden und die neue Information erhalten,
- dadurch verlassen sie den Zustand 
+ Das Produkt beschreibt den Anteil der empfänglichen Knoten, die von den
+ infizierten Knoten ausgewählt werden und die neue Information erhalten.
+ Dadurch verlassen sie den Zustand 
 \emph on
 empfänglich
 \emph default
-, weshalb diese Menge immer abnimmt.
+, weshalb diese Menge in jedem Zeitschritt kleiner wird.
 \end_layout
 
 \begin_layout Standard
-Analog haben wir den reziproken Term in Gleichung 
+Analog befindet sich ein entgegengesetzte Term in Gleichung 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:infected-change"
@@ -1111,11 +1108,11 @@ key "Demers:1987:EAR:41840.41841"
 \end_layout
 
 \begin_layout Standard
-Dadurch können wir nun über Integration eine Funktion 
+Durch Integration entsteht nun eine Funktion 
 \begin_inset Formula $i\left(s\right)$
 \end_inset
 
- erhalten, die uns für einen Anteil an empfänglichen Knoten einen Anteil
+, die zu einem Anteil an empfänglichen Knoten einen entsprechenden Anteil
  an infizierten Knoten bestimmt:
 \end_layout
 
@@ -1171,7 +1168,7 @@ reference "eq:i-nach-integration"
 
 \end_inset
 
- erhalten wir somit:
+ ergibt sich die Funktion:
 \end_layout
 
 \begin_layout Standard
@@ -1188,8 +1185,9 @@ i\left(s\right) & = & \frac{k+1}{k}\left(1-s\right)+\frac{1}{k}\ln s\label{eq:i-
 \begin_layout Standard
 Zur Bestimmung der Anzahl der empfänglichen Knoten, bei denen es keine infiziert
 en Knoten mehr gibt, also das System inaktiv geworden ist, wird diese Funktion
- null gesetzt, was die folgende implizite Gleichung für die Anzahl der Empfängli
-chen Knoten ergibt:
+ null gesetzt.
+ Dadurch entsteht die folgende implizite Gleichung für die Anzahl der empfänglic
+hen Knoten:
 \end_layout
 
 \begin_layout Standard
@@ -1204,11 +1202,15 @@ s & = & e^{-\left(k+1\right)\left(1-s\right)}\label{eq:development-of-s}
 \end_layout
 
 \begin_layout Standard
-Diese Gleichung ist lediglich von 
+Aus dieser Gleichung wird ersichtlich, dass 
+\begin_inset Formula $s$
+\end_inset
+
+ lediglich von 
 \begin_inset Formula $k$
 \end_inset
 
- und von sich selbst abhängig, weshalb es eine implizite Gleichung ist.
+ und sich selbst abhängt:
 \end_layout
 
 \begin_layout Standard
@@ -1266,11 +1268,29 @@ Wird somit zum Beispiel
 \begin_inset Formula $2$
 \end_inset
 
- erhöht, so sind dies lediglich nur noch 
+ erhöht, d.h.
+ ein infizierter Knoten geht mit 
+\begin_inset Formula $50\%$
+\end_inset
+
+iger Wahrscheinlichkeit in den Zustand 
+\emph on
+entfernt
+\emph default
+ über, so schrumpft der Anteil der Knoten, die die Information nicht erhalten,
+ auf lediglich 
 \begin_inset Formula $6\%$
 \end_inset
 
- der Knoten, die die Information nicht erhalten.
+ (vgl.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -1427,11 +1447,11 @@ Push
 \end_layout
 
 \begin_layout Standard
-Jeder infizierte Knoten leitet in diesem Fall seine Information pro Runde
- an genau einen anderen Knoten weiter.
- Initial sind wenige Knoten infiziert (beim rumor spreading genau einer)
- und die Chance, einen Knoten zu finden, der die Nachricht bereits erhalten
- hat.
+Jeder infizierte Knoten leitet in diesem Fall pro Runde seine Information
+ an genau einen anderen Knoten, ohne dass dieser diese angefordert hat.
+ Initial sind wenige Knoten infiziert (oftmals genau einer) und die Chance,
+ einen Knoten zu finden, der die Nachricht noch nicht erhalten hat, ist
+ hoch.
  Somit wächst die Menge der Infizierten nach 
 \noun on
 Karp
@@ -1504,8 +1524,8 @@ key "892324"
 
  Knoten infiziert.
  Aber ab diesem Punkt verbessert sich die Verteilung der Nachricht deutlich
- im Vergleich zum Push-Algorithmus, der ab diesem Punkt nur noch konstant
- viele Knoten höchstens neu infiziert.
+ im Vergleich zum Push-Algorithmus, der ab diesem Punkt nur noch höchstens
+ konstant viele Knoten neu infiziert.
  Seien zu Beginn der Runde 
 \begin_inset Formula $s\cdot n$
 \end_inset
@@ -1894,15 +1914,15 @@ Bakhshi
 \end_layout
 
 \begin_layout Standard
-Das Framework sieht vor, dass ein Knoten zwei Threads ausführt - einen aktiven
- und einen passiven Thread.
- Des Weiteren besitzt jeder Knoten einen lokalen Cache, der die Daten des
- Knotens beinhaltet, die durch das Gossiping verbreitet und verändert werden.
+Jeder Knoten besitzt einen lokalen Cache, der die Daten des Knotens beinhaltet,
+ die durch das Gossiping verbreitet und verändert werden.
+ Das Framework sieht vor, dass ein Knoten zwei Threads ausführt - einen
+ aktiven und einen passiven Thread.
 \end_layout
 
 \begin_layout Standard
 Der passive Thread ist dabei dafür zuständig, eine Nachricht von einem Nachbarn
- zu empfangen, mit dem eigenen Informationen im entsprechenden Cache-Segment
+ zu empfangen, mit den eigenen Informationen im entsprechenden Cache-Segment
  zu antworten und den eigenen Cache entsprechend zu aktualisieren.
 \end_layout
 
@@ -1917,10 +1937,10 @@ Der aktive Thread wird in einem festen Intervall
 \begin_inset Formula $\Delta t$
 \end_inset
 
- Zeiteinheiten wählt der Knoten einen Nachbarn aus, wählt einen entsprechenden
- Teil des Caches (oder den ganzen) aus, schickt diesen an den Knoten und
- wartet auf die Antwort, die von dessem passiven Thread geschickt werden,
- um anhand dieser den eigenen Cache zu aktualisieren.
+ Zeiteinheiten wählt der Knoten einen Nachbarn aus, wählt eine Teilmenge
+ des Caches (oder den ganzen) aus, schickt diese an den Knoten und wartet
+ auf die Antwort, die von dessen passivem Thread geschickt wird, um anhand
+ dieser Antwort den eigenen Cache zu aktualisieren.
 \end_layout
 
 \begin_layout Standard
@@ -2127,6 +2147,32 @@ RandomPeer()
  erfüllt, insofern sie der Spezifikation entsprechend implementiert wurde.
 \end_layout
 
+\begin_layout Subsubsection
+Abgrenzung zur vorherigen Beschreibung
+\end_layout
+
+\begin_layout Standard
+Dieses Framework formuliert einen Algorithmus, der eher mit der Anti-Entropie
+ zu vergleichen ist, da er einen kontinuierlichen Datenaustausch vorsieht,
+ da in jeder Runde der Knoten aktiv wird.
+\end_layout
+
+\begin_layout Standard
+Da es sich hierbei um eine allgemeingültige generische Formulierung des
+ Gossiping-Algorithmus handelt, werden hier keine konkreten Abbruchkriterien
+ behandelt.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Löschen oder erweitern
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Gossiping über unzuverlässige Kanäle
 \end_layout
@@ -2137,12 +2183,199 @@ Gossiping-Algorithmen über unzuverlässige Kanäle stellen hohe Anforderungen
  Zur Analyse dieser Gossiping-Algorithmen existieren verschiedene Modelle,
  die jedoch alle wegen der Natur des Gossipings nicht um Konstrukte der
  Wahrscheinlichkeitsrechnung herumkommen.
+\end_layout
+
+\begin_layout Standard
+Die meisten dieser Betrachtungen untersuchen ein solches System in ihrer
+ Gesamtheit.
+ Alternativ wird hier der Ansatz von Bakshi et al.
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "6042051"
+
+\end_inset
+
+ vorgestellt, der zunächst die Interaktion zwischen zwei beliebigen Knoten
+ betrachtet, das so genannte 
+\emph on
+Pairwise Interaction Model
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Es wird im Folgenden die Verbreitung eines Cache-Elements 
+\begin_inset Formula $d$
+\end_inset
+
+ beobachtet.
+ Abbildung 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Pairwise-Interaction-Model"
+
+\end_inset
+
+ zeigt alle möglichen Zustände, die zwei beliebige Knoten 
+\begin_inset Formula $A$
+\end_inset
+
+ und 
+\begin_inset Formula $B$
+\end_inset
+
+ zueinander einnehmen können.
+ Dabei beschreibe das Tupel 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+, dass weder 
+\begin_inset Formula $A$
+\end_inset
+
+ noch 
+\begin_inset Formula $B$
+\end_inset
+
+ das Cache-Element 
+\begin_inset Formula $d$
+\end_inset
+
+ kennen.
+ Das Tupel 
+\begin_inset Formula $(0,1)$
+\end_inset
+
+ bezeichne, dass lediglich 
+\begin_inset Formula $B$
+\end_inset
+
+ das Cache-Element kenne.
+ Alle anderen Zustände sind analog definiert.
+\end_layout
+
+\begin_layout Standard
+Die Übergänge beschreiben die Zustandsänderungen durch die Interaktion der
+ beiden Knoten in einer Runde.
+ Seien die Knoten zu Beginn im Zustand 
+\begin_inset Formula $\left(0,1\right)$
+\end_inset
+
+.
+ Durch die Interaktion der beiden Knoten kann nun folgendes passieren:
+\end_layout
+
+\begin_layout Itemize
+Knoten 
+\begin_inset Formula $B$
+\end_inset
+
+ verwirft am Ende ebenfalls 
+\begin_inset Formula $d$
+\end_inset
+
+, weil er z.B.
+ von Knoten 
+\begin_inset Formula $A$
+\end_inset
+
+ einen besseren Wert erhalten hat, also sind die Knoten danach im Zustand
  
-\begin_inset Note Note
+\begin_inset Formula $\left(0,0\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Knoten 
+\begin_inset Formula $A$
+\end_inset
+
+ aktualisiert seinen Cache, so dass er nun auch 
+\begin_inset Formula $d$
+\end_inset
+
+ im Cache hält, die Knoten sind dann im Zustand: 
+\begin_inset Formula $\left(1,1\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Knoten 
+\begin_inset Formula $A$
+\end_inset
+
+ aktualisiert zwar seinen Cache, aber Knoten 
+\begin_inset Formula $B$
+\end_inset
+
+ verwirft 
+\begin_inset Formula $d$
+\end_inset
+
+, die Knoten sind dann im Zustand 
+\begin_inset Formula $\left(1,0\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Knoten 
+\begin_inset Formula $A$
+\end_inset
+
+ aktualisiert seinen Cache nicht, aber 
+\begin_inset Formula $B$
+\end_inset
+
+ verwirft das Element auch nicht, also bleiben die Knoten im Zustand 
+\begin_inset Formula $\left(0,1\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-TODO: ausarbeiten
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/pairwise-interactions.pdf
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Pairwise-Interaction-Model"
+
+\end_inset
+
+Zustände eines Knotenpaars im Pairwise Interaction Model (Abbildung 2 in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "6042051"
+
+\end_inset
+
+)
 \end_layout
 
 \end_inset
@@ -2150,8 +2383,142 @@ TODO: ausarbeiten
 
 \end_layout
 
-\begin_layout Subsubsection
-Abgrenzung zur epidemischen Betrachtung
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unter welchen Bedingungen diese Übergänge nun gewählt werden ist vom implementie
+rten Algorithmus, das heißt vor allem von der 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+PrepareMsg()
+\end_layout
+
+\end_inset
+
+ und 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+Update()
+\end_layout
+
+\end_inset
+
+ Funktion, abhängig.
+\end_layout
+
+\begin_layout Standard
+Da in diesem allgemeinen Fall nicht bekannt ist, wann ein Übergang stattfindet,
+ werden Wahrscheinlichkeiten dafür angegeben.
+ So gibt 
+\begin_inset Formula $P\left(\begin{array}{c|c}
+00 & 01\end{array}\right)$
+\end_inset
+
+ an, mit welcher Wahrscheinlichkeit der Zustandswechsel 
+\begin_inset Formula $\left(0,1\right)\rightarrow\left(1,0\right)$
+\end_inset
+
+ stattfindet.
+ Diese Wahrscheinlichkeit besteht zunächst aus zwei Komponenten: 
+\begin_inset Formula $P_{select}$
+\end_inset
+
+ ist die Wahrscheinlichkeit, dass ein bestimmtes Element aus dem Cache zum
+ Gossiping ausgewählt wird, also als Ergebnis von 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+PrepareMsg()
+\end_layout
+
+\end_inset
+
+, und 
+\begin_inset Formula $P_{drop}$
+\end_inset
+
+ ist die Wahrscheinlichkeit, dass dieses Element durch das Empfangene ersetzt
+ wird (je nach 
+\begin_inset listings
+inline true
+status open
+
+\begin_layout Plain Layout
+
+Update()
+\end_layout
+
+\end_inset
+
+-Implementierung).
+\end_layout
+
+\begin_layout Standard
+Zusätzlich wird nun noch die Wahrscheinlichkeit 
+\begin_inset Formula $P_{loss}$
+\end_inset
+
+ hinzugefügt.
+ Während 
+\begin_inset Formula $P_{select}$
+\end_inset
+
+ und 
+\begin_inset Formula $P_{drop}$
+\end_inset
+
+ bisher alleine vom Protokoll definiert werden, sei 
+\begin_inset Formula $P_{loss}$
+\end_inset
+
+ nun eine positive Wahrscheinlichkeit, dass ein Paket verloren geht.
+ Beim Betrachteten Push-Pull Gossiping kann eine Nachricht an zwei Stellen
+ verloren gehen: Die Push-Nachricht geht verloren, dann gibt es natürlich
+ auch keine Pull-Nachricht mehr, oder nur die Pull-Nachricht geht verloren.
+\end_layout
+
+\begin_layout Standard
+Genauere Betrachtungen dieser Verlustwahrscheinlichkeit zeigen, dass unter
+ Berücksichtigung der Netzwerktopologie sich die Wahrscheinlichkeit 
+\begin_inset Formula $P_{drop}$
+\end_inset
+
+ verändern kann.
+ So hat nach 
+\noun on
+Bakshi
+\noun default
+ et al.
+ Nachrichtenverlust in vollständig verbundenen Netzen keinerlei Auswirkungen
+ auf die Verteilung der Daten, während bei einer lichten Topologie die Auswirkun
+gen auf die gleichförmige Verteilung der Daten groß sein können.
+\end_layout
+
+\begin_layout Standard
+Diese Analysemethode hat nun den Vorteil im Vergleich zu Betrachtungen des
+ gesamten Systems wie beispielsweise beim Model Checking, dass der Einfluss
+ von Nachrichtenverlust und Topologien aus dem eigentlichen Protokoll isoliert
+ werden kann und durch statistische Daten beispielsweise in eine Simulation
+ eingestreut werden kann, während die Beschreibung des Algorithmus davon
+ unbetrachtet bleibt.
 \end_layout
 
 \begin_layout Section
@@ -2229,13 +2596,10 @@ name "fig:Foto-M3-Knoten"
 
 \end_inset
 
-Fotografie eines M3-Knotens (Quelle 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Quelle: iot-lab.info
-\end_layout
+Fotografie eines M3-Knotens (Quelle: IoT-Lab Website 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "m3opennode"
 
 \end_inset
 
@@ -2329,12 +2693,9 @@ name "fig:Schnittstellen-IoT"
 \end_inset
 
 Schnittstellen in das IoT-Lab (Quelle: IoT-Lab Website 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-https://www.iot-lab.info/tools/
-\end_layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "iotlabplatformtools"
 
 \end_inset
 
@@ -2492,8 +2853,7 @@ nden und günstigen Mikrocontrollern ausgelegt ist.
 \end_layout
 
 \begin_layout Description
-FreeRTOS Zuletzt wurde das sehr kleine und leichtgewichtige Betriebssystem
- FreeRTOS
+FreeRTOS Zuletzt wurde das sehr kleine und einfache Betriebssystem FreeRTOS
 \begin_inset Foot
 status open
 
@@ -2515,15 +2875,15 @@ http://www.freertos.org
 
  betrachtet.
  Seine größte Stärke ist, dass es an sich aus wenigen Dateien besteht, aber
- es trotzdem die wichtigsten Funktionalitäten bereitstellt, die man von
- einem Betriebssystem auf solchen Systemen erwartet.
+ es trotzdem die wichtigsten Funktionalitäten bereitstellt, die von einem
+ Betriebssystem auf solchen Systemen erwartet werden.
  Dazu gehören Mechanismen für Multithreading, ein Semaphor-Konstrukt und
  auch Software-Timer.
  Da es dazu noch sehr schnell ist, wurde es von den Betreuern des IoT-Lab
  zur primären Entwicklungsplattform für dieses gemacht und hat somit die
  besten Treiber für die Hardware des Knotens.
- Da zusätzlich auch weite Teile der Dokumentation auf FreeRTOS basieren,
- wurde dieses System für die Implementierung verwendet.
+ Zusätzlich basieren auch weite Teile der Dokumentation auf FreeRTOS, was
+ ebenfalls für die Verwendung dieses System für die Implementierung spricht.
 \end_layout
 
 \begin_layout Subsection
@@ -2947,9 +3307,9 @@ ang abgebrochen.
 \begin_layout Standard
 Durch das garantierte Warten einer bestimmten Zeit beim Versand eines Pakets
  wird die Datenrate des Mediums reduziert.
- Für die Kalibrierung unseres Gossiping-Algorithmus ist dieses Warten auch
- nicht uninteressant, wenn wir das Intervall festlegen wollen, in denen
- der aktive Thread Nachrichten verschickt.
+ Für die Kalibrierung des Gossiping-Algorithmus ist dieses Warten auch nicht
+ uninteressant, wenn das Intervall festgelegt werden soll, in denen der
+ aktive Thread Nachrichten verschickt.
  So wird schon beim ersten Sendeversuch mit den Standardwert im schlimmsten
  Fall
 \end_layout
