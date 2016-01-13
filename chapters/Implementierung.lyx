@@ -356,6 +356,44 @@ Das heißt, ein Knoten sollte nur die Knoten in seiner näheren Umgebung als
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/Connected_Regions.jpg
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Knoten B ist in Connected Region von A, aber nicht umgekehrt (eigene Abbildung)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Jedoch ist eine solche Anforderung nicht einfach umzusetzen.
  Wie 
 \noun on
@@ -716,7 +754,66 @@ Es ist daher nicht praktikabel, eine Trennung in zwei Threads vorzunehmen,
 Das impliziert des Weiteren das Problem, ob eine Nachricht jetzt eine Pull-Nachr
 icht ist, das heißt als Antwort an den aktiven Thread gerichtet ist, oder
  eine Push-Nachricht.
- Deswegen wurde eine Struktur für die Nachricht implementiert, 
+ Deswegen wurde eine Struktur für die Nachricht implementiert, die ein entsprech
+endes Typenfeld enthält, nach dem entschieden werden kann, ob es sich bei
+ der Nachricht um eine Push- oder Pull-Nachricht handelt.
+\end_layout
+
+\begin_layout Standard
+In den Tests trat das Problem auf, dass es bei größeren Knotenmengen vermehrt
+ zu Sendefehlern kam.
+ Nach einigen Tests konnte festgestellt werden, dass die Ursache dafür in
+ der gleichzeitigen Ausführung des Gossips Timing-Probleme beim Empfang
+ und Senden von Paketen auftraten.
+ Die Lösung dieses Problems lag darin, die aktiven Threads mit einem minimalen
+ zufälligen Versatz zu starten, der immer deutlich kleiner ist als die Gossiping
+-Frequenz.
+ Dadurch wird diese Frequenz von den Knoten trotzdem eingehalten, aber die
+ Knoten versuchen nicht mehr gleichzeitig zu senden, was zu fehlschlagenden
+ 
+\emph on
+clear channel assessments
+\emph default
+ führte.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren wurde versucht eine möglichst generische Cache-Implementierung
+ anzufertigen, die für möglichst beliebige Algorithmen genutzt werden kann.
+\end_layout
+
+\begin_layout Standard
+Die einzige Einschränkung ist dabei, dass in einer Runde nur ein Paket geschickt
+ werden kann.
+ Ein Paket ist maximal 
+\begin_inset Formula $16$
+\end_inset
+
+ Bytes groß.
+ Von diesen sind aber 
+\begin_inset Formula $4$
+\end_inset
+
+ Bytes für die CSMA-Schicht reserviert, weshalb für die eigenen Anwendungen
+ lediglich 
+\begin_inset Formula $12$
+\end_inset
+
+ Bytes verbleiben.
+ Davon werden aber von der Implementierung noch 2 Bytes für die aktuelle
+ Runde verwendet (zur Sortierung für das Frontend), ein Byte für den oben
+ erwähnten Typ.
+ Dann existiert noch eine Struktur, die ein Cache-Segment identifiziert,
+ die also sagt, welchen Teil des internen Caches man überträgt.
+ Diese Struktur belegt zwei weitere Bytes, so dass mittlerweile nur noch
+ 7 Bytes verbleiben.
+ Deshalb wurde die Implementierung auf 4-Byte große Daten beschränkt, was
+ einem 32 Bit Wort entspricht.
+\end_layout
+
+\begin_layout Standard
+Die limitierte Paketgröße ist in diesem Fall eine der größten Probleme des
+ Systems.
 \end_layout
 
 \begin_layout Subsubsection
@@ -732,7 +829,13 @@ Steuerungssoftware
 \end_layout
 
 \begin_layout Subsection
-Auswertung
+Evaluierung
+\end_layout
+
+\begin_layout Standard
+Wie bereits angemerkt wurde, ist die Nachrichtenverteilzeit einer Nachricht
+ proportional zu der Anzahl der Runden und wird von der Frequenz, in der
+ das Gossiping durchgeführt wird, bestimmt.
 \end_layout
 
 \begin_layout Itemize
