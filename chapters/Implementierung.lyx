@@ -359,7 +359,7 @@ Das heißt, ein Knoten sollte nur die Knoten in seiner näheren Umgebung als
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -575,7 +575,7 @@ key "AT86RF231"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -633,6 +633,63 @@ Da dieser Schritt nicht Gegenstand der Messungen ist, sieht die Implementierung
  nach seinen Nachbarn zu suchen.
  Somit können alle Knoten einzeln die Suche starten und die Überlagerung
  von Nachrichten oder der Verlust sollte kein Problem darstellen.
+\end_layout
+
+\begin_layout Standard
+Ein weiteres Problem ist die Kalibrierung der Schwellwerte und der Sendestärke.
+ Durch sich ständig ändernde Knotenkonstellationen fiel es sehr schwer geeignete
+ Parameter zu wählen, die nicht zu dichten Graphen führten.
+ Außerdem sind die Knoten in der Regel sehr nahe beieinander, so dass sie
+ sich in der Regel immer sehen.
+\end_layout
+
+\begin_layout Standard
+In den Experimenten ergab sich dabei meistens entweder ein sehr dichter
+ Graph oder ein sehr lichter Graph mit mehreren Zusammenhangskomponenten.
+\end_layout
+
+\begin_layout Standard
+Eine bessere Wahl der Parameter oder eine stärkere Limitierung der möglichen
+ Nachbarn könnte hier Gegenstand weiterer Versuche sein.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/neighbourhood-13-01-2016-22-39.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Netzwerk von 10 Knoten mit unidirektionalen Links (rot markiert) und hoher
+ Dichte (Ausgabe des Programms)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -812,24 +869,97 @@ Die einzige Einschränkung ist dabei, dass in einer Runde nur ein Paket geschick
 \end_layout
 
 \begin_layout Standard
-Die limitierte Paketgröße ist in diesem Fall eine der größten Probleme des
- Systems.
+Die limitierte Paketgröße ist in diesem Fall eines der größten Probleme
+ des Systems.
+ Jedoch ist das Funkprotokoll auch genau für Anwendungen konzipiert worden,
+ die die Übertragung von geringen Dateimengen vorsehen, und einfache Sensorwerte
+ lassen sich auch so gut übertragen.
 \end_layout
 
 \begin_layout Subsubsection
 Implementierung des Testalgorithmus
 \end_layout
 
-\begin_layout Itemize
-Package besteht aus Cache Frame und Frame ID
+\begin_layout Standard
+Zum Test wurde ein Algorithmus implementiert, der das Maximum einer positiven
+ Ganzzahl im Netzwerk verteilt und analysiert.
+ Somit lässt sich ein sehr einfaches Kriterium festlegen, wann der Algorithmus
+ für unsere Zwecke terminiert: sobald alle Knoten dieses Maximum erhalten
+ haben.
+\end_layout
+
+\begin_layout Standard
+Wenn zu Beginn des Gossipings nur ein Knoten mit einem Wert infiziert wird,
+ so wird auch nur dieser Wert im Netzwerk verteilt.
+ Des Weiteren gibt jeder Knoten eine Nachricht, dass er seinen Cache aktualisier
+t hat, über die serielle Schnittstelle aus.
+ Somit muss nur gezählt werden wie oft von verschiedenen Knoten entsprechende
+ Nachrichten kommen, bis von jedem Knoten eine ankommt.
+\end_layout
+
+\begin_layout Standard
+Die serielle Schnittstelle wird dabei als fehler- und vor allem verlustfrei
+ angenommen.
 \end_layout
 
 \begin_layout Subsection
 Steuerungssoftware
 \end_layout
 
+\begin_layout Standard
+Zur Steuerung wurde zunächst eine Java-GUI entwickelt, welche die aktuelle
+ Topologie darstellen sollte und darüber ein Feedback über den Zustand des
+ Algorithmus geben sollte durch Visualisierung des Nachrichtenverkehrs.
+\end_layout
+
+\begin_layout Standard
+Da aber das Rendering des Topologie-Plots von größeren Knotenmengen sämtliche
+ kostenfrei verfügbaren Bibliotheken zum Absturz brachten, wurde die Entwicklung
+ dieser Software eingestellt und stattdessen ein Python-Skript als Frontend
+ entwickelt.
+\end_layout
+
+\begin_layout Standard
+Dieses Tool führt folgende Schritte aus:
+\end_layout
+
+\begin_layout Enumerate
+Abfrage aller Knoten, die an dem Experiment teilnehmen
+\end_layout
+
+\begin_layout Enumerate
+Aufforderung jedes Prozesses, seine Topologie zu bilden
+\end_layout
+
+\begin_layout Enumerate
+Generierung eines Topologie-Graphen
+\end_layout
+
+\begin_layout Enumerate
+Aktivierung des Gossipings auf allen Knoten
+\end_layout
+
+\begin_layout Enumerate
+Infizierung eines zufällig ausgewählten Knotens mit einem Wert
+\end_layout
+
+\begin_layout Enumerate
+Lesen aller NEW-CACHE-Nachrichten, d.h.
+ Knoten mit neuem Cache, und Registrierung dieser Knoten
+\end_layout
+
+\begin_layout Enumerate
+Log-Datei schreiben, wenn alle Knoten die Nachricht empfangen haben oder
+ der Nutzer das Programm abbricht
+\end_layout
+
 \begin_layout Subsection
 Evaluierung
+\end_layout
+
+\begin_layout Standard
+Nachdem die Software funktionierte, wurden einige Tests durchgeführt, die
+ zunächst die Funktionsweise überprüfen sollten.
 \end_layout
 
 \begin_layout Standard
@@ -839,7 +969,7 @@ Wie bereits angemerkt wurde, ist die Nachrichtenverteilzeit einer Nachricht
 \end_layout
 
 \begin_layout Itemize
-Mal gucken, was so rauskommt
+unidirektionale Links schaden dem Programm in dieser Form nicht
 \end_layout
 
 \end_body

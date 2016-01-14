@@ -462,12 +462,6 @@ In diesem Kapitel wird nun zunächst die Grundidee des Gossiping-Algorithmus
  wann der Gossiping-Algorithmus terminiert.
 \end_layout
 
-\begin_layout Standard
-Diese theoretischen Überlegungen werden durch praktische Betrachtungen zum
- Anwendungszweck des Algorithmus und konkreten Beispielen ergänzt und somit
- die Implementierung motiviert.
-\end_layout
-
 \begin_layout Subsection
 Die Grundidee
 \end_layout
