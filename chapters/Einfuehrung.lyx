@@ -2255,7 +2255,7 @@ Es wird im Folgenden die Verbreitung eines Cache-Elements
  beobachtet.
  Abbildung 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "fig:Pairwise-Interaction-Model"
 
 \end_inset
@@ -2738,9 +2738,30 @@ Das IoT-Lab
 \end_layout
 
 \begin_layout Standard
-Das IoT-Lab ist eine Plattform, die von der französischen INRIA mit der
- Unterstützung verschiedener weiterer Universitäten in Europa betrieben
- wird.
+Das FIT IoT-Lab
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.iot-lab.info
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ ist eine Plattform, die vom FIT Konsortium, bestehend aus den fünf französische
+n Universitäten Université Pierre et Marie Curie (UPMC), Inria, Université
+ de Strasbourg, Institut Mines Télécom und CNRS, mit der Unterstützung verschied
+ener weiterer Universitäten in Europa betrieben wird.
 \end_layout
 
 \begin_layout Standard
@@ -3087,7 +3108,7 @@ Die Knoten des IoT-Labs sind auf verschiedene Standorte verteilt, die jeweils
  unterschiedliche räumliche Topologien aufweisen und somit auch ganz unterschied
 liche Ergebnisse liefern können (siehe Abbildung 
 \begin_inset CommandInset ref
-LatexCommand vref
+LatexCommand ref
 reference "fig:Beispiele-für-Topologien"
 
 \end_inset
@@ -3595,7 +3616,9 @@ clear channel assessment
 
 \begin_layout Standard
 Ist dies der Fall, wird der Paketversand erlaubt, ansonsten wird der Vorgang
- 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula $\mathtt{macMaxCSMABackoffs}-1$
 \end_inset
 

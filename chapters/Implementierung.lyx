@@ -160,9 +160,9 @@ reference "subsec:Push-Pull-PP"
 
 \begin_layout Standard
 \begin_inset Formula 
-\begin{eqnarray*}
-T & \le & \Delta t\left(\log_{3}n+O\left(\ln\ln n\right)\right)
-\end{eqnarray*}
+\begin{eqnarray}
+T & \le & \Delta t\left(\log_{3}n+O\left(\ln\ln n\right)\right)\label{eq:erwartete-verteilzeit}
+\end{eqnarray}
 
 \end_inset
 
@@ -656,8 +656,28 @@ Eine bessere Wahl der Parameter oder eine stärkere Limitierung der möglichen
 \begin_layout Standard
 \begin_inset Float figure
 wide false
-sideways false
-status open
+sideways true
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -670,12 +690,50 @@ status open
 
 \end_layout
 
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/neighbourhood-17-01-2016-15-22.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Netzwerk von 10 Knoten mit unidirektionalen Links (rot markiert) und hoher
- Dichte (Ausgabe des Programms)
+ Dichte (links), und Netzwerk mit zwei Zusammenhangskomponenten (Ausgabe
+ des Programms)
 \end_layout
 
 \end_inset
@@ -1165,11 +1223,148 @@ transitional region
 \end_layout
 
 \begin_layout Standard
+Des Weiteren bietet das IoT-Lab auch die Möglichkeit, den Energieverbrauch
+ eines Knotens zu analysieren.
+ Abbildung 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Energieverbrauch-in-Watt"
+
+\end_inset
+
+ zeigt den Energieverbrauch während eines Experiments.
+ Neben ein paar starken Peaks, die durch die initiale Erstellung der Nachbarscha
+ftsrelation verursacht wurden, ist die Leistungsaufnahme relativ gering
+ und zeigt sehr deutlich an den Spitzen, wann eine Gossip-Runde durchgeführt
+ wurde.
+ Man sieht also sehr deutlich, dass Gossiping für die Knoten selbst keine
+ große Belastung bedeutet.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways true
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/sample_power_consumption.png
+	height 70theight%
+
+\end_inset
+
 
 \end_layout
 
-\begin_layout Itemize
-unidirektionale Links schaden dem Programm in dieser Form nicht
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Energieverbrauch-in-Watt"
+
+\end_inset
+
+Energieverbrauch in Watt gegen die Zeit eines einzelnen Knotens
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/Rounds.pdf
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Erwartete-Verteilzeit"
+
+\end_inset
+
+Erwartete Verteilzeit gegen gemessene Verteilzeit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abbildung 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Erwartete-Verteilzeit"
+
+\end_inset
+
+ zeigt die Ergebnisse der durchgeführten Messungen.
+ Leider war es nicht möglich, eine sehr große Knotenmenge zum Testen zu
+ verwenden, da hier keine Topologie mit einer Zusammenhangskomponente erstellt
+ werden konnte.
+ Trotzdem ist zu erkennen, dass ab einer bestimmten Knotenmenge die Kurven
+ anfangen, sich in ihrem Verlauf anzupassen.
+ Alle Experimente wurden mit einer Periodendauer von 
+\begin_inset Formula $\Delta t=2s$
+\end_inset
+
+ durchgeführt.
+ Die erwartete Zeit ist durch die Formel 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:erwartete-verteilzeit"
+
+\end_inset
+
+ gegeben worden.
+\end_layout
+
+\begin_layout Standard
+Wie bereits in der Beschreibung zu Push, Pull und Push-Pull angemerkt, gelten
+ diese gefundenen Grenzen erst für große Knotenmengen.
+ Da die Knotenmengen in den Experimenten immer relativ klein waren, ist
+ leider das erwünschte Verhalten nicht erkennbar gewesen.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren konnten des Öfteren sehr starke Ausreißer beobachtet werden,
+ das heißt, Ausführungen, in denen deutlich mehr Runden benötigt wurden,
+ um die Daten zu verteilen.
 \end_layout
 
 \end_body

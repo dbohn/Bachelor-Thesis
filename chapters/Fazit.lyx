@@ -127,9 +127,90 @@ Ein besonderer Reiz stellte dabei die einfache Distribution dieser Software
 \end_layout
 
 \begin_layout Standard
-Jedoch fiel im Rahmen der Implementierung auf, dass das Finden von Fehlern
- durch den hohen Grad an Zufallsentscheidungen erheblich erschwert wurde,
- da viele Fehler nicht sofort reproduzierbar sind.
+Leider konnte nicht die erwartete Entwicklung der Nachrichtenverteilzeit
+ reproduziert werden.
+\end_layout
+
+\begin_layout Standard
+Das Hauptproblem dabei war die zuverlässige Konstruktion einer Topologie,
+ die aus einer Zusammenhangskomponente bestand.
+ Bei größeren Knotenmenge entstanden immer mehrere Zusammenhangskomponenten,
+ so dass man keine neuen Tests durchführen konnte.
+\end_layout
+
+\begin_layout Subsection
+Fazit
+\end_layout
+
+\begin_layout Standard
+Gossiping-Algorithmen stellen eine interessante Art der Informationsverbreitung
+ in drahtlosen Sensornetzwerken dar.
+\end_layout
+
+\begin_layout Standard
+Da sie relativ unabhängig von den Topologien arbeiten und auch fehlerhafte
+ Kanäle nicht zum sofortigen Absturz des Systems führen, eignen sie sich
+ gut zur Informationsverbreitung in diesen Netzwerken, solange die Auslieferung
+ dieser Daten nicht zeitkritisch ist.
+\end_layout
+
+\begin_layout Standard
+Das Produkt dieser Arbeit ist ein flexibles Framework zur Implementierung
+ von Gossiping-Algorithmen auf drahtlosen Sensorknoten des IoT-Labs.
+\end_layout
+
+\begin_layout Standard
+Mit dieser Arbeit wurde der Grundstock für viele weitere mögliche Experimente
+ gelegt.
+\end_layout
+
+\begin_layout Standard
+So könnten existierende Gossiping-Algorithmen implementiert werden und durch
+ die Anpassung und Verwendung der mitgelieferten Tools evaluiert werden.
+\end_layout
+
+\begin_layout Standard
+Zusätzlich bietet auch das Framework noch einige Verbesserungsmöglichkeiten.
+ So könnte zunächst die initiale Topologiefindung noch optimiert werden.
+ Des Weiteren wäre es für einige Anwendungsfälle wünschenswert, dass ein
+ Knoten in einer Runde auch mehrere Pakete (mit einer Obergrenze) an einen
+ Nachbarn schicken kann, um größere Datenmengen schneller zu übertragen.
+\end_layout
+
+\begin_layout Standard
+Auch eine bessere Visualisierung des Datenverkehrs wäre wünschenswert, um
+ den Ablauf des Algorithmus besser verstehen zu können.
+\end_layout
+
+\begin_layout Standard
+Mit dem IoT-Lab entsteht eine spannende Plattform, die zur Erprobung von
+ verteilten Algorithmen jeder Art genutzt werden kann.
+ So können alle akademische Einrichtungen mit geringen Kosten von dieser
+ Plattform profitieren und die Entwicklung auf dem Gebiet der drahtlosen
+ Sensornetze voranbringen.
+\end_layout
+
+\begin_layout Standard
+Andererseits besteht auch noch viel Verbesserungspotential für diese Plattform.
+ Primär wäre eine bessere Dokumentation der Treiber wünschenswert.
+ Des Weiteren ist die Entwicklung dieser Knoten mit C zwar sehr ressourcensparen
+d, aber gerade dann, wenn man einen neu entwickelten Algorithmus schnell
+ und einfach testen will, auch ein großes Hindernis.
+ So ist der Algorithmus selbst irgendwann nicht mehr erkennbar, da sehr
+ viele Probleme auf niedrigeren Ebenen gelöst werden müssen und somit die
+ Funktionalität verschleiern.
+\end_layout
+
+\begin_layout Standard
+Die Implementierung dieser Arbeit versucht diese Teile so gut wie möglich
+ voneinander zu trennen und eine saubere und einfache Implementierung beliebiger
+ Gossiping-Algorithmen zu ermöglichen.
+\end_layout
+
+\begin_layout Standard
+Dennoch wäre es wünschenswert gewesen, wenn das IoT-Lab sowohl eine hardwarenahe
+ Programmierung zur Optimierung von Algorithmen als auch eine höhere Programmier
+ung zur Erprobung von Algorithmen ermöglicht hätte.
 \end_layout
 
 \end_body
