@@ -2564,6 +2564,152 @@ Diese Analysemethode hat nun den Vorteil im Vergleich zu Betrachtungen des
  unbetrachtet bleibt.
 \end_layout
 
+\begin_layout Subsection
+Vor- und Nachteile von Gossiping
+\end_layout
+
+\begin_layout Standard
+Wie auch bei Patterns des Software Designs ist auch Gossiping auf keinen
+ Fall ein Algorithmen-Design, das für jeden Anwendungsfall die beste Lösung
+ ist.
+\end_layout
+
+\begin_layout Standard
+Aus diesem Grund werden hier einige Vor- und Nachteile von Gossiping-Algorithmen
+ vorgestellt, die zeigen sollen, in welchen Situation die Verwendung von
+ Gossiping-Algorithmen sinnvoll ist.
+\end_layout
+
+\begin_layout Standard
+Die folgenden Argumente wurden von 
+\noun on
+Birman
+\noun default
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Birman:2007:PLG:1317379.1317382"
+
+\end_inset
+
+ präsentiert.
+\end_layout
+
+\begin_layout Standard
+Die meisten Gossiping-Algorithmen sind sehr einfach und mit nur wenig Code
+ zu entwickeln, der dazu auf allen Knoten identisch ist.
+ Dies ist auch aus dem bereits vorgestellten Framework ersichtlich, das
+ lediglich die problemspezifische Implementierung von drei Methoden verlangt
+ und davon abgesehen relativ wenige Zeilen Code benötigt.
+\end_layout
+
+\begin_layout Standard
+Ein weiterer Vorteil von Gossiping ist die begrenzte Last, die ein einzelner
+ Knoten zu bewältigen hat.
+ Dies liegt zunächst an der Einteilung in feste Perioden, in denen Nachrichten
+ ausgetauscht werden, und die Limitierung der Größe und Anzahl dieser.
+ Da jeder Knoten in einer Periode nur einen weiteren kontaktieren kann und
+ diesen zufällig auswählt, ist die Belastung für jeden einzelnen Knoten
+ nahezu vernachlässigbar.
+\end_layout
+
+\begin_layout Standard
+Wie bereits beschrieben wurde, interagieren die Knoten lediglich mit ihren
+ Nachbarknoten.
+ Dies führt dazu, dass diese unabhängig von der Netzwerktopologie sind.
+ So lange ein ausreichend verbundener Netzwerkgraph vorliegt, wird auch
+ der Gossiping-Algorithmus fehlerfrei funktionieren.
+\end_layout
+
+\begin_layout Standard
+Dies führt auch dazu, dass leicht benachbarte Ressourcen gefunden werden
+ können.
+\end_layout
+
+\begin_layout Standard
+Schließlich sind Gossiping-Algorithmen resistent gegen vorrübergehende Netzwerkf
+ehler.
+ Dies ist nicht auf die Daten bezogen, für die diese Annahme zum Beispiel
+ bei der Berechnung von Aggregaten nicht zwangsläufig zu halten ist, da
+ diese u.U.
+ in einer bestimmten Zeit an alle Knoten verteilt sein müssen, sondern auf
+ das grobe Verhalten der Knoten.
+ Ist ein einzelner Knoten in einer Runde nicht erreichbar, so wird in der
+ nächsten Runde einfach der nächste Knoten kontaktiert.
+ Da die Wahl des Nachbarknotens zufällig geschieht, ist auch gewährleistet,
+ dass der zu diesem Zeitpunkt nicht erreichbare Knoten noch einmal kontaktiert
+ werden wird.
+\end_layout
+
+\begin_layout Standard
+Auf der anderen Seite sind Gossiping-Algorithmen aber auch fast immer langsamer
+ als vergleichbare Lösungen, die kein Gossiping verwenden.
+ Da die Nachrichtengröße eine obere Grenze hat und der Nachrichtenaustausch
+ nur in periodischen Abständen stattfindet, eignet sich Gossiping nicht
+ zur Übertragung zeitkritischer Informationen oder Informationen, die die
+ maximale Nachrichtengröße überschreiten.
+\end_layout
+
+\begin_layout Standard
+Ein weiterer Nachteil von Gossiping-Algorithmen ist, dass sie anfällig gegen
+ plötzliche Häufungen von Ereignissen sind, die einen Gossip notwendig machen.
+ Dies kann dazu führen, dass manche Informationen nie im ganzen Netzwerk
+ verteilt werden, da sie von anderen Informationen verdrängt werden.
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+Birman
+\noun default
+ sieht in Gossiping-Algorithmen vor allem ein effektives Werkzeug in Verbindung
+ mit anderen Protokollen (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Birman:2007:PLG:1317379.1317382"
+
+\end_inset
+
+).
+ So kann mittels eines klassischem Algorithmus eine schnelle Verbreitung
+ der Daten erreicht werden, die zwar vielleicht fehleranfälliger ist, der
+ aber durch Gossiping, das mehr im Hintergrund läuft und kaum Bandbreite
+ benötigt, deutlich robuster gemacht werden kann.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren wird Gossiping auch für eine Vielzahl von selbst-organisierenden
+ und adaptiven Algorithmen, wie zur Konstruktion von Overlay-Netzwerken
+ verwendet, bei denen somit über die zugrunde liegende Topologie nicht viel
+ bekannt sein muss.
+ Beispiele dafür sind CYCLON (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cyclon"
+
+\end_inset
+
+) oder T-Man (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tman"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Zusammenfassend kann also gesagt werden, dass Gossiping kein Allheilmittel
+ ist und somit nicht zur Lösung jedes Problems verwendet werden sollte.
+\end_layout
+
+\begin_layout Standard
+Es hat zwar verlockende Vorteile, wie die im Vergleich zu anderen Algorithmen
+ einfache Umsetzung, ist dafür aber auch im Vergleich zu anderen Algorithmen
+ deutlich langsamer.
+\end_layout
+
 \begin_layout Section
 Technische Infrastruktur
 \end_layout

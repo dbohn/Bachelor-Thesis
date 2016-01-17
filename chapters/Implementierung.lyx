@@ -1058,6 +1058,113 @@ Dies hatte zwei Gründe: Einerseits konnten dadurch die Ausgaben der Knoten
 \end_layout
 
 \begin_layout Standard
+Zuerst wurde ein drastischer Ansatz versucht und 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ auf 
+\begin_inset Formula $500\,\text{ms}$
+\end_inset
+
+ gesenkt.
+ Dies führte nicht zu akzeptablen Ergebnissen.
+ Es kam sehr viel häufiger zu Nachrichtenverlust bzw.
+ zur Verzögerung des Sendevorgangs, wodurch sogar schon Überlagerungen der
+ Runden entstanden.
+\end_layout
+
+\begin_layout Standard
+Dies liegt daran, dass ein fehlgeschlagener Sendeversuch zum Anhängen dessen
+ an die Event-Warteschlange von FreeRTOS führte.
+ Geschah dies mehrmals und trafen in derselben Zeit mehrere Nachrichten
+ ein, konnte das Zeitfenster verlassen werden.
+\end_layout
+
+\begin_layout Standard
+Des Weiteren führte diese Frequenz dazu, dass sehr schnell Fehler vom Funktreibe
+r erzeugt wurden, die zwar über die serielle Schnittstelle ausgegeben wurden,
+ aber zur vollständigen Deaktivierung des Knotens führten und nicht behoben
+ werden konnten.
+\end_layout
+
+\begin_layout Standard
+Es wurde daher ein deutlich längeres Intervall von 
+\begin_inset Formula $2$
+\end_inset
+
+ Sekunden gewählt.
+\end_layout
+
+\begin_layout Standard
+Dieses Intervall stellt den besten Kompromiss zwischen Verbreitungsgeschwindigke
+it und Übertragungssicherheit dar.
+\end_layout
+
+\begin_layout Standard
+Es sei hier angemerkt, dass in vielen Anwendungsfällen von Gossiping-Algorithmen
+ die Minimierung dieser Periodendauer nicht unbedingt von Interesse ist.
+ Verwendet man Gossiping zum Beispiel wie von 
+\noun on
+Demers
+\noun default
+ et al.
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
+
+\end_inset
+
+ ursprünglich vorgeschlagen zur Replikation von Datenbanken so ist wahrscheinlic
+h eine deutlich geringere Frequenz (also längere Periodendauer) wünschenswert.
+\end_layout
+
+\begin_layout Standard
+Eine interessante Beobachtung konnte zu den unidirektionalen Kanälen gemacht
+ werden.
+\end_layout
+
+\begin_layout Standard
+Diese entstehen, wenn die 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+connected regions
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+ nicht beide Knoten überdecken.
+ Die vorliegende Implementierung wird aber in ihrer Funktion dadurch zunächst
+ nicht eingeschränkt.
+\end_layout
+
+\begin_layout Standard
+Ist das Netzwerk dicht, so wird die Infektion über andere Links vorgenommen.
+ Bei einem lichten Netzwerk kann trotzdem ein Push der einen Seite angestoßen
+ werden.
+ Ist diese nicht infiziert, dann gibt es trotzdem eine Chance, dass die
+ Pull-Antwort des Adressaten trotzdem ankommt, da in der 
+\begin_inset Quotes gld
+\end_inset
+
+
+\emph on
+transitional region
+\emph default
+
+\begin_inset Quotes grd
+\end_inset
+
+ die Pakete dennoch ankommen können und ein Knoten bei eingehender Nachricht
+ nicht überprüft, ob er den Absender wirklich kennt, solange die Nachricht
+ an ihn adressiert ist.
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 

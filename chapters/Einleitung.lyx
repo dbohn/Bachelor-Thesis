@@ -4,9 +4,6 @@
 \begin_header
 \origin unavailable
 \textclass scrartcl
-\begin_preamble
-\usepackage{minted}
-\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language ngerman
@@ -79,10 +76,11 @@ Einleitung
 
 \begin_layout Standard
 Durch die zunehmende Miniaturisierung von Elektronik und durch den rapide
- sinkenden Energiebedarf der Komponenten, eröffnen sich immer neue Einsatzgebiet
-e für Mikrocontroller und Mikroprozessoren.
+ sinkenden Energiebedarf der Komponenten eröffnen sich immer neue Einsatzgebiete
+ für Mikrocontroller und Mikroprozessoren.
  Hinzu kommen Weiterentwicklungen im Bereich der Funktechnologien, durch
- die selbst eine Uhr mit dem Internet kommunizieren kann.
+ die selbst eine Armbanduhr mittlerweile mit dem Internet kommunizieren
+ kann.
 \end_layout
 
 \begin_layout Standard
@@ -94,8 +92,15 @@ Internet of Things
 \begin_inset Quotes grd
 \end_inset
 
- (IoT) zum Synonym für die Vernetzung der unterschiedlichsten Teile unseres
- Lebens durch eingebettete Systeme.
+ (IoT) zum Synonym für die Vernetzung der unterschiedlichsten 
+\begin_inset Quotes gld
+\end_inset
+
+Dinge
+\begin_inset Quotes grd
+\end_inset
+
+ unseres Lebens durch eingebettete Systeme.
 \end_layout
 
 \begin_layout Standard
@@ -105,8 +110,8 @@ e bis zum selbstnachfüllenden Kühlschrank - beschränkt, sondern ist auch
 \end_layout
 
 \begin_layout Standard
-Drahtlose Sensornetzwerke bilden in der Informatik in den letzten Jahren
- ein Forschungsfeld von großer Bedeutung.
+Drahtlose Sensornetzwerke bilden daher in der Informatik in den letzten
+ Jahren ein Forschungsfeld von großer Relevanz.
 \end_layout
 
 \begin_layout Standard
@@ -121,7 +126,7 @@ Eine Klasse von Algorithmen, die in diesem Kontext derzeit großes wissenschaftl
 ches Interesse genießt, ist die Klasse der Gossiping-Algorithmen.
  Die Idee ist hierbei, dass ein Knoten des Sensornetzes Informationen, die
  er entweder von einem anderen Knoten oder durch eigene Sensorik erhalten
- hat, an zufällige Nachbarn weitergibt, sie also wie ein Gerücht verbreitet.
+ hat, an zufällige Nachbarn weitergibt, diese also wie ein Gerücht verbreitet.
 \end_layout
 
 \begin_layout Standard
@@ -132,8 +137,8 @@ n, sondern auch zur Verwaltung von Netzwerktopologien und ähnlichem.
 
 \begin_layout Standard
 Während die Formulierung dieser Algorithmen oftmals verhältnismäßig einfach
- ist, so erfordert die Analyse und Umsetzung doch in der Regel deutlich
- mehr Aufwand.
+ ist, so erfordert die Analyse und Umsetzung doch meistens deutlich mehr
+ Aufwand.
  Aufgrund der verteilten Natur von drahtlosen Sensornetzen sind komplexe
  mathematische Modelle notwendig, um sichere Aussagen über die formulierten
  Algorithmen zu treffen.
@@ -146,12 +151,12 @@ Deshalb werden diese Überlegungen durch empirische Untersuchungen ergänzt
 \end_layout
 
 \begin_layout Standard
-Eine Plattform zur Durchführung solcher Experimente bildet das IoT-Lab.
+Eine Plattform zur Durchführung solcher Experimente bildet das FIT IoT-Lab.
  Dieses stellt für akademische Zwecke an 6 Standorten mehr als 2500 drahtlose
  Sensorknoten zur Verfügung.
  Der Zugriff erfolgt über verschiedene web-basierte Schnittstellen und erlaubt
- die freie Verwendung der Hardware.
- Diese Knoten sind mit gängigen energiesparenden Funktechnologien ausgestattet.
+ die freie Verwendung der Hardware, welche mit gängigen energiesparenden
+ Funktechnologien ausgestattet ist.
 \end_layout
 
 \begin_layout Standard
@@ -159,8 +164,6 @@ Ziel dieser Arbeit ist es, ein Framework für Gossiping-Algorithmen auf dieser
  Hardware zu implementieren.
  Dieses Framework wird dann zur Implementierung einer einfachen Informationsverb
 reitung verwendet, um anhand dieser die Nachrichtenverteilzeit zu ermitteln.
- Dies sei die Zeit, die vergeht, bis ein bestimmtes Objekt im Netzwerk von
- allen Knoten gesehen wurde.
 \end_layout
 
 \end_body

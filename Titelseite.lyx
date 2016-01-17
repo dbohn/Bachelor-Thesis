@@ -120,9 +120,9 @@ Bachelorarbeit
 \end_layout
 
 \begin_layout Title
-Implementierung eines Frameworks zur Realisierung von Push-Pull-Gossiping-Algori
-thmen im IoT-Lab und Untersuchung der Nachrichtenverteilzeit in einem drahtlosen
- Sensornetzwerk
+Implementierung eines Frameworks für Push-Pull-Gossiping-Algorithmen im
+ IoT-Lab und Untersuchung der Nachrichtenverteilzeit bei Verwendung des
+ Frameworks
 \end_layout
 
 \begin_layout Author
