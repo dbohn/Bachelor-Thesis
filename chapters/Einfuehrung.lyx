@@ -1130,7 +1130,14 @@ Für große Knotenmengen
 \begin_inset Formula $c$
 \end_inset
 
- gegen den folgenden Wert:
+ gegen den folgenden Wert (
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Demers:1987:EAR:41840.41841"
+
+\end_inset
+
+):
 \end_layout
 
 \begin_layout Standard
@@ -1138,16 +1145,6 @@ Für große Knotenmengen
 \begin{eqnarray*}
 c & = & \frac{k+1}{k}
 \end{eqnarray*}
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Vielleicht etwas ausbauen....
-\end_layout
 
 \end_inset
 
@@ -1556,6 +1553,41 @@ Push-Pull
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/gossip-round.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eine Gossiping Runde zwischen einem infizierten Knoten (A) und einen empfänglich
+en Knoten (B) bei Push-Pull (eigene Abbildung)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Während der Datenaustausch per 
 \emph on
 push
@@ -1642,11 +1674,15 @@ Fazit
 \end_layout
 
 \begin_layout Standard
-Wird der Algorithmus also auf diese Weise implementiert, so ist nicht unbedingt
- sichergestellt, dass am Ende alle Knoten die Nachricht erhalten haben.
+Die obigen Betrachtungen zeigen, dass nicht genau bestimmt werden kann,
+ nach wie vielen Runden ein Paket im gesamten Netzwerk verteilt wurde.
+ So kann es selbst nach vielen Runden noch immer Knoten geben, die die Nachricht
+ nicht empfangen haben, obwohl die Wahrscheinlichkeit dafür gering sein
+ sollte.
  Es kann in einigen Anwendungen verkraftbar sein, dass dieser Fall eintritt.
- Wir möchten aber hier gerade die Zeit analysieren, bis alle Knoten die
- Nachricht erhalten haben.
+ Im Rahmen der Implementierung zur Bestimmung der Nachrichtenverteilzeit
+ muss aber auf diese Situationen Rücksicht genommen werden, um das Experiment
+ irgendwann abzubrechen.
 \end_layout
 
 \begin_layout Standard
@@ -1662,20 +1698,23 @@ Gossiping-Framework
 \end_layout
 
 \begin_layout Standard
-Für die weiteren Betrachtungen des Gossiping-Algorithmus wird auf das Framework
- zurückgegriffen, das von 
+
 \noun on
 Bakhshi
 \noun default
  et al.
- in 
+ stellten in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "6042051,5290827"
 
 \end_inset
 
- vorgestellt wurde.
+ ein Framework für Gossiping-Anwendungen vor, das im Folgenden betrachtet
+ wird und als Grundlage der Überlegungen zu Gossiping auf nicht verlässlichen
+ Kanälen verwendet wird.
+ Dieses Framework erlaubt es, jeden Gossiping-Algorithmus durch die Definition
+ weniger Funktionen zu beschreiben.
 \end_layout
 
 \begin_layout Standard
@@ -2142,29 +2181,39 @@ RandomPeer()
 \end_layout
 
 \begin_layout Subsubsection
-Abgrenzung zur vorherigen Beschreibung
+Abgrenzung zur vorherigen Beschreibung und Nutzen
 \end_layout
 
 \begin_layout Standard
-Dieses Framework formuliert einen Algorithmus, der eher mit der Anti-Entropie
- zu vergleichen ist, da er einen kontinuierlichen Datenaustausch vorsieht,
- da in jeder Runde der Knoten aktiv wird.
+Dieses Framework schafft es, die anwendungsspezifischen Komponenten des
+ Gossiping-Algorithmus in wenige Methoden zu extrahieren.
+ Anders als in den bisherigen Erläuterungen zeigt dieser Ansatz erstmalig,
+ wie sich beliebige Algorithmen auf Basis von Gossiping umsetzen lassen.
 \end_layout
 
 \begin_layout Standard
-Da es sich hierbei um eine allgemeingültige generische Formulierung des
- Gossiping-Algorithmus handelt, werden hier keine konkreten Abbruchkriterien
- behandelt.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Löschen oder erweitern
+Dabei formuliert das Framework einen Algorithmus, der eher mit der Anti-Entropie
+ zu vergleichen ist, da stets alle Knoten in einer Runde aktiv werden.
+ Des Weiteren lassen sich mit diesem auch alle Datenaustausch-Semantiken
+ (
+\emph on
+push
+\emph default
+, 
+\emph on
+pull
+\emph default
+ und 
+\emph on
+push-pull
+\emph default
+) zu realisieren.
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+Da es sich hierbei um eine generische Formulierung des Gossiping-Algorithmus
+ handelt, werden keine konkreten Abbruchkriterien behandelt, das heißt der
+ Nachrichtenaustausch wird über die ganze Laufzeit des Systems fortgesetzt.
 \end_layout
 
 \begin_layout Subsection
@@ -2653,6 +2702,9 @@ IoT-LAB Connector
  Dieser ist dafür verantwortlich, die Firmware auf die Knoten zu transportieren,
  den Knoten zu starten oder anzuhalten und auch den Energieverbrauch zu
  messen.
+ Des Weiteren leitet dieser Host-Knoten die Ausgaben und Eingaben auf die
+ serielle Schnittstelle eines Sensorknotens auf einen TCP-Port, der über
+ das interne Netzwerk abzufragen ist.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2715,10 +2767,10 @@ In diesem Abschnitt werden die diversen Methoden zur Interaktion mit dem
 \begin_layout Standard
 Primär stellt das IoT-Lab eine REST-ähnliche Schnittstelle zur Verfügung.
  Über diese können zunächst Experimente erstellt werden.
- Ein Experiment besteht aus einer Auswahl an Knoten, mit denen man arbeiten
- möchte, einer Zuordnung von Firmware-Dateien, die vom Nutzer hochgeladen
- werden können, zu den Knoten und noch einer Zuordnung von Profilen, die
- genutzt werden können, um Verbrauchsdaten von den Host-Knoten abzurufen.
+ Ein Experiment besteht aus einer Auswahl an Knoten, mit denen gearbeitet
+ werden kann, einer Zuordnung von Firmware-Dateien zu den Knoten, die vom
+ Nutzer hochgeladen werden, und noch einer Zuordnung von Profilen, die genutzt
+ werden können, um Verbrauchsdaten von den Host-Knoten abzurufen.
  Dieses Experiment kann dann zu einem gewählten Zeitpunkt oder so schnell
  wie möglich gestartet werden.
  Zu diesen Experimenten können dann über die Schnittstelle auch weitere
@@ -2751,7 +2803,7 @@ Diese lassen sich auf dem Linux-Server aggregieren und die Daten, die empfangen
 
 \begin_layout Standard
 Das IoT-Lab stellt dafür eine Reihe von Tools und Bibliotheken zur Verfügung,
- die die Arbeit mit dieser Bibliothek vereinfachen.
+ die die Arbeit mit diesen Schnittstellen vereinfachen.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2878,6 +2930,142 @@ http://www.freertos.org
  besten Treiber für die Hardware des Knotens.
  Zusätzlich basieren auch weite Teile der Dokumentation auf FreeRTOS, was
  ebenfalls für die Verwendung dieses System für die Implementierung spricht.
+\end_layout
+
+\begin_layout Subsubsection
+Topologien
+\end_layout
+
+\begin_layout Standard
+Die Knoten des IoT-Labs sind auf verschiedene Standorte verteilt, die jeweils
+ unterschiedliche räumliche Topologien aufweisen und somit auch ganz unterschied
+liche Ergebnisse liefern können (siehe Abbildung 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Beispiele-für-Topologien"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Bei der Erstellung eines Experiments ist es möglich, anhand von Grundrissen
+ der Räume die einzelnen Knoten auszuwählen die für das eigene Experiment
+ verwendet werden sollen.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/images/node-deployment-lille.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "50col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/davidbohn/Bachelor-Thesis/resources/planMontbonnot.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Beispiele-für-Topologien"
+
+\end_inset
+
+Beispiele für Topologien im IoT-Lab, links in Lille, rechts in Grenoble
+ (Quelle: 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "iotlablille"
+
+\end_inset
+
+ und 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "iotlabgrenoble"
+
+\end_inset
+
+ )
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

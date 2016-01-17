@@ -1,0 +1,185 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="circle" id="id1008251767">
+            <circle cx="40.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="circle" id="id1979227325">
+            <circle cx="260.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id446694692">
+            <polyline points="80.0,60.0 220.0,60.0 " stroke-width="2.0"
+                stroke="black" latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-446694692)"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id1006498853">
+            <rect x="41.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#ff3333"/>
+        </g>
+        <g latexdraw:type="text" id="id577749538" fill="black" latexdraw:position="">
+            <text x="60.0" y="100.0"><![CDATA[200]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1618161153" fill="black" latexdraw:position="bl">
+            <text x="40.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1347989276" fill="black" latexdraw:position="">
+            <text x="40.0" y="60.0"><![CDATA[A]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1841442029" fill="black" latexdraw:position="">
+            <text x="260.0" y="60.0"><![CDATA[B]]></text>
+        </g>
+        <g latexdraw:type="rectangle" id="id36282386">
+            <rect x="261.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id78181997" fill="black" latexdraw:position="">
+            <text x="280.0" y="100.0"><![CDATA[180]]></text>
+        </g>
+        <g latexdraw:type="text" id="id227059176" fill="black" latexdraw:position="bl">
+            <text x="260.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1174179774" fill="black" latexdraw:position="bl">
+            <text x="100.0" y="60.0"><![CDATA[1) push 200]]></text>
+        </g>
+        <g latexdraw:type="circle" id="id2058854200">
+            <circle cx="420.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="circle" id="id1529244566">
+            <circle cx="640.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1266384030">
+            <polyline points="460.0,60.0 600.0,60.0 " stroke-width="2.0"
+                stroke="black" latexdraw:rotationAngle="0.0" marker-start="url(#arrow0-1266384030)"/>
+        </g>
+        <g latexdraw:type="text" id="id465798051" fill="black" latexdraw:position="bl">
+            <text x="420.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id415869462" fill="black" latexdraw:position="">
+            <text x="420.0" y="60.0"><![CDATA[A]]></text>
+        </g>
+        <g latexdraw:type="text" id="id939915707" fill="black" latexdraw:position="">
+            <text x="640.0" y="60.0"><![CDATA[B]]></text>
+        </g>
+        <g latexdraw:type="rectangle" id="id2021715947">
+            <rect x="641.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id1624177973" fill="black" latexdraw:position="">
+            <text x="660.0" y="100.0"><![CDATA[180]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1372795573" fill="black" latexdraw:position="bl">
+            <text x="640.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id962555421" fill="black" latexdraw:position="b">
+            <text x="540.0" y="60.0"><![CDATA[2) pull 180]]></text>
+        </g>
+        <g latexdraw:type="circle" id="id112180002">
+            <circle cx="800.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="circle" id="id1796300119">
+            <circle cx="1020.0" cy="60.0" r="39.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id541547090">
+            <rect x="801.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id504460577" fill="black" latexdraw:position="">
+            <text x="820.0" y="100.0"><![CDATA[200]]></text>
+        </g>
+        <g latexdraw:type="text" id="id777470074" fill="black" latexdraw:position="bl">
+            <text x="800.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id78040495" fill="black" latexdraw:position="">
+            <text x="800.0" y="60.0"><![CDATA[A]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1699095419" fill="black" latexdraw:position="">
+            <text x="1020.0" y="60.0"><![CDATA[B]]></text>
+        </g>
+        <g latexdraw:type="rectangle" id="id743631003">
+            <rect x="1021.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#99cc00"/>
+        </g>
+        <g latexdraw:type="text" id="id204445450" fill="black" latexdraw:position="">
+            <text x="1040.0" y="100.0"><![CDATA[200]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1978883604" fill="black" latexdraw:position="bl">
+            <text x="1020.0" y="140.0"><![CDATA[Cache]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1812937534" fill="black" latexdraw:position="b">
+            <text x="920.0" y="60.0"><![CDATA[3) Cache-]]></text>
+        </g>
+        <g latexdraw:type="joinedLines" id="id2079977365">
+            <polyline points="340.0,0.0 340.0,160.0 " stroke-width="2.0"
+                stroke="black"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id1486375668">
+            <polyline points="720.0,0.0 720.0,160.0 " stroke-width="2.0"
+                stroke="black"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id1075495041">
+            <rect x="421.0" y="81.0" width="38.0" height="38.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="#ff3333"/>
+        </g>
+        <g latexdraw:type="text" id="id859311346" fill="black" latexdraw:position="">
+            <text x="440.0" y="100.0"><![CDATA[200]]></text>
+        </g>
+        <g latexdraw:type="text" id="id1241663705" fill="black" latexdraw:position="b">
+            <text x="920.0" y="80.0"><![CDATA[update]]></text>
+        </g>
+    </g>
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow1-446694692">
+            <path
+                d="M 0.0 0.0 L -4.652083333333334 1.6614583333333335 L -4.652083333333334 0.0 L -4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+        <marker overflow="visible" orient="auto" id="arrow0-1266384030">
+            <path
+                d="M 0.0 0.0 L 4.652083333333334 1.6614583333333335 L 4.652083333333334 0.0 L 4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes><![CDATA[
+]]></latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.2</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1280</latexdraw:width>
+                <latexdraw:height>725</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0.0</latexdraw:x>
+                <latexdraw:y>23.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

@@ -1,5 +1,5 @@
 #LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 501
+\lyxformat 503
 \begin_document
 \begin_header
 \origin unavailable
@@ -74,7 +74,62 @@
 \begin_body
 
 \begin_layout Section
-Fazit
+Zusammenfassung und Fazit
+\end_layout
+
+\begin_layout Subsection
+Zusammenfassung
+\end_layout
+
+\begin_layout Standard
+Das Ergebnis dieser Arbeit ist ein flexibel einsetzbares Framework für Gossiping
+-Algorithmen, das im FIT IoT-Lab verwendet werden kann.
+\end_layout
+
+\begin_layout Standard
+Wie bereits beschrieben, ist Gossiping ein enorm simples Protokoll, das
+ eine sehr gute Verteilung der Daten mit wenig Aufwand ermöglicht.
+ Eine der großen Stärken des Algorithmus ist dabei, dass ein Knoten nur
+ wenig über die Topologie des Netzwerks wissen muss, da er lediglich mit
+ seinen Nachbarn kommuniziert.
+ Dadurch werden Routing-Verfahren für diesen Algorithmus obsolet.
+ Des Weiteren wird sichergestellt, dass die Last eines Knotens beschränkt
+ ist und einzelne Knoten nicht die gesamte Last des Netzwerks tragen müssen,
+ da jeder Knoten in einem bestimmten Intervall höchstens einen anderen Nachbarn
+ kontaktiert und somit höchstens 
+\begin_inset Formula $n$
+\end_inset
+
+ Nachrichten, wenn 
+\begin_inset Formula $n$
+\end_inset
+
+ die Anzahl der Knoten ist, Nachrichten erhalten kann.
+\end_layout
+
+\begin_layout Standard
+Somit bieten sich diese Protokolle auch gut dazu an, sie neben anderen Verfahren
+ zu verwenden.
+\end_layout
+
+\begin_layout Standard
+Die Implementierung führte in die Entwicklung von Software für stark beschränkte
+ Hardware ein.
+ So wurden Betriebssysteme für eingebettete Systeme sowie ein Standard zur
+ Energie und Ressourcen sparenden, drahtlosen Kommunikation zwischen dieser
+ Hardware kennen gelernt und angewendet.
+\end_layout
+
+\begin_layout Standard
+Ein besonderer Reiz stellte dabei die einfache Distribution dieser Software
+ auf ein großes Testbed, dem IoT-Lab, dar, das eine Evaluation der Software
+ ermöglichte.
+\end_layout
+
+\begin_layout Standard
+Jedoch fiel im Rahmen der Implementierung auf, dass das Finden von Fehlern
+ durch den hohen Grad an Zufallsentscheidungen erheblich erschwert wurde,
+ da viele Fehler nicht sofort reproduzierbar sind.
 \end_layout
 
 \end_body

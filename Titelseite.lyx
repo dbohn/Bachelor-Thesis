@@ -108,8 +108,10 @@ Institut für Informatik
 
 
 \shape smallcaps
+\noun on
 Bachelorarbeit
 \shape default
+\noun default
 
 \begin_inset Newline newline
 \end_inset
@@ -118,9 +120,9 @@ Bachelorarbeit
 \end_layout
 
 \begin_layout Title
-Untersuchung der Nachrichtenverteilzeit bei Verwendung von Push-Pull-Gossiping
- zur Informationsverbreitung in einem drahtlosen Sensornetzwerk am Beispiel
- des IoT-Labs
+Implementierung eines Frameworks zur Realisierung von Push-Pull-Gossiping-Algori
+thmen im IoT-Lab und Untersuchung der Nachrichtenverteilzeit in einem drahtlosen
+ Sensornetzwerk
 \end_layout
 
 \begin_layout Author

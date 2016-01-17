@@ -5,7 +5,6 @@
 \origin unavailable
 \textclass scrartcl
 \begin_preamble
-\usepackage{minted}
 \usepackage{listings}
 
 \lstset{basicstyle=\ttfamily}
@@ -84,6 +83,54 @@ filename "Titelseite.lyx"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage cleardoublepage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Minisec
+Eidesstattliche Erklärung
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ich versichere hiermit an Eides Statt, dass diese Arbeit von niemand anderem
+ als meiner Person verfasst worden ist.
+ Alle verwendeten Hilfsmittel wie Berichte, Bücher, Internetseiten oder
+ ähnliches sind im Literaturverzeichnis angegeben.
+ Zitate aus fremden Arbeiten sind als solche kenntlich gemacht.
+ Die Arbeit wurde bisher in gleicher oder ähnlicher Form keiner anderen
+ Prüfungskommission vorgelegt und auch nicht veröffentlicht.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space \qquad{}
+\end_inset
+
+Datum
+\begin_inset space \hspace{}
+\length 3cm
+\end_inset
+
+Unterschrift
 \end_layout
 
 \begin_layout Standard

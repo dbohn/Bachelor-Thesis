@@ -697,6 +697,12 @@ Implementierung des Gossiping-Frameworks
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Generisches-Framework"
+
+\end_inset
+
 Generisches Framework
 \end_layout
 
@@ -954,18 +960,105 @@ Log-Datei schreiben, wenn alle Knoten die Nachricht empfangen haben oder
 \end_layout
 
 \begin_layout Subsection
+Stolpersteine
+\end_layout
+
+\begin_layout Standard
+Bei der Implementierung traten einige Probleme auf, die in diesem Abschnitt
+ kurz beschrieben werden sollen.
+\end_layout
+
+\begin_layout Standard
+Zunächst handelt es sich beim Gossiping-Algorithmus um einen nichtdeterministisc
+hen Algorithmus, dessen Verhalten zu großem Teil von Zufallsentscheidungen
+ bestimmt wird.
+ Tritt also ein Fehler auf, so ist dieser nicht sofort reproduzierbar.
+ Dies ist prinzipbedingt ein Problem der meisten verteilten Algorithmen,
+ jedoch tragen die Debugging-Tools, die das IoT-Lab hierfür bereitstellte,
+ dem nicht Rechnung.
+\end_layout
+
+\begin_layout Standard
+Es ist zwar möglich, für einen einzelnen Knoten über ein GNU Debugger Interface
+ Debugging durchzuführen, jedoch muss man dazu schon bevor der Fehler auftritt
+ dieses Interface genau für diesen Knoten starten.
+ Da die meisten Fehler jedoch zufällig auftraten, war dies nicht machbar.
+\end_layout
+
+\begin_layout Standard
+Weitere Probleme traten dann auf, wenn die Belastung des Funkmediums stark
+ war.
+ So war initial geplant, den Aufbau der Nachbarschaftsrelation für alle
+ Knoten gleichzeitig zu starten.
+ Dies führte dazu, dass alle Knoten gleichzeitig Broadcast-Nachrichten losschick
+ten.
+ Dies führte dazu, dass so gut wie kein Knoten eine Broadcast-Nachricht
+ des anderen empfangen hat, da sie in dieser Zeit nicht empfangsbereit waren
+ und z.B.
+ durch den CSMA-CA-Algorithmus derzeit im Backoff waren.
+\end_layout
+
+\begin_layout Standard
+Ein ähnliches Problem trat bei der Aktivierung des aktiven Threads im Gossiping-
+Algorithmus auf, also dem periodischen Start einer Gossiping-Runde, wie
+ bereits in Abschnitt 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Generisches-Framework"
+
+\end_inset
+
+ beschrieben wurde.
+\end_layout
+
+\begin_layout Standard
+Schließlich wurde das Testen der entwickelten Anwendung durch häufige Störungen
+ im IoT-Lab deutlich erschwert.
+ Zusätzlich sind die Hardware-Treiber kaum dokumentiert, da lediglich einige
+ Beispiele existieren, aus denen zusammen mit dem Quellcode die Schnittstellen
+ erschlossen werden mussten.
+\end_layout
+
+\begin_layout Subsection
 Evaluierung
 \end_layout
 
 \begin_layout Standard
-Nachdem die Software funktionierte, wurden einige Tests durchgeführt, die
- zunächst die Funktionsweise überprüfen sollten.
+Mit der fertigen Software wurden zunächst einige Tests durchgeführt, die
+ die Funktionsweise überprüfen sollten.
 \end_layout
 
 \begin_layout Standard
-Wie bereits angemerkt wurde, ist die Nachrichtenverteilzeit einer Nachricht
- proportional zu der Anzahl der Runden und wird von der Frequenz, in der
- das Gossiping durchgeführt wird, bestimmt.
+Wie bereits angemerkt wurde, ist die Verteilzeit einer Nachricht proportional
+ zu der Anzahl der Runden und wird von der Frequenz, in der das Gossiping
+ durchgeführt wird, bestimmt.
+\end_layout
+
+\begin_layout Standard
+Es wurde daher zunächst versucht, die Gossiping-Frequenz so weit es geht
+ zu minimieren.
+\end_layout
+
+\begin_layout Standard
+Während der Entwicklung wurde zunächst ein Wert von 
+\begin_inset Formula $5$
+\end_inset
+
+ Sekunden als Periodendauer 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ verwendet.
+\end_layout
+
+\begin_layout Standard
+Dies hatte zwei Gründe: Einerseits konnten dadurch die Ausgaben der Knoten
+ nachvollzogen werden und man konnte sich ziemlich sicher sein, dass keine
+ Nachrichten aus der vorherigen Runde noch in dieser Runde gesendet werden.
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Itemize
